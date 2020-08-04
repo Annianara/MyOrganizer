@@ -1,0 +1,16 @@
+<ul *ngIf="projects.length; else noProjects">
+  <li *ngFor="let project of projects; let i = index">
+        <span class="list">
+          <strong>{{i + 1}}</strong>
+          {{project.title}}
+          {{project.date}}
+          {{project.category}}
+          {{project.action}}
+        </span>
+    <button class="btn btn-primary" (click)="remove(project)">Remove</button>
+  </li>
+</ul>
+
+<ng-template #noProjects>
+  <p>Проектов пока нет...
+</ng-template>

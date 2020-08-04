@@ -1,0 +1,141 @@
+
+<div class = "bg-white nav-scroller shadow-sm">
+<a link="projects" class="nav-link"  >Календарь</a>
+<a routerLink="projects" class="nav-link" (click)="show_projects()">Проекты</a>
+<a link ="#"  class="nav-link" (click)="statistics()">Статистика</a>
+</div>
+
+
+<div class = "section">
+  <div class="section_header">
+    Настроение за день
+      <div class="section_button">
+      <a class="medium material-icons section_button">add</a>
+  </div>
+  </div>
+  <div>
+    <ul *ngIf="thoughts.length; else noThoughts">
+      <li *ngFor="let thought of thoughts; let i = index">
+        <span class="list">
+          <strong>{{i + 1}}</strong>
+          {{thought.title}}
+          {{thought.category}}
+          {{thought.o_thought}}
+        </span>
+        <button class="btn btn-primary" (click)="remove_T(thought)">Remove</button>
+      </li>
+    </ul>
+
+
+    <form class="footer" (ngSubmit)="submit_T()" [formGroup]="formMoods">
+      <input type="text" class="" formControlName="cur_mood" placeholder="Добавить настроение">
+      <input type="text" class="" formControlName="reason" placeholder="Добавить причину настроения">
+      <input type="text" class="" formControlName="what_to_do" placeholder="Действия для предотвращения ситуации">
+
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+      >Add</button>
+    </form>
+  </div>
+</div>
+
+<div class = "section">
+  <div class="section_header">
+    Мысли, идеи
+    <div class="section_button">
+      <a class="medium material-icons">add</a>
+  </div>
+  </div>
+
+      <div>
+      <ul *ngIf="thoughts.length; else noThoughts">
+        <li *ngFor="let thought of thoughts; let i = index">
+        <span class="list">
+          <strong>{{i + 1}}</strong>
+          {{thought.title}}
+          {{thought.category}}
+          {{thought.o_thought}}
+        </span>
+          <button class="btn btn-primary" (click)="remove_T(thought)">Remove</button>
+        </li>
+      </ul>
+
+
+      <form class="footer" (ngSubmit)="submit_T()" [formGroup]="form">
+        <input type="text" class="" formControlName="title" placeholder="Добавить тему для размышлений">
+        <input type="text" class="" formControlName="category" placeholder="Добавить категорию">
+        <input type="text" class="" formControlName="o_thought" placeholder="Добавить мысль">
+
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          [disabled]="form.invalid"
+        >Add</button>
+      </form>
+      </div>
+
+
+</div>
+
+<div class = "section">
+  <div class="section_header">
+    Информация по проектам
+    <div class="section_button">
+    <a class="medium material-icons">add</a>
+  </div>
+  </div>
+  <ul *ngIf="projects.length; else noProjects">
+    <li *ngFor="let project of projects; let i = index">
+        <span class="list">
+          <strong>{{i + 1}}</strong>
+          {{project.title}}
+          {{project.category}}
+          {{project.action}}
+        </span>
+      <button class="btn btn-primary" (click)="remove_P(project)">Remove</button>
+    </li>
+  </ul>
+  <form class="footer" (ngSubmit)="submit_P()" [formGroup]="formProjects">
+    <input type="text" class="" formControlName="title" placeholder="Добавить название проекта">
+    <input type="text" class="" formControlName="category" placeholder="Добавить категорию проекта">
+    <input type="text" class="" formControlName="action" placeholder="Добавить действие для проекта">
+    <button
+      type="submit"
+      class="btn btn-primary btn-block"
+    >Add</button>
+  </form>
+
+
+</div>
+
+<div class = "section">
+  <div class="section_header">
+     Прочее
+    <div class="section_button">
+      <a class="medium material-icons">add</a>
+  </div>
+  </div>
+</div>
+
+<section>
+  <header>
+    Organizer: <strong>{{dateService.date | async | moment:'DD.MM.YYYY'}}</strong>
+    <hr />
+  </header>
+</section>
+
+  <main>
+    <ng-template #noThoughts>
+      <p class="text-center">Новых мыслей пока нет...</p>
+    </ng-template>
+
+    <ng-template #noProjects>
+      <p class="text-center">Действий по проектам пока нет...</p>
+    </ng-template>
+
+
+    <ng-template #calendar>
+      <app-calendar></app-calendar>
+    </ng-template>
+  </main>
