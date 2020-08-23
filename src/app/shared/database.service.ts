@@ -124,8 +124,11 @@ export class DatabaseService {
               }
              Object.values(projects)*/
 
-     loadProjects2(): Observable<Project> {
-       let projectO: Project[][]
+     loadProjects2(): Observable<Project[]> {
+       let projectO = []
+
+
+    //   let projectO: []
        let ii = 0
  return this.http
 // .get<Project[]>(`${DatabaseService.urlP}/${date.format('DD-MM-YYYY')}.json`)
@@ -139,11 +142,17 @@ export class DatabaseService {
             for (let kk of Object.values(k)) {
               console.log(kk)
               console.log("Класс"+ii)
-              return (kk)
-           //   projectO.push(Object.values(kk))
+           //   return (kk)
+/*              let pp: Project = {
+                title:'title',
+                action: 'action'
+              }
+              projectO[0]=pp*/
+              projectO.push(kk)
             }
              //   projectO.push(Object.values<Project>(k))
               }
+  return projectO
   //  return projectO
 }
   ///  return projectO

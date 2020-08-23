@@ -12,7 +12,7 @@ export class ProjectsComponent implements OnInit {
   projects: Project[] = []
   titles: Object[]
  //someshts: Project[][]  //попытка 1
-  someshts: Project //попытка 2
+
 
   constructor(private databaseService: DatabaseService, private dateService: DateService) { }
 
@@ -20,9 +20,12 @@ export class ProjectsComponent implements OnInit {
 
     this.dateService.date.pipe(
       switchMap(value => this.databaseService.loadProjects2())
-    ).subscribe(someshts => this.someshts = someshts )
-console.log(this.someshts)
-
+    ).subscribe(projects => this.projects = projects
+      .sort((a, b) => {
+        if (a.date > b.date) return 1; else if (a.title < b.title) return -1; else return 0
+  }
+  )
+    )
 
     // this.dateService.date.pipe(
     //   switchMap(value => this.databaseService.loadProjects(value))
