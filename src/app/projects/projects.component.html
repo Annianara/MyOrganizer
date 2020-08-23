@@ -1,16 +1,74 @@
+
 <ul *ngIf="projects.length; else noProjects">
   <li *ngFor="let project of projects; let i = index">
         <span class="list">
           <strong>{{i + 1}}</strong>
           {{project.title}}
-          {{project.date}}
           {{project.category}}
           {{project.action}}
         </span>
-    <button class="btn btn-primary" (click)="remove(project)">Remove</button>
   </li>
 </ul>
 
-<ng-template #noProjects>
+ <table *ngIf="projects.length; else noProjects">
+   <thead>
+   <tr>
+     <th>ID</th>
+     <th>TITLE</th>
+     <th>DATE</th>
+     <th>CATEGORY</th>
+     <th>ACTION</th>
+   </tr>
+   </thead>
+   <tbody>
+
+   <!-- <ng-container *ngFor="let projecties of projects; let i = index">
+     <tr *ngFor="let project of projecties";let j = index">
+           <td><strong>{{i + 1}}</strong></td>
+           <td>{{project.title}}</td>
+           <td>{{project.date}}</td>
+           <td>{{project.category}}</td>
+           <td>{{project.action}}</td>
+   <td><button class="btn btn-primary" (click)="remove(project)">Remove</button><td>
+   </ng-container> -->
+
+<!--     <tr *ngfor="let project of projects; let i = index">-->
+<!--           <td><strong>{{i + 1}}</strong></td>-->
+<!--           <td>{{project.title}}</td>-->
+<!--           <td>{{project.category}}</td>-->
+<!--           <td>{{project.action}}</td>-->
+<!--     </tr>-->
+   <!--<td><button class="btn btn-primary" (click)="remove(project)">Remove</button><td> -->
+
+   </tbody>
+</table>
+<table>
+
+ <tr *ngFor="let title of titles">
+   <td>{{titles}}</td>
+</table>
+
+
+<!-- попытка 1 -->
+<!--
+<table>
+  <ng-template *ngFor="let somesht of someshts">
+  <tr *ngFor="let somesht_o of somesht">
+    <td>{{somesht_o.action}}</td>
+  </ng-template>
+</table>
+-->
+
+<table>
+<!--<tr *ngFor="let project of someshts">-->
+  <tr>
+      <td>{{someshts.title}}</td>
+      <td>{{someshts.category}}</td>
+      <td>{{someshts.action}}</td>
+  </tr>
+<!--</tr>-->
+</table>
+
+   <ng-template #noProjects>
   <p>Проектов пока нет...
 </ng-template>

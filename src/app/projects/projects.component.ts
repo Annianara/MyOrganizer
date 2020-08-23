@@ -10,29 +10,36 @@ import {DateService} from "../shared/date.service";
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[] = []
-
-
+  titles: Object[]
+ //someshts: Project[][]  //попытка 1
+  someshts: Project //попытка 2
 
   constructor(private databaseService: DatabaseService, private dateService: DateService) { }
 
   ngOnInit(): void  {
 
-   /* this.dateService.date.pipe(
-      switchMap(value => this.databaseService.loadP(value))
-    ).subscribe(projects => {
-      this.projects = projects
-    })
-*/
-
-
     this.dateService.date.pipe(
-      switchMap(value => this.databaseService.loadP(value))
-    ).subscribe(project => (this.projects = project
-      .sort((a, b) => {
-        if (a.date > b.date) return 1; else if (a.title < b.title) return -1; else return 0
-      })))
+      switchMap(value => this.databaseService.loadProjects2())
+    ).subscribe(someshts => this.someshts = someshts )
+console.log(this.someshts)
 
 
+    // this.dateService.date.pipe(
+    //   switchMap(value => this.databaseService.loadProjects(value))
+    // ).subscribe(project => (this.projects = project
+    // //  .sort((a, b) => {
+    // //    if (a.date > b.date) return 1; else if (a.title < b.title) return -1; else return 0
+    // //  }
+    //  // )
+    // ))
+
+   this.dateService.date.pipe(
+      switchMap(value => this.databaseService.loadPr())
+    ).subscribe(title => this.titles = title )
+      //  .sort((a, b) => {
+      //    if (a.date > b.date) return 1; else if (a.title < b.title) return -1; else return 0
+      //  }
+      // )
   }
 
    // this.databaseService.loadProjects().subscribe(project=>(this.projects = project
