@@ -10,16 +10,10 @@ import {DateService} from "../shared/date.service";
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[] = []
-  titles: Object[]
- //someshts: Project[][]  //попытка 1
-
-
-  constructor(private databaseService: DatabaseService, private dateService: DateService) { }
-
+  constructor(private databaseService: DatabaseService, private dateService: DateService) {}
   ngOnInit(): void  {
-
     this.dateService.date.pipe(
-      switchMap(value => this.databaseService.loadProjects2())
+      switchMap(value => this.databaseService.loadProjects())
     ).subscribe(projects => this.projects = projects
       .sort((a, b) => {
         if (a.date > b.date) return 1; else if (a.title < b.title) return -1; else return 0
@@ -36,18 +30,8 @@ export class ProjectsComponent implements OnInit {
     //  // )
     // ))
 
-   this.dateService.date.pipe(
-      switchMap(value => this.databaseService.loadPr())
-    ).subscribe(title => this.titles = title )
-      //  .sort((a, b) => {
-      //    if (a.date > b.date) return 1; else if (a.title < b.title) return -1; else return 0
-      //  }
-      // )
+
   }
-
-   // this.databaseService.loadProjects().subscribe(project=>(this.projects = project
-     // .sort((a,b)=>{if (a.date> b.date) return 1; else if (a.date < b.date) return -1; else return 0 })))
-
 
   remove(project: Project) {
     this.databaseService.remove(project).subscribe(() => {

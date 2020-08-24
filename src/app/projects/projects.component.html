@@ -1,55 +1,19 @@
-
  <table *ngIf="projects.length; else noProjects">
    <thead>
    <tr>
-<!--     <th>ID</th>-->
      <th>Название проекта</th>
-  <!--   <th>DATE</th>-->
      <th>Категория проекта</th>
      <th>Действия по проекту</th>
    </tr>
    </thead>
    <tbody>
-
-   <!-- <ng-container *ngFor="let projecties of projects; let i = index">
-     <tr *ngFor="let project of projecties";let j = index">
-           <td><strong>{{i + 1}}</strong></td>
-           <td>{{project.title}}</td>
-           <td>{{project.date}}</td>
-           <td>{{project.category}}</td>
-           <td>{{project.action}}</td>
-   <td><button class="btn btn-primary" (click)="remove(project)">Remove</button><td>
-   </ng-container> -->
-
-<!--     <tr *ngfor="let project of projects; let i = index">-->
-<!--           <td><strong>{{i + 1}}</strong></td>-->
-<!--           <td>{{project.title}}</td>-->
-<!--           <td>{{project.category}}</td>-->
-<!--           <td>{{project.action}}</td>-->
-<!--     </tr>-->
-   <!--<td><button class="btn btn-primary" (click)="remove(project)">Remove</button><td> -->
    <tr *ngFor="let project of projects">
-     <!--  <tr>-->
      <td>{{project.title}}</td>
      <td>{{project.category}}</td>
      <td>{{project.action}}</td>
-
    </tr>
    </tbody>
 </table>
-
-
-
-
-<!-- попытка 1 -->
-<!--
-<table>
-  <ng-template *ngFor="let somesht of someshts">
-  <tr *ngFor="let somesht_o of somesht">
-    <td>{{somesht_o.action}}</td>
-  </ng-template>
-</table>
--->
 
    <ng-template #noProjects>
   <p>Проектов пока нет...
