@@ -13,7 +13,7 @@ export class ProjectsComponent implements OnInit {
   constructor(private databaseService: DatabaseService, private dateService: DateService) {}
   ngOnInit(): void  {
     this.dateService.date.pipe(
-      switchMap(value => this.databaseService.loadProjects())
+      switchMap(value => this.databaseService.loadProjectsActions())
     ).subscribe(projects => this.projects = projects
       .sort((a, b) => {
         if (a.date > b.date) return 1; else if (a.title < b.title) return -1; else return 0
