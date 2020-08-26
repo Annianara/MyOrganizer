@@ -16,7 +16,25 @@
 
    </tr>
    </tbody>
-</table>
+ </table>
+
+
+ <table *ngIf="projects.length; else noProjects">
+   <thead>
+   <tr>
+     <th>Название проекта</th>
+     <th>Категория проекта</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr *ngFor="let distinctProject of distinctProjects">
+     <td>{{distinctProject.title}}</td>
+     <td>{{distinctProject.category}}</td>
+
+   </tr>
+   </tbody>
+ </table>
+
 
    <ng-template #noProjects>
   <p>Проектов пока нет...

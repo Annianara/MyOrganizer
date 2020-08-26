@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {DatabaseService, Mood, Project, Thought, Types} from "../shared/database.service";
+import {DatabaseService, Mood, Project, ProjectAction, Thought, Types} from "../shared/database.service";
 import {DateService} from "../shared/date.service";
 import {switchMap} from "rxjs/operators";
 
@@ -28,7 +28,7 @@ export class Main_pageComponent implements OnInit {
   moods: Mood[] = []
 
   formProjects: FormGroup
-  projects: Project[] = []
+  projects: ProjectAction[] = []
 
   constructor(public dateService: DateService,
               private databaseService: DatabaseService) {
@@ -110,7 +110,7 @@ export class Main_pageComponent implements OnInit {
     const {action} = this.formProjects.value
     const {category} = this.formProjects.value
 
-    const project: Project = {
+    const project: ProjectAction = {
       title,
       date: this.dateService.date.value.format('DD-MM-YYYY'),
       category,
@@ -129,7 +129,7 @@ export class Main_pageComponent implements OnInit {
       this.thoughts = this.thoughts.filter(t => t.id !== thought.id)
     }, err => console.error(err))
   }
- remove_P(project: Project) {
+ remove_P(project: ProjectAction) {
     this.databaseService.removeP(project).subscribe(() => {
       this.projects = this.projects.filter(t => t.id !== project.id)
     }, err => console.error(err))
