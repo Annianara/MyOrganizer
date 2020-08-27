@@ -47,7 +47,7 @@ export interface ProjectAction {
   category?: string
   action: string
   short_description?: string
-  total_time?: number
+  time?: number
 }
 
 
@@ -81,37 +81,45 @@ export class DatabaseService {
   constructor(private http: HttpClient) {
   }
 
+   onlyUnique(value, index, self:Project[]) {
 
-   onlyUniqueP(value, index, self:Project[]) {
-  // return self.map(p=>p.title).indexOf(value.title)===index
-    if (self.map(p=>p.title).indexOf(value.title)===index) {
+     if(self.map(p=>p.title).indexOf(value.title)===index) {
        console.log(value.title)
-       console.log(value + " под номером " + index + " уникально")
+       console.log(" под номером " + index + " уникально")
      }
-     else console.log("Номер первого вхождения: "+ self.indexOf(value.title)  + ", индекс: " + index)
+     else console.log("Номер первого вхождения: "+self.map(p=>p.title).indexOf(value.title)  + ", индекс: " + index)
     return self.map(p=>p.title).indexOf(value.title)===index;
-  } //попытка фильтровать сразу в проекте (неудачная)
-
-   onlyUnique(value, index, self) {
-     if(self.indexOf(value.title) === index) {
-       console.log(value.title)
-       console.log(value + " под номером " + index + " уникально")
-     }
-     else console.log("Номер первого вхождения: "+ self.indexOf(value.title)  + ", индекс: " + index)
-    return self.indexOf(value) === index;
   }
 
+  calcSum():Observable<Project[]>
+    {
+      let projects:Project[] = []
+      return this.http
+        .get<ProjectAction[][]>(`${DatabaseService.urlP}.json`)
+        .pipe(map(all_projects => {
+            if (!all_projects) {
+              return []
+            }
 
-/*
-// usage example:
-  var a = ['a', 1, 'a', 2, '1'];
-  var unique = a.filter( onlyUnique ); // returns ['a', 1, 2, '1']
-*!/
-*/
+            for (let projects_one_day of Object.values(all_projects)) {
+              for (let one_project of Object.values(projects_one_day)) {
+                projects.push({title:one_project.title, category:one_project.category, date_begin:one_project.date})
+              }
+            }
+            return projects.filter(this.onlyUnique)
+            //   projects = projects.filter(this.onlyUnique)
+            /*        for (let p in projects)
+                    {
+
+                    }*/
+          }
+          )
+        )
+
+    }
 
   loadDistinctProjects():Observable<Project[]>{
     let projects:Project[] = []
-    let projectsName:String[] = []
     return this.http
       .get<ProjectAction[][]>(`${DatabaseService.urlP}.json`)
       .pipe(map(all_projects => {
@@ -119,26 +127,17 @@ export class DatabaseService {
             return []
           }
 
-/*          for (let projects_one_day in Object.values(all_projects)) {
-            for (let one_project of Object.values(all_projects[projects_one_day])) {
-             // projects.push(one_project)
-               projects.push({...one_project, date: Object.keys(projects_one_day)} )
-            }
-          } //не работает*/
           for (let projects_one_day of Object.values(all_projects)) {
             for (let one_project of Object.values(projects_one_day)) {
-              projects.push({title:one_project.title, category:one_project.category})
-              projectsName.push(one_project.title)
-
-              // projectO.push({...kk, date: Object.keys(projects)} ) --выводит все даты, а не только эту
+              projects.push({title:one_project.title, category:one_project.category, date_begin:one_project.date})
             }
           }
-          console.log(projects)
-    //    projectsName = projectsName.filter(this.onlyUnique)
-       return projects.filter(this.onlyUniqueP)
+       return projects.filter(this.onlyUnique)
+     //   projects = projects.filter(this.onlyUnique)
+/*        for (let p in projects)
+        {
 
-  /*         return projects*/
-
+        }*/
         }
         )
       )
@@ -155,7 +154,6 @@ export class DatabaseService {
           for (let projects_one_day of Object.values(all_projects)) {
             for (let one_project of Object.values(projects_one_day)) {
               projects.push(one_project)
-              // projectO.push({...kk, date: Object.keys(projects)} ) --выводит все даты, а не только эту
             }
           }
           return projects
@@ -174,7 +172,6 @@ export class DatabaseService {
         }
 
         return Object.values(projects)
-        //  return Object.keys(projects).map(key => ({...projects[key], id: key}))
       }))
   }
 

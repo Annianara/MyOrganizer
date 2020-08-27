@@ -24,12 +24,14 @@
    <tr>
      <th>Название проекта</th>
      <th>Категория проекта</th>
+     <th>Дата начала</th>
    </tr>
    </thead>
    <tbody>
    <tr *ngFor="let distinctProject of distinctProjects">
      <td>{{distinctProject.title}}</td>
      <td>{{distinctProject.category}}</td>
+     <td>{{distinctProject.date_begin}}</td>
 
    </tr>
    </tbody>
