@@ -1,7 +1,13 @@
 
-.nav-link {
+/*.nav-link {
  // display: block;
   padding: .5rem 1rem;
+}*/
+
+.navbar-nav
+{
+  display:flex;
+  flex-direction: row;
 }
 
 .nav-scroller {
@@ -10,7 +16,11 @@
   height: 3rem;
   overflow-y: hidden;
   padding: .5rem;
+}
 
+.navbar-nav .nav-link {
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 .material-icons

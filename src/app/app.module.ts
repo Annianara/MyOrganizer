@@ -12,6 +12,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MomentPipe} from "./shared/moment.pipe";
 import { ProjectsComponent } from './projects/projects.component';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { ProjectsComponent } from './projects/projects.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule
 
   ],
   providers: [],

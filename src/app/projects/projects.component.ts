@@ -12,7 +12,7 @@ export class ProjectsComponent implements OnInit {
   projects: ProjectAction[] = []
   projectNames: String[] = []
   distinctProjects: Project[]
-
+  public isCollapsed = false;
   constructor(private databaseService: DatabaseService, private dateService: DateService) {}
 
   ngOnInit(): void  {

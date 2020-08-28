@@ -1,4 +1,20 @@
- <table *ngIf="projects.length; else noProjects">
+<div class="container">
+  <p>
+    <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+      Collapse Toggle
+    </button>
+  </p>
+  <div id="collapseExample" [ngbCollapse]="isCollapsed">
+    <div class="card">
+      <div class="card-body">
+        You can collapse this card by clicking Toggle Button. This is example from ItSolutionStuff.com.
+      </div>
+    </div>
+  </div>
+
+</div>
+<table *ngIf="projects.length; else noProjects">
    <thead>
    <tr>
      <th>Название проекта</th>
