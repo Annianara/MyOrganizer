@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {map, reduce} from "rxjs/operators";
 import * as moment from "moment";
+import {Mood, Project, ProjectAction, ProjectsAll, Thought} from "./intefaces";
 
 
 export enum Types {
@@ -18,48 +19,6 @@ export enum All_moods {
   'Плохое',
   'Очень плохое'
 }
-
-export interface Task {
-  id?: string
-  title: string
-  date?: string
-}
-
-export interface Thought {
-  id?: string
-  title: string
-  date?: string
-  category?: string
-  o_thought?: string
-}
-
-export interface Project {
-  id?:string
-  title:string
-  category?:string
-  date_begin?:string
-  total_time?:number
-}
-export interface ProjectAction {
-  id?: string
-  title: string
-  date?: string
-  category?: string
-  action: string
-  short_description?: string
-  time?: number
-}
-
-
-
-export interface Mood {
-  id?: string
-  date?: string
-  cur_mood: string
-  reason?: string
-  what_to_do?: string
-}
-
 
 interface CreateResponse {
   name: string
@@ -84,11 +43,49 @@ export class DatabaseService {
    onlyUnique(value, index, self:Project[]) {
 
      if(self.map(p=>p.title).indexOf(value.title)===index) {
-       console.log(value.title)
-       console.log(" под номером " + index + " уникально")
+     //  console.log(value.title)
+    //   console.log(" под номером " + index + " уникально")
      }
-     else console.log("Номер первого вхождения: "+self.map(p=>p.title).indexOf(value.title)  + ", индекс: " + index)
+  //   else console.log("Номер первого вхождения: "+self.map(p=>p.title).indexOf(value.title)  + ", индекс: " + index)
     return self.map(p=>p.title).indexOf(value.title)===index;
+  }
+  actionArr(value, index, self:ProjectsAll[]) {
+     if(self.map(p=>p.titleProject).indexOf(value.titleProject)!=index) {
+       self[self.map(p=>p.titleProject).indexOf(value.titleProject)].project.push(value.project)
+     }
+    return self.map(p=>p.titleProject).indexOf(value.titleProject)===index
+  }
+
+
+
+  loadAllProjects():Observable<ProjectsAll[]>
+  {
+    let projects:ProjectsAll[] = []
+    return this.http
+      .get<ProjectsAll[]>(`${DatabaseService.urlP}.json`)
+      .pipe(map(all_projects => {
+          if (!all_projects) {
+            return []
+          }
+
+          for (let projects_one_day of Object.values(all_projects)) {
+            for (let one_project of Object.values(projects_one_day)) {
+              projects.push({titleProject:one_project.title,project:[{title:one_project.title, category:one_project.category,
+                  action:one_project.action, date:one_project.date, short_description: one_project.short_description, time:one_project.time}]})
+            }
+          }
+          return projects.filter(this.actionArr)
+          //    return projects.filter(this.onlyUnique)
+          //   projects = projects.filter(this.onlyUnique)
+          /*        for (let p in projects)
+                  {
+
+                  }*/
+        }
+        )
+      )
+
+
   }
 
   calcSum():Observable<Project[]>
@@ -117,6 +114,7 @@ export class DatabaseService {
         )
 
     }
+
 
   loadDistinctProjects():Observable<Project[]>{
     let projects:Project[] = []

@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {DatabaseService, Mood, Project, ProjectAction, Thought, Types} from "../shared/database.service";
+import {DatabaseService, Types} from "../shared/database.service";
 import {DateService} from "../shared/date.service";
 import {switchMap} from "rxjs/operators";
+import {Mood, ProjectAction, Thought} from "../shared/intefaces";
 
 
 @Component({
