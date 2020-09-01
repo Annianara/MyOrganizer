@@ -49,11 +49,20 @@ export class DatabaseService {
   //   else console.log("Номер первого вхождения: "+self.map(p=>p.title).indexOf(value.title)  + ", индекс: " + index)
     return self.map(p=>p.title).indexOf(value.title)===index;
   }
-  actionArr(value, index, self:ProjectsAll[]) {
+/*  actionArr(value, index, self:ProjectsAll[]) {
      if(self.map(p=>p.titleProject).indexOf(value.titleProject)!=index) {
        self[self.map(p=>p.titleProject).indexOf(value.titleProject)].project.push(value.project)
      }
     return self.map(p=>p.titleProject).indexOf(value.titleProject)===index
+  }  */
+  actionArr(self:ProjectsAll[]) {
+      self.map((value,index,self)=> {
+        if (self.map(p => p.titleProject).indexOf(value.titleProject) != index) {
+          self[self.map(p => p.titleProject).indexOf(value.titleProject)].project.push(value.project[0])
+        }
+      }
+  )
+    return self.filter((value, index,self)=>self.map(p=>p.titleProject).indexOf(value.titleProject)===index)
   }
 
 
@@ -74,8 +83,12 @@ export class DatabaseService {
                   action:one_project.action, date:one_project.date, short_description: one_project.short_description, time:one_project.time}]})
             }
           }
-          return projects.filter(this.actionArr)
-          //    return projects.filter(this.onlyUnique)
+          return this.actionArr(projects)
+            //.filter(this.actionArr)
+       //   return projects.map(p=>if(p.titleProject).indexOf)
+       //   if(self.map(p=>p.titleProject).indexOf(value.titleProject)!=index)
+
+            //    return projects.filter(this.onlyUnique)
           //   projects = projects.filter(this.onlyUnique)
           /*        for (let p in projects)
                   {

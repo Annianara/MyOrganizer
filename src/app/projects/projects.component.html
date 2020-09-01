@@ -31,15 +31,18 @@
   <tbody>
 <!--  <tr *ngFor="let allProject of allProjects"> -->
   <ng-container *ngFor="let allProject of allProjects">
+
+    <tr><td>{{allProject.titleProject}}</td></tr>
     <tr  *ngFor="let oneProject of allProject.project; let i = index let id = index">
-    <td>{{oneProject.title}}</td>
+      <td>{{oneProject.title}}</td>
       <td>{{oneProject.category}}</td>
       <td>{{oneProject.date}}</td>
       <td>{{oneProject.short_description}}</td>
       <td>{{oneProject.action}}</td>
       <td>{{oneProject.time}}</td>
     </tr>
-    <tr >{{allProject.titleProject}}</tr>
+<!--     <td>{{allProject.titleProject}}</td>-->
+
 <!--
 
     {{oneProject.}}
