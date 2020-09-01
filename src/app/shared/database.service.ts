@@ -96,8 +96,6 @@ export class DatabaseService {
         )
       )
   }
-
-
   loadP(date: moment.Moment): Observable<ProjectAction[]> {
     return this.http
       .get<ProjectAction[]>(`${DatabaseService.urlP}/${date.format('DD-MM-YYYY')}.json`)
@@ -105,7 +103,6 @@ export class DatabaseService {
         if (!projects) {
           return []
         }
-
         return Object.values(projects)
       }))
   }

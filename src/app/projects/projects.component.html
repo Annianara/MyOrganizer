@@ -1,6 +1,10 @@
-<table *ngIf="allProjects.length; else noProjects">
+<app-navbar></app-navbar>
+<h2 class="card-header-tabs">Информация по проектам</h2>
+
+<table *ngIf="allProjects; else noProjects">
   <thead>
   <tr>
+    <th>№</th>
     <th>Название проекта</th>
     <th>Категория проекта</th>
     <th>Дата</th>
@@ -13,15 +17,26 @@
   <ng-container *ngFor="let allProject of allProjects let ii = index">
     <tr (click)="isCollapsed[ii] = !isCollapsed[ii]"
         [attr.aria-expanded]="!isCollapsed[ii]">
+      <td>{{ii+1}}</td>
       <td>{{allProject.project.title}}</td>
       <td>{{allProject.project.category}}</td>
       <td>{{allProject.project.date_begin}}</td>
       <td></td>
       <td></td>
       <td>{{allProject.project.total_time}}</td>
-
     </tr>
-    <tr *ngFor="let oneProject of allProject.projectAction; let i = index" [ngbCollapse]="isCollapsed[ii]">
+    <tr [ngbCollapse]="isCollapsed[ii]" (click)="isCollapsed[ii] = !isCollapsed[ii]">
+      <th>№</th>
+      <th>Название проекта</th>
+      <th>Категория проекта</th>
+      <th>Дата</th>
+      <th>Краткое описание</th>
+      <th>Действие</th>
+      <th>Заняло по времени</th>
+    </tr>
+
+    <tr class="prAction" *ngFor="let oneProject of allProject.projectAction; let i = index" [ngbCollapse]="isCollapsed[ii]" (click)="isCollapsed[ii] = !isCollapsed[ii]">
+      <td>{{i+1}}</td>
       <td>{{oneProject.title}}</td>
       <td>{{oneProject.category}}</td>
       <td>{{oneProject.date}}</td>

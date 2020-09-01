@@ -13,6 +13,7 @@ import {MomentPipe} from "./shared/moment.pipe";
 import { ProjectsComponent } from './projects/projects.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MomentPipe,
     SelectorComponent,
     CalendarComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

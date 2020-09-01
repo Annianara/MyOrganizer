@@ -1,25 +1,9 @@
-
-<nav class = "navbar navbar-dark bg-dark">
-
-    <ul class="navbar-nav">
-      <li class="nav-item" >
-        <a class="nav-link" href="#">Календарь</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="projects" (click)="show_projects()">Проекты</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="statistics()">Статистика</a>
-      </li>
-    </ul>
-
-
+<app-navbar></app-navbar>
 <!--<a link="projects" class="nav-link"  >Календарь</a>-->
 <!--<a routerLink="projects" class="nav-link" (click)="show_projects()">Проекты</a>-->
 <!--<a link ="#"  class="nav-link" (click)="statistics()">Статистика</a>-->
-</nav>
 
-<p><app-calendar></app-calendar></p>
+<!--<p><app-calendar></app-calendar></p>-->
 <div class = "section">
   <div class="section_header">
     Настроение за день
@@ -28,7 +12,7 @@
   </div>
   </div>
   <div>
-    <ul *ngIf="thoughts.length; else noThoughts">
+    <ul *ngIf="thoughts.length;">
       <li *ngFor="let thought of thoughts; let i = index">
         <span class="list">
           <strong>{{i + 1}}</strong>
@@ -36,19 +20,19 @@
           {{thought.category}}
           {{thought.o_thought}}
         </span>
-        <button class="btn btn-primary" (click)="remove_T(thought)">Remove</button>
+        <button class="btn" (click)="remove_T(thought)">Remove</button>
       </li>
     </ul>
 
 
-    <form class="footer" (ngSubmit)="submit_T()" [formGroup]="formMoods">
-      <input type="text" class="" formControlName="cur_mood" placeholder="Добавить настроение">
-      <input type="text" class="" formControlName="reason" placeholder="Добавить причину настроения">
-      <input type="text" class="" formControlName="what_to_do" placeholder="Действия для предотвращения ситуации">
+    <form (ngSubmit)="submit_T()" [formGroup]="formMoods">
+      <input type="text" class="input-group" formControlName="cur_mood" placeholder="Добавить настроение">
+      <input type="text" class="input-group" formControlName="reason" placeholder="Добавить причину настроения">
+      <input type="text" class="input-group" formControlName="what_to_do" placeholder="Действия для предотвращения ситуации">
 
       <button
         type="submit"
-        class="btn btn-primary btn-block"
+        class="btn btn-block"
       >Add</button>
     </form>
   </div>
@@ -58,7 +42,7 @@
   <div class="section_header">
     Мысли, идеи
     <div class="section_button">
-      <a class="medium material-icons">add</a>
+      <a class="material-icons">add</a>
   </div>
   </div>
 
@@ -71,23 +55,26 @@
           {{thought.category}}
           {{thought.o_thought}}
         </span>
-          <button class="btn btn-primary" (click)="remove_T(thought)">Remove</button>
+          <button class="btn" (click)="remove_T(thought)">Remove</button>
         </li>
       </ul>
 
 
-      <form class="footer" (ngSubmit)="submit_T()" [formGroup]="form">
-        <input type="text" class="" formControlName="title" placeholder="Добавить тему для размышлений">
-        <input type="text" class="" formControlName="category" placeholder="Добавить категорию">
-        <input type="text" class="" formControlName="o_thought" placeholder="Добавить мысль">
-
+      <form  (ngSubmit)="submit_T()" [formGroup]="form">
+        <input type="text" class="input-group" formControlName="title" placeholder="Добавить тему для размышлений">
+        <input type="text" class="input-group" formControlName="category" placeholder="Добавить категорию">
+        <input type="text" class="input-group " formControlName="o_thought" placeholder="Добавить мысль">
         <button
           type="submit"
-          class="btn btn-primary btn-block"
+          class="btn btn-block"
           [disabled]="form.invalid"
         >Add</button>
       </form>
-      </div>
+<!--        <div class="footer input-group mb-3">
+          <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+
+        </div>
+      </div>-->
 
 
 </div>
@@ -107,16 +94,16 @@
           {{project.category}}
           {{project.action}}
         </span>
-      <button class="btn btn-primary" (click)="remove_P(project)">Remove</button>
+      <button class="btn" (click)="remove_P(project)">Remove</button>
     </li>
   </ul>
-  <form class="footer" (ngSubmit)="submit_P()" [formGroup]="formProjects">
-    <input type="text" class="" formControlName="title" placeholder="Добавить название проекта">
-    <input type="text" class="" formControlName="category" placeholder="Добавить категорию проекта">
-    <input type="text" class="" formControlName="action" placeholder="Добавить действие для проекта">
+  <form (ngSubmit)="submit_P()" [formGroup]="formProjects">
+    <input type="text" class="input-group" formControlName="title" placeholder="Добавить название проекта">
+    <input type="text" class="input-group" formControlName="category" placeholder="Добавить категорию проекта">
+    <input type="text" class="input-group" formControlName="action" placeholder="Добавить действие для проекта">
     <button
       type="submit"
-      class="btn btn-primary btn-block"
+      class="btn btn-block"
     >Add</button>
   </form>
 

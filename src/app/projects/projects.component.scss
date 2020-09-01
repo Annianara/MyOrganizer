@@ -1,19 +1,50 @@
+.prAction td{
+  background-color: rgba(202, 88, 58, 0.75);
+  color: black;
+}
+
 table {
   margin-top: 10%;
   margin-left: auto;
   margin-right: auto;
   width: 60%; /* Ширина таблицы */
-  border: 4px double white; /* Рамка вокруг таблицы */
+  border: 4px  white; /* Рамка вокруг таблицы */
+  border-radius: 20px;
   border-collapse: collapse; /* Отображать только одинарные линии */
 }
 th {
   text-align: left; /* Выравнивание по левому краю */
-  background: #ccc; /* Цвет фона ячеек */
+  background: #ca583a; /* Цвет фона ячеек */
   padding: 5px; /* Поля вокруг содержимого ячеек */
-  border: 1px solid black; /* Граница вокруг ячеек */
+  border: 1px solid white; /* Граница вокруг ячеек */
 }
 td {
   padding: 5px; /* Поля вокруг содержимого ячеек */
-  border: 1px solid black; /* Граница вокруг ячеек */
+  border: 1px solid white; /* Граница вокруг ячеек */
   color: white;
+
+}
+
+.card-header-tabs
+{
+  margin: auto;
+  color: black;
+  background-color: #ca583a;
+  border-radius: 5px;
+  min-height: 30px;
+}
+
+h2{
+  padding: 0.5rem 47rem;
+}
+
+tr:hover {
+ // color: rgba(255, 255, 255, .75);
+  background-color: rgba(202, 88, 58, 0.75);
+}
+
+.input-group
+{
+  min-width: 300px;
+  border-radius: 20px;
 }
