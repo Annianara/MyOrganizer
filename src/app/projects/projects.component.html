@@ -12,9 +12,15 @@
   </thead>
   <tbody>
   <ng-container *ngFor="let allProject of allProjects let ii = index">
-    <tr>
-      <td (click)="isCollapsed[ii] = !isCollapsed[ii]"
-          [attr.aria-expanded]="!isCollapsed[ii]">{{allProject.titleProject}}</td>
+    <tr (click)="isCollapsed[ii] = !isCollapsed[ii]"
+        [attr.aria-expanded]="!isCollapsed[ii]">
+      <td>{{allProject.project.title}}</td>
+      <td>{{allProject.project.category}}</td>
+      <td>{{allProject.project.date_begin}}</td>
+      <td></td>
+      <td></td>
+
+      <td>{{allProject.project.total_time}}</td>
     </tr>
     <tr *ngFor="let oneProject of allProject.projectAction; let i = index" [ngbCollapse]="isCollapsed[ii]">
       <td>{{oneProject.title}}</td>
