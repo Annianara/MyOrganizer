@@ -1,39 +1,22 @@
-<!--<div class="container">
-  <p>
-    <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
-            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-      Collapse Toggle
-    </button>
-  </p>
-  <div id="collapseExample" [ngbCollapse]="isCollapsed">
-    <div class="card">
-      <div class="card-body">
-        You can collapse this card by clicking Toggle Button. This is example from ItSolutionStuff.com.
-      </div>
-    </div>
-  </div>
-</div>-->
-<!--<table *ngIf="projects.length; else noProjects" (click)="isCollapsed = !isCollapsed"
-       [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample2">-->
-  <table *ngIf="projects.length; else noProjects">
+<table *ngIf="projects.length; else noProjects">
   <thead>
   <tr>
-    <th >Название проекта</th>
+    <th>Название проекта</th>
     <th>Категория проекта</th>
     <th>Дата</th>
     <th>Краткое описание</th>
     <th>Действие</th>
     <th>Заняло по времени</th>
     <th>Название(еще раз)</th>
-
   </tr>
   </thead>
   <tbody>
-<!--  <tr *ngFor="let allProject of allProjects"> -->
   <ng-container *ngFor="let allProject of allProjects let ii = index">
-    <tr><td (click)="isCollapsed3[ii] = !isCollapsed3[ii]"
-            [attr.aria-expanded]="!isCollapsed3[ii]" >{{allProject.titleProject}}</td></tr>
-    <tr  *ngFor="let oneProject of allProject.project; let i = index" [ngbCollapse]="isCollapsed3[ii]" >
+    <tr>
+      <td (click)="isCollapsed[ii] = !isCollapsed[ii]"
+          [attr.aria-expanded]="!isCollapsed[ii]">{{allProject.titleProject}}</td>
+    </tr>
+    <tr *ngFor="let oneProject of allProject.project; let i = index" [ngbCollapse]="isCollapsed[ii]">
       <td>{{oneProject.title}}</td>
       <td>{{oneProject.category}}</td>
       <td>{{oneProject.date}}</td>
@@ -43,34 +26,13 @@
     </tr>
   </ng-container>
   </tbody>
-  </table>
+</table>
 
-<!--     <td>{{allProject.titleProject}}</td>-->
-
-<!--
-
-    {{oneProject.}}
-    <td (click)="isCollapsed = !isCollapsed"
-    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample2">>
-      {{allProject.titleProject}}</td>
--->
-
-
-
-
-
-<!--    <td>{{distinctProject.category}}</td>-->
-<!--    <td>{{distinctProject.date_begin}}</td>-->
-
-
-
-
-
-<table *ngIf="projects.length; else noProjects" (click)="isCollapsed = !isCollapsed"
-       [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample2">
+<table *ngIf="projects.length; else noProjects" (click)="isCollapsed3 = !isCollapsed3"
+       [attr.aria-expanded]="!isCollapsed">
   <thead>
   <tr>
-    <th >Название проекта</th>
+    <th>Название проекта</th>
     <th>Категория проекта</th>
     <th>Дата начала</th>
   </tr>
@@ -85,30 +47,25 @@
   </tbody>
 </table>
 
-<table id="collapseExample2"  [ngbCollapse]="isCollapsed" *ngIf="projects.length; else noProjects">
-   <thead>
-   <tr>
-     <th>Название проекта</th>
-     <th>Категория проекта</th>
-     <th>Действия по проекту</th>
-     <th>Дата действия</th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr *ngFor="let project of projects">
-     <td>{{project.title}}</td>
-     <td>{{project.category}}</td>
-     <td>{{project.action}}</td>
-     <td>{{project.date}}</td>
+<table [ngbCollapse]="isCollapsed3" *ngIf="projects.length; else noProjects">
+  <thead>
+  <tr>
+    <th>Название проекта</th>
+    <th>Категория проекта</th>
+    <th>Действия по проекту</th>
+    <th>Дата действия</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let project of projects">
+    <td>{{project.title}}</td>
+    <td>{{project.category}}</td>
+    <td>{{project.action}}</td>
+    <td>{{project.date}}</td>
+  </tr>
+  </tbody>
+</table>
 
-   </tr>
-   </tbody>
- </table>
-
-
-
-
-
-   <ng-template #noProjects>
+<ng-template #noProjects>
   <p>Проектов пока нет...
 </ng-template>
