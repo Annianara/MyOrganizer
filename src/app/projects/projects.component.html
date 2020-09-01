@@ -30,10 +30,10 @@
   </thead>
   <tbody>
 <!--  <tr *ngFor="let allProject of allProjects"> -->
-  <ng-container *ngFor="let allProject of allProjects">
-
-    <tr><td>{{allProject.titleProject}}</td></tr>
-    <tr  *ngFor="let oneProject of allProject.project; let i = index let id = index">
+  <ng-container *ngFor="let allProject of allProjects let ii = index">
+    <tr><td (click)="isCollapsed3[ii] = !isCollapsed3[ii]"
+            [attr.aria-expanded]="!isCollapsed3[ii]" >{{allProject.titleProject}}</td></tr>
+    <tr  *ngFor="let oneProject of allProject.project; let i = index" [ngbCollapse]="isCollapsed3[ii]" >
       <td>{{oneProject.title}}</td>
       <td>{{oneProject.category}}</td>
       <td>{{oneProject.date}}</td>
@@ -41,6 +41,10 @@
       <td>{{oneProject.action}}</td>
       <td>{{oneProject.time}}</td>
     </tr>
+  </ng-container>
+  </tbody>
+  </table>
+
 <!--     <td>{{allProject.titleProject}}</td>-->
 
 <!--
@@ -52,15 +56,13 @@
 -->
 
 
-  </ng-container>
+
 
 
 <!--    <td>{{distinctProject.category}}</td>-->
 <!--    <td>{{distinctProject.date_begin}}</td>-->
 
 
-  </tbody>
-</table>
 
 
 

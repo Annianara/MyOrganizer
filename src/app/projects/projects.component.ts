@@ -15,18 +15,28 @@ export class ProjectsComponent implements OnInit {
   distinctProjects: Project[]
   allProjects: ProjectsAll[]
   public isCollapsed = true;
+  public isCollapsed2 = true;
+  public isCollapsed3 = []
   constructor(private databaseService: DatabaseService, private dateService: DateService) {}
 
   ngOnInit(): void  {
     this.dateService.date.pipe(
       switchMap(value => this.databaseService.loadAllProjects())
-    ).subscribe(allProjects => this.allProjects = allProjects
-/*      .sort((a, b) => {
+    ).subscribe(allProjects => {
+        this.allProjects = allProjects.sort((a, b) => {
           // if  (a.title < b.title)  return 1; else if (a.date > b.date)  return -1; else return 0
-          if  (a.title > b.title)  return 1; else if (a.title < b.title)   return -1; else return 0
+          if  (a.titleProject > b.titleProject)  return 1; else if (a.titleProject < b.titleProject)   return -1; else return 0
         }
+        )
+          ;
+          {for (let i = 0; i<=this.allProjects.length;i++)
+            this.isCollapsed3[i]=true}
+      }
+/*
       )*/
     )
+
+
     this.dateService.date.pipe(
       switchMap(value => this.databaseService.loadProjectsActions())
     ).subscribe(projects => this.projects = projects
@@ -39,15 +49,19 @@ export class ProjectsComponent implements OnInit {
 
         this.dateService.date.pipe(
           switchMap(value => this.databaseService.loadDistinctProjects())
-        ).subscribe(distinctProjects => this.distinctProjects = distinctProjects
+        ).subscribe(distinctProjects => {this.distinctProjects = distinctProjects
           .sort((a, b) => {
             if  (a.title > b.title)  return 1; else if (a.title < b.title)   return -1; else return 0
             }
           )
+        }
         )
 
 
   }
+/*
+  for (let i = 0; i<=this.allProjects.length;i++)
+    this.isCollapsed3[i]=true*/
 
   remove(project: Project) {
     this.databaseService.remove(project).subscribe(() => {
