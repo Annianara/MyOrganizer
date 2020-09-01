@@ -40,16 +40,11 @@ export class DatabaseService {
   constructor(private http: HttpClient) {
   }
 
-  onlyUnique(value, index, self: Project[]) {
-    return self.map(p => p.title).indexOf(value.title) === index;
-  }
-
   actionArr(projects: ProjectsAll[], one_project: ProjectAction) {
-    let index_first = projects.map(p => p.titleProject).indexOf(one_project.title)
+    let index_first = projects.map(p => p.project.title).indexOf(one_project.title)
     if (index_first==-1)
     {
       projects.push({
-        titleProject: one_project.title,
         project:{
           title:one_project.title,
           category:one_project.category,
@@ -77,15 +72,7 @@ export class DatabaseService {
         projects[index_first].project.total_time += one_project.time
       }
     }
-    //  self[self.map(p => p.titleProject).indexOf(value.titleProject)].projectAction.push(value.projectAction[0])
 
-/*    self.map((value, index, self) => {
-        if (self.map(p => p.titleProject).indexOf(value.titleProject) != index) {
-          self[self.map(p => p.titleProject).indexOf(value.titleProject)].projectAction.push(value.projectAction[0])
-            //     self[self.map(p => p.titleProject).indexOf(value.titleProject)].project.total_time+=value.projectAction.
-        }
-      }*/
-  //  )
     return projects
   }
 
@@ -102,70 +89,6 @@ export class DatabaseService {
           for (let projects_one_day of Object.values(all_projects)) {
             for (let one_project of Object.values(projects_one_day)) {
               projects = this.actionArr(projects, one_project)
-            }
-          }
-          return projects
-        }
-        )
-      )
-
-
-  }
-
-  calcSum(): Observable<Project[]> {
-    let projects: Project[] = []
-    return this.http
-      .get<ProjectAction[][]>(`${DatabaseService.urlP}.json`)
-      .pipe(map(all_projects => {
-          if (!all_projects) {
-            return []
-          }
-
-          for (let projects_one_day of Object.values(all_projects)) {
-            for (let one_project of Object.values(projects_one_day)) {
-              projects.push({title: one_project.title, category: one_project.category, date_begin: one_project.date})
-            }
-          }
-          return projects.filter(this.onlyUnique)
-        }
-        )
-      )
-
-  }
-
-
-  loadDistinctProjects(): Observable<Project[]> {
-    let projects: Project[] = []
-    return this.http
-      .get<ProjectAction[][]>(`${DatabaseService.urlP}.json`)
-      .pipe(map(all_projects => {
-          if (!all_projects) {
-            return []
-          }
-
-          for (let projects_one_day of Object.values(all_projects)) {
-            for (let one_project of Object.values(projects_one_day)) {
-              projects.push({title: one_project.title, category: one_project.category, date_begin: one_project.date})
-            }
-          }
-          return projects.filter(this.onlyUnique)
-        }
-        )
-      )
-
-  }
-
-  loadProjectsActions(): Observable<ProjectAction[]> {
-    let projects: ProjectAction[] = []
-    return this.http
-      .get<ProjectAction[][]>(`${DatabaseService.urlP}.json`)
-      .pipe(map(all_projects => {
-          if (!all_projects) {
-            return []
-          }
-          for (let projects_one_day of Object.values(all_projects)) {
-            for (let one_project of Object.values(projects_one_day)) {
-              projects.push(one_project)
             }
           }
           return projects

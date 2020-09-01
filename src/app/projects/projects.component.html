@@ -1,4 +1,4 @@
-<table *ngIf="projects.length; else noProjects">
+<table *ngIf="allProjects.length; else noProjects">
   <thead>
   <tr>
     <th>Название проекта</th>
@@ -7,7 +7,6 @@
     <th>Краткое описание</th>
     <th>Действие</th>
     <th>Заняло по времени</th>
-    <th>Название(еще раз)</th>
   </tr>
   </thead>
   <tbody>
@@ -19,8 +18,8 @@
       <td>{{allProject.project.date_begin}}</td>
       <td></td>
       <td></td>
-
       <td>{{allProject.project.total_time}}</td>
+
     </tr>
     <tr *ngFor="let oneProject of allProject.projectAction; let i = index" [ngbCollapse]="isCollapsed[ii]">
       <td>{{oneProject.title}}</td>
@@ -34,43 +33,6 @@
   </tbody>
 </table>
 
-<table *ngIf="projects.length; else noProjects" (click)="isCollapsed3 = !isCollapsed3"
-       [attr.aria-expanded]="!isCollapsed">
-  <thead>
-  <tr>
-    <th>Название проекта</th>
-    <th>Категория проекта</th>
-    <th>Дата начала</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let distinctProject of distinctProjects">
-    <td>{{distinctProject.title}}</td>
-    <td>{{distinctProject.category}}</td>
-    <td>{{distinctProject.date_begin}}</td>
-
-  </tr>
-  </tbody>
-</table>
-
-<table [ngbCollapse]="isCollapsed3" *ngIf="projects.length; else noProjects">
-  <thead>
-  <tr>
-    <th>Название проекта</th>
-    <th>Категория проекта</th>
-    <th>Действия по проекту</th>
-    <th>Дата действия</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let project of projects">
-    <td>{{project.title}}</td>
-    <td>{{project.category}}</td>
-    <td>{{project.action}}</td>
-    <td>{{project.date}}</td>
-  </tr>
-  </tbody>
-</table>
 
 <ng-template #noProjects>
   <p>Проектов пока нет...

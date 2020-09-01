@@ -11,9 +11,7 @@ import {Project, ProjectAction, ProjectsAll} from "../shared/intefaces";
 })
 export class ProjectsComponent implements OnInit {
   projects: ProjectAction[] = []
-  distinctProjects: Project[]
   allProjects: ProjectsAll[]
-  public isCollapsed3 = true;
   public isCollapsed = []
 
   constructor(private databaseService: DatabaseService, private dateService: DateService) {
@@ -24,35 +22,13 @@ export class ProjectsComponent implements OnInit {
       switchMap(value => this.databaseService.loadAllProjects())
     ).subscribe(allProjects => {
         this.allProjects = allProjects.sort((a, b) => {
-            if (a.titleProject > b.titleProject) return 1; else if (a.titleProject < b.titleProject) return -1; else return 0
+            if (a.project.title > b.project.title) return 1; else if (a.project.title < b.project.title) return -1; else return 0
           }
         )
         for (let i = 0; i <= this.allProjects.length; i++)
           this.isCollapsed[i] = true
       }
     )
-
-    this.dateService.date.pipe(
-      switchMap(value => this.databaseService.loadProjectsActions())
-    ).subscribe(projects => this.projects = projects
-      .sort((a, b) => {
-          // if  (a.title < b.title)  return 1; else if (a.date > b.date)  return -1; else return 0
-          if (a.title > b.title) return 1; else if (a.title < b.title) return -1; else return 0
-        }
-      )
-    )
-
-    this.dateService.date.pipe(
-      switchMap(value => this.databaseService.loadDistinctProjects())
-    ).subscribe(distinctProjects => {
-        this.distinctProjects = distinctProjects
-          .sort((a, b) => {
-              if (a.title > b.title) return 1; else if (a.title < b.title) return -1; else return 0
-            }
-          )
-      }
-    )
-
 
   }
 
