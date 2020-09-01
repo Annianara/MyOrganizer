@@ -16,7 +16,7 @@
       <td (click)="isCollapsed[ii] = !isCollapsed[ii]"
           [attr.aria-expanded]="!isCollapsed[ii]">{{allProject.titleProject}}</td>
     </tr>
-    <tr *ngFor="let oneProject of allProject.project; let i = index" [ngbCollapse]="isCollapsed[ii]">
+    <tr *ngFor="let oneProject of allProject.projectAction; let i = index" [ngbCollapse]="isCollapsed[ii]">
       <td>{{oneProject.title}}</td>
       <td>{{oneProject.category}}</td>
       <td>{{oneProject.date}}</td>

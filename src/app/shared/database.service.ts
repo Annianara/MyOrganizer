@@ -47,7 +47,8 @@ export class DatabaseService {
   actionArr(self: ProjectsAll[]) {
     self.map((value, index, self) => {
         if (self.map(p => p.titleProject).indexOf(value.titleProject) != index) {
-          self[self.map(p => p.titleProject).indexOf(value.titleProject)].project.push(value.project[0])
+          self[self.map(p => p.titleProject).indexOf(value.titleProject)].projectAction.push(value.projectAction[0])
+            //     self[self.map(p => p.titleProject).indexOf(value.titleProject)].project.total_time+=value.projectAction.
         }
       }
     )
@@ -67,7 +68,14 @@ export class DatabaseService {
           for (let projects_one_day of Object.values(all_projects)) {
             for (let one_project of Object.values(projects_one_day)) {
               projects.push({
-                titleProject: one_project.title, project: [{
+                titleProject: one_project.title,
+                project:{
+                  title:one_project.title,
+                  category:one_project.category,
+                  date_begin:one_project.date,
+                  total_time:one_project.time
+                },
+                projectAction: [{
                   title: one_project.title,
                   category: one_project.category,
                   action: one_project.action,

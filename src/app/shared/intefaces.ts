@@ -16,7 +16,8 @@ export interface Thought {
 
 export interface ProjectsAll{
   titleProject: string
-  project: ProjectAction[]
+  project: Project
+  projectAction: ProjectAction[]
 }
 export interface Project {
   id?:string
