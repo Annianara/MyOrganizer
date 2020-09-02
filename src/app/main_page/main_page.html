@@ -25,6 +25,15 @@
     </ul>
 
 
+    <mat-form-field appearance="fill">
+      <mat-label>Выбери настроение</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let one_mood of allMoods" >
+          {{one_mood.mood}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <form (ngSubmit)="submit_T()" [formGroup]="formMoods">
       <input type="text" class="input-group" formControlName="cur_mood" placeholder="Добавить настроение">
       <input type="text" class="input-group" formControlName="reason" placeholder="Добавить причину настроения">
@@ -60,7 +69,17 @@
       </ul>
 
 
-      <form  (ngSubmit)="submit_T()" [formGroup]="form">
+        <mat-form-field appearance="fill">
+          <mat-label>Выбери настроение</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let one_t_cat of thoughtCategories" >
+              {{one_t_cat.t_category}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <form  (ngSubmit)="submit_T()" [formGroup]="form">
         <input type="text" class="input-group" formControlName="title" placeholder="Добавить тему для размышлений">
         <input type="text" class="input-group" formControlName="category" placeholder="Добавить категорию">
         <input type="text" class="input-group " formControlName="o_thought" placeholder="Добавить мысль">
@@ -97,6 +116,16 @@
       <button class="btn" (click)="remove_P(project)">Remove</button>
     </li>
   </ul>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Выбери настроение</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let one_category of projectCategories" >
+        {{one_category.p_category}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <form (ngSubmit)="submit_P()" [formGroup]="formProjects">
     <input type="text" class="input-group" formControlName="title" placeholder="Добавить название проекта">
     <input type="text" class="input-group" formControlName="category" placeholder="Добавить категорию проекта">
@@ -132,7 +161,7 @@
     </ng-template>
 
     <ng-template #noProjects>
-      <p class="text-center">Действий по проектам пока нет...</p>
+      <p class="te  xt-center">Действий по проектам пока нет...</p>
     </ng-template>
 
 

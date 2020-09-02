@@ -45,4 +45,13 @@ export interface Mood {
   what_to_do?: string
 }
 
+export interface Moods {
+  mood: string
+}
+export interface ProjectCategories {
+  p_category: string
+}
+export interface ThoughtCategories {
+  t_category: string
+}
 

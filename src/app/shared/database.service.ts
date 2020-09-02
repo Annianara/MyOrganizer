@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {map, reduce} from "rxjs/operators";
 import * as moment from "moment";
-import {Mood, Project, ProjectAction, ProjectsAll, Thought} from "./intefaces";
+import {Mood, Project, ProjectAction, ProjectsAll, Thought, Moods} from "./intefaces";
 
 
 export enum Types {
