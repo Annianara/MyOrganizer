@@ -5,6 +5,8 @@ import {DateService} from "../shared/date.service";
 import {switchMap} from "rxjs/operators";
 import {Mood, ProjectAction, Thought, Moods, ProjectCategories, ThoughtCategories} from "../shared/intefaces";
 import {Select_options} from "../shared/select_options"
+import {MatDatepicker, MatDatepickerInputEvent} from "@angular/material/datepicker";
+import * as moment from "moment";
 
 
 @Component({
@@ -23,14 +25,6 @@ export class Main_pageComponent implements OnInit {
 
   }
 
-  form: FormGroup
-  thoughts: Thought[] = []
-
-  formMoods: FormGroup
-  moods: Mood[] = []
-
-  formProjects: FormGroup
-  projects: ProjectAction[] = []
 
   allMoods: Moods[] =
     [{mood: 'Отличное'},
@@ -81,7 +75,20 @@ export class Main_pageComponent implements OnInit {
     {t_category:'Саморазвитие'}
   ]
 
+  form: FormGroup
+  thoughts: Thought[] = []
 
+  formMoods: FormGroup
+  moods: Mood[] = []
+
+  formProjects: FormGroup
+  projects: ProjectAction[] = []
+
+ // picker1: FormControl
+ // picker2: FormControl
+  select( day: MatDatepickerInputEvent<Date>) {
+    this.dateService.changeDate2(day.value)
+  }
 
 
   constructor(public dateService: DateService,

@@ -1,4 +1,22 @@
 <app-navbar></app-navbar>
+<h3 class="card-header-tabs">Главная страница</h3>
+<div class="choose_date">
+<app-selector></app-selector>
+  <div class="date_input">
+  <mat-form-field class="date_input"  color="accent" appearance="fill">
+    <mat-label class="date_input">Выберите другую дату</mat-label>
+    <input class="date_input" matInput [matDatepicker]="picker1"  (dateInput)="select($event)" (dateChange)="select($event)">
+    <mat-datepicker-toggle class="date_input" matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker class="date_input" #picker1></mat-datepicker>
+  </mat-form-field>
+  </div>
+
+</div>
+
+
+
+
+
 <!--<a link="projects" class="nav-link"  >Календарь</a>-->
 <!--<a routerLink="projects" class="nav-link" (click)="show_projects()">Проекты</a>-->
 <!--<a link ="#"  class="nav-link" (click)="statistics()">Статистика</a>-->
@@ -56,17 +74,40 @@
   </div>
 
       <div>
-      <ul *ngIf="thoughts.length; else noThoughts">
-        <li *ngFor="let thought of thoughts; let i = index">
-        <span class="list">
+
+          <thead>
+          <tr>
+            <th>№</th>
+            <th>Название проекта</th>
+            <th>Категория проекта</th>
+            <th>Дата</th>
+            <th>Краткое описание</th>
+            <th>Действие</th>
+            <th>Заняло по времени</th>
+          </tr>
+          </thead>
+          <tbody>
+
+      <table *ngIf="thoughts.length; else noThoughts">
+        <thead>
+        <tr>
+          <th>№</th>
+          <th>Тема для размышления</th>
+          <th>Категория размышлений</th>
+          <th>Описание размышлений</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let thought of thoughts; let i = index">
           <strong>{{i + 1}}</strong>
-          {{thought.title}}
-          {{thought.category}}
-          {{thought.o_thought}}
-        </span>
+          <td>{{thought.title}}</td>
+          <td>{{thought.category}}</td>
+          <td>{{thought.o_thought}}</td>
           <button class="btn" (click)="remove_T(thought)">Remove</button>
-        </li>
-      </ul>
+        </tr>
+        </tbody>
+      </table>
+
 
 
         <mat-form-field appearance="fill">
@@ -105,17 +146,26 @@
     <a class="medium material-icons">add</a>
   </div>
   </div>
-  <ul *ngIf="projects.length; else noProjects">
-    <li *ngFor="let project of projects; let i = index">
-        <span class="list">
-          <strong>{{i + 1}}</strong>
-          {{project.title}}
-          {{project.category}}
-          {{project.action}}
-        </span>
+  <table *ngIf="projects.length; else noProjects">
+    <thead>
+    <tr>
+      <th>№</th>
+    <th>Название проекта</th>
+    <th>Категория проекта</th>
+    <th>Действия по проекту</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let project of projects; let i = index">
+         <td> <strong>{{i + 1}}</strong></td>
+          <td>{{project.title}}</td>
+          <td>{{project.category}}</td>
+          <td>{{project.action}}</td>
+
       <button class="btn" (click)="remove_P(project)">Remove</button>
-    </li>
-  </ul>
+    </tr>
+    </tbody>
+  </table>
 
   <mat-form-field appearance="fill">
     <mat-label>Выбери настроение</mat-label>

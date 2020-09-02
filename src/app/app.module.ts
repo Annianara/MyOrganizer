@@ -16,6 +16,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+
+
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {DemoMaterialModule} from '../app/material-module';
 
 
 
@@ -38,6 +45,11 @@ import {MatSelectModule} from '@angular/material/select';
     NgbModule,
     BrowserAnimationsModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+
+    DemoMaterialModule,
+
 
   ],
   providers: [],

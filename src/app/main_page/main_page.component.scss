@@ -1,8 +1,53 @@
 
+
 /*.nav-link {
  // display: block;
   padding: .5rem 1rem;
 }*/
+body{
+  color: white;
+//    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    background: #fff;
+    color: #cccccc;
+
+}
+
+.mat-h3, .mat-subheading-2, .mat-typography h3 {
+  font-family: 'Roboto', sans-serif;
+}
+
+.choose_date
+{
+  height: 50px;
+  background: white;
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/*
+.date_input
+{
+  height: 20px;
+  padding-right: 20rem;
+}
+*/
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 4px 4px 0 0;
+  padding: .75em .75em 0 46.75em;
+}
+.card-header-tabs
+{
+  margin: auto;
+  color: black;
+  background-color: #ca583a;
+  border-radius: 5px;
+  min-height: 30px;
+  padding-left: 50%;
+}
 
 .navbar-nav
 {
@@ -30,22 +75,13 @@
 }
 
 
-
-.input
-{
-
-}
-
-.list{
-
-}
-
 .section
 {
   height: 250px;
   border-radius: 5px;
 
-  background: rgba(114,106,83,0.44);
+  //background: rgba(114,106,83,0.44);
+  background: rgba(255, 255, 255, 0.78);
 
 
   margin: 1rem;
@@ -91,6 +127,28 @@
 
 }
 
+table {
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%; /* Ширина таблицы */
+  border: 4px  white; /* Рамка вокруг таблицы */
+  border-radius: 20px;
+  border-collapse: collapse; /* Отображать только одинарные линии */
+}
+th {
+  text-align: left; /* Выравнивание по левому краю */
+  background: #ca583a; /* Цвет фона ячеек */
+  padding: 5px; /* Поля вокруг содержимого ячеек */
+  border: 1px solid white; /* Граница вокруг ячеек */
+}
+td {
+  padding: 5px; /* Поля вокруг содержимого ячеек */
+  border: 1px solid white; /* Граница вокруг ячеек */
+  color: white;
+}
+
+
 button{
   background: #ca583a;
 }
@@ -114,3 +172,4 @@ a:hover
 {
   color: #343a40;
 }
+

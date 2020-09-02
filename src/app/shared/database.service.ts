@@ -103,7 +103,7 @@ export class DatabaseService {
         if (!projects) {
           return []
         }
-        return Object.values(projects)
+        return Object.keys(projects).map(key => ({...projects[key], id: key}))
       }))
   }
 
