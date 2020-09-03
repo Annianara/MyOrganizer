@@ -1,5 +1,7 @@
+<script src="../projects/projects.component.ts"></script>
 <app-navbar></app-navbar>
 <h3 class="card-header-tabs">Главная страница</h3>
+
 <div class="choose_date">
 <app-selector></app-selector>
   <div class="date_input">
@@ -10,8 +12,8 @@
     <mat-datepicker class="date_input" #picker1></mat-datepicker>
   </mat-form-field>
   </div>
-
 </div>
+
 
 
 
@@ -66,6 +68,7 @@
 </div>
 
 <div class = "section">
+
   <div class="section_header">
     Мысли, идеи
     <div class="section_button">
@@ -73,9 +76,10 @@
   </div>
   </div>
 
-      <div>
 
-          <thead>
+      <div>
+<!--        <table>
+&lt;!&ndash;          <thead>
           <tr>
             <th>№</th>
             <th>Название проекта</th>
@@ -85,8 +89,8 @@
             <th>Действие</th>
             <th>Заняло по времени</th>
           </tr>
-          </thead>
-          <tbody>
+          </thead>&ndash;&gt;
+          <tbody>-->
 
       <table *ngIf="thoughts.length; else noThoughts">
         <thead>
@@ -110,33 +114,47 @@
 
 
 
-        <mat-form-field appearance="fill">
+<!--        <mat-form-field appearance="fill">
           <mat-label>Выбери настроение</mat-label>
           <mat-select>
             <mat-option *ngFor="let one_t_cat of thoughtCategories" >
               {{one_t_cat.t_category}}
             </mat-option>
           </mat-select>
+        </mat-form-field>-->
+
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Выбери тему для размышления</mat-label>
+          <label>
+            <input type="text" matInput [formControl]="myControl_t" [matAutocomplete]="auto2">
+          </label>
+          <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let option of filteredThoughts | async" [value]="option">
+              {{option.t_category}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
+      </form>
 
 
-        <form  (ngSubmit)="submit_T()" [formGroup]="form">
+        <form  (ngSubmit)="submit_T()" [formGroup]="formThoughts">
         <input type="text" class="input-group" formControlName="title" placeholder="Добавить тему для размышлений">
         <input type="text" class="input-group" formControlName="category" placeholder="Добавить категорию">
         <input type="text" class="input-group " formControlName="o_thought" placeholder="Добавить мысль">
         <button
           type="submit"
           class="btn btn-block"
-          [disabled]="form.invalid"
-        >Add</button>
+        >Добавить</button>
+       <!--  [disabled]="formThoughts.invalid"-->
+
       </form>
 <!--        <div class="footer input-group mb-3">
           <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
 
         </div>
       </div>-->
-
-
+</div>
 </div>
 
 <div class = "section">
@@ -167,6 +185,7 @@
     </tbody>
   </table>
 
+<!--
   <mat-form-field appearance="fill">
     <mat-label>Выбери настроение</mat-label>
     <mat-select>
@@ -175,6 +194,23 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+-->
+
+
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Выбери тему для проекта</mat-label>
+      <label>
+        <input type="text" matInput [formControl]="myControl_c" [matAutocomplete]="auto">
+      </label>
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredCategories | async" [value]="option">
+          {{option.p_category}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+
 
   <form (ngSubmit)="submit_P()" [formGroup]="formProjects">
     <input type="text" class="input-group" formControlName="title" placeholder="Добавить название проекта">

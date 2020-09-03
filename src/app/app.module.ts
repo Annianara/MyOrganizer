@@ -23,6 +23,10 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {DemoMaterialModule} from '../app/material-module';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatAutocompleteModule, } from '@angular/material/autocomplete';
+import {MatInputModule } from '@angular/material/input';
+
 
 
 
@@ -49,6 +53,9 @@ import {DemoMaterialModule} from '../app/material-module';
     MatNativeDateModule,
 
     DemoMaterialModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule
 
 
   ],

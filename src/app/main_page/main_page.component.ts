@@ -2,11 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DatabaseService, Types} from "../shared/database.service";
 import {DateService} from "../shared/date.service";
-import {switchMap} from "rxjs/operators";
+import {map, startWith, switchMap} from "rxjs/operators";
 import {Mood, ProjectAction, Thought, Moods, ProjectCategories, ThoughtCategories} from "../shared/intefaces";
 import {Select_options} from "../shared/select_options"
 import {MatDatepicker, MatDatepickerInputEvent} from "@angular/material/datepicker";
 import * as moment from "moment";
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -75,7 +76,7 @@ export class Main_pageComponent implements OnInit {
     {t_category:'Саморазвитие'}
   ]
 
-  form: FormGroup
+  formThoughts: FormGroup
   thoughts: Thought[] = []
 
   formMoods: FormGroup
@@ -84,18 +85,50 @@ export class Main_pageComponent implements OnInit {
   formProjects: FormGroup
   projects: ProjectAction[] = []
 
- // picker1: FormControl
+
+  filteredCategories: Observable<ProjectCategories[]>;
+  filteredThoughts: Observable<ThoughtCategories[]>;
+  myControl_c = new FormControl();
+  myControl_t = new FormControl();
+
+
+
+  // picker1: FormControl
  // picker2: FormControl
   select( day: MatDatepickerInputEvent<Date>) {
     this.dateService.changeDate2(day.value)
   }
 
+/*  private _filter(name: string): ProjectCategories[] {
+    const filterValue = name.toLowerCase();
+    return this.projectCategories.filter(option => option.p_category.toLowerCase().indexOf(filterValue) === 0);
+  } */
+  private _filter(name: string, p): []{
+    const filterValue = name.toLowerCase();
+    if('p_category' in p[0])
+      return p.filter(option => option.p_category.toLowerCase().indexOf(filterValue) === 0);
+    if ('t_category' in p[0] )
+    return p.filter(option => option.t_category.toLowerCase().indexOf(filterValue) === 0);
+  }
 
   constructor(public dateService: DateService,
               private databaseService: DatabaseService) {
   }
 
   ngOnInit() {
+    this.filteredCategories = this.myControl_c.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this._filter(name, this.projectCategories) : this.projectCategories.slice())
+      );
+
+    this.filteredThoughts = this.myControl_t.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this._filter(name, this.thoughtCategories) : this.thoughtCategories.slice())
+      );
 
   //  this.allMoods = this.selectOptions.allMoods
     this.dateService.date.pipe(
@@ -110,9 +143,7 @@ export class Main_pageComponent implements OnInit {
       this.projects = projects
     })
 
-
-
-    this.form = new FormGroup({
+    this.formThoughts = new FormGroup({
       title: new FormControl('', Validators.required),
       category: new FormControl('',Validators.required),
       o_thought: new FormControl('',Validators.required)
@@ -132,10 +163,21 @@ export class Main_pageComponent implements OnInit {
 
   }
 
+  displayFn(p): string {
+    if (p) {
+      if ('p_category' in p)
+      return  p.p_category
+      if ('t_category' in p)
+      return   p.t_category
+    }
+    else return ''
+  }
+
+
   submit_T() {
-    const {title} = this.form.value
-    const {category} = this.form.value
-    const {o_thought} = this.form.value
+    const {title} = this.formThoughts.value
+    const {category} = this.formThoughts.value
+    const {o_thought} = this.formThoughts.value
 
     const thought: Thought = {
       title,
@@ -146,7 +188,7 @@ export class Main_pageComponent implements OnInit {
 
     this.databaseService.createT(thought).subscribe(thought => {
       this.thoughts.push(thought)
-      this.form.reset()
+      this.formThoughts.reset()
     }, err => console.error(err))
   }
 
@@ -164,7 +206,7 @@ export class Main_pageComponent implements OnInit {
 
     this.databaseService.create(mood, Types.mood).subscribe(mood => {
       this.moods.push(mood)
-      this.form.reset()
+      this.formThoughts.reset()
     }, err => console.error(err))
   }
   submit_P()
@@ -182,7 +224,7 @@ export class Main_pageComponent implements OnInit {
 
     this.databaseService.createP(project).subscribe(project => {
       this.projects.push(project)
-      this.form.reset()
+      this.formThoughts.reset()
     }, err => console.error(err))
 
   }
