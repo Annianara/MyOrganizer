@@ -1,14 +1,13 @@
-import {Moods, ProjectCategories, ThoughtCategories} from "./intefaces";
+import {MoodsCategories, ProjectCategories, ThoughtCategories} from "./intefaces";
 
-export class Select_options {
-  allMoods: Moods[] =
+export const CATEGORIES_MOODS: MoodsCategories[] =
     [{mood: 'Отличное'},
       {mood: 'Хорошее'},
       {mood: 'Среднее'},
       {mood: 'Плохое'},
       {mood: 'Очень плохое'}]
 
-    projectCategories: ProjectCategories[] =
+ export const   CATEGORIES_PROJECTS: ProjectCategories[] =
       [
         { p_category: 'Спорт'},
         { p_category: 'Здоровье'},
@@ -40,7 +39,7 @@ export class Select_options {
         { p_category: 'Фотографии'},
         ]
 
-    thoughtCategories: ThoughtCategories[]=[
+ export const CATEGORIES_THOUGHTS: ThoughtCategories[]=[
       {t_category:'Философия'},
       {t_category:'Психология'},
       {t_category:'Отношения'},
@@ -49,4 +48,3 @@ export class Select_options {
       {t_category:'Мнения о книгах'},
       {t_category:'Саморазвитие'}
       ]
-}

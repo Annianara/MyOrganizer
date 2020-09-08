@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {map, reduce} from "rxjs/operators";
 import * as moment from "moment";
-import {Mood, Project, ProjectAction, ProjectsAll, Thought, Moods} from "./intefaces";
+import {Mood, Project, ProjectAction, ProjectsAll, Thought, MoodsCategories} from "./intefaces";
 
 
 export enum Types {
@@ -145,9 +145,9 @@ export class DatabaseService {
       }))
   }
 
-  create(mood: Mood, type: Types): Observable<Mood> {
+  createM(mood: Mood, type: Types): Observable<Mood> {
     return this.http
-      .post<CreateResponse>(`${DatabaseService.urlT + type}/${mood.date}.json`, mood)
+      .post<CreateResponse>(`${DatabaseService.url}${type}/${mood.date}.json`, mood)
       .pipe(map(res => {
         return {...mood, id: res.name}
       }))
@@ -161,6 +161,10 @@ export class DatabaseService {
   removeP(project: ProjectAction): Observable<void> {
     return this.http
       .delete<void>(`${DatabaseService.urlP}/${project.date}/${project.id}.json`)
+  }
+  removeM(mood: Mood): Observable<void> {
+    return this.http
+      .delete<void>(`${DatabaseService.urlP}/${mood.date}/${mood.id}.json`)
   }
 
   remove(thought: Thought): Observable<void> {

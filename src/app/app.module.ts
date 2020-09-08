@@ -26,6 +26,7 @@ import {DemoMaterialModule} from '../app/material-module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatAutocompleteModule, } from '@angular/material/autocomplete';
 import {MatInputModule } from '@angular/material/input';
+import { AddTCategoryComponent } from './add-t-category/add-t-category.component';
 
 
 
@@ -38,7 +39,8 @@ import {MatInputModule } from '@angular/material/input';
     SelectorComponent,
     CalendarComponent,
     ProjectsComponent,
-    NavbarComponent
+    NavbarComponent,
+    AddTCategoryComponent
   ],
   imports: [
     BrowserModule,

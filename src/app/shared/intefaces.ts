@@ -1,10 +1,12 @@
 
-
-export interface Task {
+export interface Mood {
   id?: string
-  title: string
   date?: string
+  cur_mood: string
+  reason?: string
+  what_to_do?: string
 }
+
 
 export interface Thought {
   id?: string
@@ -14,10 +16,6 @@ export interface Thought {
   o_thought?: string
 }
 
-export interface ProjectsAll{
-  project: Project
-  projectAction: ProjectAction[]
-}
 export interface Project {
   id?:string
   title:string
@@ -34,18 +32,13 @@ export interface ProjectAction {
   short_description?: string
   time?: number
 }
-
-
-
-export interface Mood {
-  id?: string
-  date?: string
-  cur_mood: string
-  reason?: string
-  what_to_do?: string
+export interface ProjectsAll{
+  project: Project
+  projectAction: ProjectAction[]
 }
 
-export interface Moods {
+
+export interface MoodsCategories {
   mood: string
 }
 export interface ProjectCategories {

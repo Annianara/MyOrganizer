@@ -3,11 +3,12 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DatabaseService, Types} from "../shared/database.service";
 import {DateService} from "../shared/date.service";
 import {map, startWith, switchMap} from "rxjs/operators";
-import {Mood, ProjectAction, Thought, Moods, ProjectCategories, ThoughtCategories} from "../shared/intefaces";
-import {Select_options} from "../shared/select_options"
+import {Mood, ProjectAction, Thought, MoodsCategories, ProjectCategories, ThoughtCategories} from "../shared/intefaces";
+import {CATEGORIES_MOODS, CATEGORIES_PROJECTS, CATEGORIES_THOUGHTS} from "../shared/select_options"
 import {MatDatepicker, MatDatepickerInputEvent} from "@angular/material/datepicker";
 import * as moment from "moment";
 import {Observable} from "rxjs";
+import {AddTCategoryComponent} from "../add-t-category/add-t-category.component";
 
 
 @Component({
@@ -26,56 +27,6 @@ export class Main_pageComponent implements OnInit {
 
   }
 
-
-  allMoods: Moods[] =
-    [{mood: 'Отличное'},
-      {mood: 'Хорошее'},
-      {mood: 'Среднее'},
-      {mood: 'Плохое'},
-      {mood: 'Очень плохое'}]
-
-  projectCategories: ProjectCategories[] =
-    [
-      { p_category: 'Спорт'},
-      { p_category: 'Здоровье'},
-      { p_category: 'Хобби'},
-      { p_category: 'Работа'},
-      { p_category: 'Учеба'},
-      { p_category: 'Личная жизнь'},
-      { p_category: 'Психология'},
-      { p_category: 'Саморазвитие'},
-      { p_category: 'Семья'},
-      { p_category: 'Развлечение'},
-      { p_category: 'Отдых'},
-      { p_category: 'Книги'},
-      { p_category: 'Кино'},
-      { p_category: 'Музыка'},
-      { p_category: 'Дом'},
-      { p_category: 'Уход за собой'},
-      { p_category: 'Саморазвитие'},
-      { p_category: 'Изучение иностранных языков'},
-      { p_category: 'Кулинария'},
-      { p_category: 'Рисование'},
-      { p_category: 'Игры'},
-      { p_category: 'Шоппинг'},
-      { p_category: 'Путешествия'},
-      { p_category: 'Друзья'},
-      { p_category: 'Правильное питание'},
-      { p_category: 'Посещение интересных мест'},
-      { p_category: 'Развитие интеллектуальных способностей'},
-      { p_category: 'Фотографии'},
-    ]
-
-  thoughtCategories: ThoughtCategories[]=[
-    {t_category:'Философия'},
-    {t_category:'Психология'},
-    {t_category:'Отношения'},
-    {t_category:'Сны'},
-    {t_category:'Мнения о фильмах'},
-    {t_category:'Мнения о книгах'},
-    {t_category:'Саморазвитие'}
-  ]
-
   formThoughts: FormGroup
   thoughts: Thought[] = []
 
@@ -91,6 +42,16 @@ export class Main_pageComponent implements OnInit {
   myControl_c = new FormControl();
   myControl_t = new FormControl();
 
+  selected = 'Отличное'
+
+  categories_moods=CATEGORIES_MOODS
+  categories_projects=CATEGORIES_PROJECTS
+  categories_thoughts=CATEGORIES_THOUGHTS
+
+
+
+  //isVisible = false
+  //itCat = new AddTCategoryComponent
 
 
   // picker1: FormControl
@@ -98,6 +59,13 @@ export class Main_pageComponent implements OnInit {
   select( day: MatDatepickerInputEvent<Date>) {
     this.dateService.changeDate2(day.value)
   }
+/*
+  add_t_category()
+  {
+ //   this.itCat. = !this.itCat
+    this.itCat.isVisible=!this.itCat.isVisible
+  }
+*/
 
 /*  private _filter(name: string): ProjectCategories[] {
     const filterValue = name.toLowerCase();
@@ -116,18 +84,19 @@ export class Main_pageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.selected = 'Отличное'
     this.filteredCategories = this.myControl_c.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name, this.projectCategories) : this.projectCategories.slice())
+        map(name => name ? this._filter(name, this.categories_projects) : this.categories_projects.slice())
       );
 
     this.filteredThoughts = this.myControl_t.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name, this.thoughtCategories) : this.thoughtCategories.slice())
+        map(name => name ? this._filter(name, this.categories_thoughts) : this.categories_thoughts.slice())
       );
 
   //  this.allMoods = this.selectOptions.allMoods
@@ -161,14 +130,17 @@ export class Main_pageComponent implements OnInit {
       action: new FormControl('',Validators.required),
     })
 
+   //let itCat = new AddTCategoryComponent
+
   }
 
   displayFn(p): string {
     if (p) {
-      if ('p_category' in p)
+      return p
+/*      if ('p_category' in p)
       return  p.p_category
       if ('t_category' in p)
-      return   p.t_category
+      return   p.t_category*/
     }
     else return ''
   }
@@ -204,7 +176,7 @@ export class Main_pageComponent implements OnInit {
       what_to_do
     }
 
-    this.databaseService.create(mood, Types.mood).subscribe(mood => {
+    this.databaseService.createM(mood, Types.mood).subscribe(mood => {
       this.moods.push(mood)
       this.formThoughts.reset()
     }, err => console.error(err))
@@ -237,6 +209,11 @@ export class Main_pageComponent implements OnInit {
  remove_P(project: ProjectAction) {
     this.databaseService.removeP(project).subscribe(() => {
       this.projects = this.projects.filter(t => t.id !== project.id)
+    }, err => console.error(err))
+  }
+  remove_M(mood: Mood) {
+    this.databaseService.removeM(mood).subscribe(() => {
+      this.projects = this.projects.filter(t => t.id !== mood.id)
     }, err => console.error(err))
   }
 
