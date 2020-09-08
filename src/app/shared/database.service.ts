@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {map, reduce} from "rxjs/operators";
 import * as moment from "moment";
-import {Mood, Project, ProjectAction, ProjectsAll, Thought, MoodsCategories} from "./intefaces";
+import {Mood, Project, ProjectAction, ProjectsAll, Thought, MoodsCategories, ThoughtCategories} from "./intefaces";
 
 export enum Types {
   thought,
@@ -27,6 +27,7 @@ export class DatabaseService {
   static url = 'https://myorganizerpb.firebaseio.com/'
   static urlT = 'https://myorganizerpb.firebaseio.com/thoughts'
   static urlP = 'https://myorganizerpb.firebaseio.com/projects'
+  user = 'admin' //по идее, вместо переменной нужен сервис, который определяет юзера, в этой переменной мы должны получать ид пользователя
 
   constructor(private http: HttpClient) {
   }
@@ -98,6 +99,35 @@ export class DatabaseService {
       }))
   }
 
+  load_user_preferences(date: moment.Moment, type: String):Observable<ThoughtCategories[]>
+  {
+    return this.http
+      .get<ThoughtCategories[]>(`${DatabaseService.url}users/${this.user}/user_preferences/categories_of_thoughts.json`)
+      .pipe(map(objects => {
+        if (!objects) {
+          return []
+        }
+        return Object.keys(objects).map(key => ({...objects[key], id: key}))
+      }))
+  }
+  createUserCategories(thoughtCategories: ThoughtCategories){
+    let cc = this.http
+      .post(`${DatabaseService.url}users/${this.user}/user_preferences/categories_of_thoughts.json`, thoughtCategories)
+       .pipe(map(res => {
+         return {...thoughtCategories}
+
+       }))
+
+    cc.subscribe(kk=>console.log(kk))
+  }
+
+/*  createUserCategories(thoughtCategories: ThoughtCategories){
+    return this.http
+      .post(`${DatabaseService.url}users/${this.user}/user_preferences/categories_of_thoughts`, thoughtCategories)
+      .pipe(map(res => {
+        return {...thoughtCategories}
+  }))
+  }*/
   createT(thought: Thought): Observable<Thought> {
     return this.http
       .post<CreateResponse>(`${DatabaseService.urlP}/${thought.date}.json`, thought)

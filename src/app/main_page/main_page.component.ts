@@ -47,6 +47,9 @@ export class Main_pageComponent implements OnInit {
   categories_moods=CATEGORIES_MOODS
   categories_projects=CATEGORIES_PROJECTS
   categories_thoughts=CATEGORIES_THOUGHTS
+  categories_thoughts_user:ThoughtCategories[] = []
+  categories_thoughts_all:ThoughtCategories[] = CATEGORIES_THOUGHTS
+
 
 
 
@@ -83,22 +86,8 @@ export class Main_pageComponent implements OnInit {
               private databaseService: DatabaseService) {
   }
 
-  ngOnInit() {
+    ngOnInit() {
     this.selected = 'Отличное'
-    this.filteredCategories = this.myControl_c.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name, this.categories_projects) : this.categories_projects.slice())
-      );
-
-    this.filteredThoughts = this.myControl_t.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name, this.categories_thoughts) : this.categories_thoughts.slice())
-      );
-
   //  this.allMoods = this.selectOptions.allMoods
     this.dateService.date.pipe(
       switchMap(value => this.databaseService.load_this_day(value, 'thoughts'))
@@ -110,6 +99,19 @@ export class Main_pageComponent implements OnInit {
       switchMap(value => this.databaseService.load_this_day(value, 'projects'))
     ).subscribe(projects => {
       this.projects = projects
+    })
+
+   this.dateService.date.pipe(
+      switchMap(value => this.databaseService.load_user_preferences(value, 'thoughts'))
+    ).subscribe(cat_thoughts_user => {
+      this.categories_thoughts_user = cat_thoughts_user
+      this.categories_thoughts_all = [...cat_thoughts_user, ...this.categories_thoughts]
+     this.filteredThoughts = this.myControl_t.valueChanges
+       .pipe(
+         startWith(''),
+         map(value => typeof value === 'string' ? value : value.name),
+         map(name => name ? this._filter(name, this.categories_thoughts_all) : this.categories_thoughts_all.slice())
+       );
     })
 
     this.formThoughts = new FormGroup({
@@ -130,7 +132,29 @@ export class Main_pageComponent implements OnInit {
       action: new FormControl('',Validators.required),
     })
 
-   //let itCat = new AddTCategoryComponent
+
+      this.filteredCategories = this.myControl_c.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.name),
+          map(name => name ? this._filter(name, this.categories_projects) : this.categories_projects.slice())
+        );
+
+/*      this.filteredThoughts = this.myControl_t.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.name),
+          map(name => name ? this._filter(name, this.categories_thoughts_all) : this.categories_thoughts_all.slice())
+        );*/
+      /*    this.filteredThoughts = this.myControl_t.valueChanges
+            .pipe(
+              startWith(''),
+              map(value => typeof value === 'string' ? value : value.name),
+              map(name => name ? this._filter(name, this.categories_thoughts) : this.categories_thoughts.slice())
+            );*/
+
+
+      //let itCat = new AddTCategoryComponent
 
   }
 
