@@ -101,13 +101,13 @@ export class Main_pageComponent implements OnInit {
 
   //  this.allMoods = this.selectOptions.allMoods
     this.dateService.date.pipe(
-      switchMap(value => this.databaseService.loadT(value))
+      switchMap(value => this.databaseService.load_this_day(value, 'thoughts'))
     ).subscribe(thoughts => {
       this.thoughts = thoughts
     })
 
     this.dateService.date.pipe(
-      switchMap(value => this.databaseService.loadP(value))
+      switchMap(value => this.databaseService.load_this_day(value, 'projects'))
     ).subscribe(projects => {
       this.projects = projects
     })
@@ -201,21 +201,41 @@ export class Main_pageComponent implements OnInit {
 
   }
 
-  remove_T(thought: Thought) {
-    this.databaseService.removeT(thought).subscribe(() => {
-      this.thoughts = this.thoughts.filter(t => t.id !== thought.id)
+  remove(object: ProjectAction|Thought|Mood, type: String) {
+    this.databaseService.remove(object,type).subscribe(() => {
+      switch(type)
+      { case 'thought':
+          this.thoughts = this.thoughts.filter(t => t.id !== object.id)
+          break;
+        case 'project':
+          this.projects = this.projects.filter(t => t.id !== object.id)
+          break;
+        case 'mood':
+          this.moods = this.moods.filter((t => t.id !== object.id))
+      }
     }, err => console.error(err))
   }
- remove_P(project: ProjectAction) {
-    this.databaseService.removeP(project).subscribe(() => {
-      this.projects = this.projects.filter(t => t.id !== project.id)
+/*  remove2(object: ProjectAction|Thought|Mood, objArr) { //доделать (расписать определение типов, и на их основании определить аргумент, свитч должен быть один)
+    let type
+    switch (object){
+      case (object instanceof ProjectAction):
+      {
+        type = 'thought'
+      }
+    }
+    this.databaseService.remove(object).subscribe(() => {
+      switch(type)
+      { case 'thought':
+          this.thoughts = this.thoughts.filter(t => t.id !== object.id)
+          break;
+        case 'project':
+          this.projects = this.projects.filter(t => t.id !== object.id)
+          break;
+        case 'mood':
+          this.moods = this.moods.filter((t => t.id !== object.id))
+      }
     }, err => console.error(err))
-  }
-  remove_M(mood: Mood) {
-    this.databaseService.removeM(mood).subscribe(() => {
-      this.projects = this.projects.filter(t => t.id !== mood.id)
-    }, err => console.error(err))
-  }
+  }*/
 
 
 }

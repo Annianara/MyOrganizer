@@ -32,10 +32,10 @@ export class ProjectsComponent implements OnInit {
 
   }
 
-  remove(project: Project) {
-    this.databaseService.remove(project).subscribe(() => {
+ /* remove(project: Project) {
+    this.databaseService.remove(project,).subscribe(() => {
       this.projects = this.projects.filter(t => t.id !== project.id)
     }, err => console.error(err))
-  }
+  }*/
 
 }

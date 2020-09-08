@@ -5,19 +5,10 @@ import {map, reduce} from "rxjs/operators";
 import * as moment from "moment";
 import {Mood, Project, ProjectAction, ProjectsAll, Thought, MoodsCategories} from "./intefaces";
 
-
 export enum Types {
   thought,
   project,
   mood
-}
-
-export enum All_moods {
-  'Отличное',
-  'Хорошее',
-  'Среднее',
-  'Плохое',
-  'Очень плохое'
 }
 
 interface CreateResponse {
@@ -76,7 +67,6 @@ export class DatabaseService {
     return projects
   }
 
-
   loadAllProjects(): Observable<ProjectsAll[]> {
     let projects: ProjectsAll[] = []
     return this.http
@@ -96,36 +86,15 @@ export class DatabaseService {
         )
       )
   }
-  loadP(date: moment.Moment): Observable<ProjectAction[]> {
-    return this.http
-      .get<ProjectAction[]>(`${DatabaseService.urlP}/${date.format('DD-MM-YYYY')}.json`)
-      .pipe(map(projects => {
-        if (!projects) {
-          return []
-        }
-        return Object.keys(projects).map(key => ({...projects[key], id: key}))
-      }))
-  }
 
-  loadT(date: moment.Moment): Observable<Thought[]> {
+  load_this_day(date: moment.Moment, type: String): Observable<any[]> {
     return this.http
-      .get<Thought[]>(`${DatabaseService.urlT}/${date.format('DD-MM-YYYY')}.json`)
-      .pipe(map(thoughts => {
-        if (!thoughts) {
+      .get<Object[]>(`${DatabaseService.url}${type}/${date.format('DD-MM-YYYY')}.json`)
+      .pipe(map(objects => {
+        if (!objects) {
           return []
         }
-        return Object.keys(thoughts).map(key => ({...thoughts[key], id: key}))
-      }))
-  }
-
-  load(date: moment.Moment, type: Types): Observable<Thought[]> {
-    return this.http
-      .get<Thought[]>(`${DatabaseService.urlT}/${date.format('DD-MM-YYYY')}.json`)
-      .pipe(map(thoughts => {
-        if (!thoughts) {
-          return []
-        }
-        return Object.keys(thoughts).map(key => ({...thoughts[key], id: key}))
+        return Object.keys(objects).map(key => ({...objects[key], id: key}))
       }))
   }
 
@@ -144,7 +113,15 @@ export class DatabaseService {
         return {...project, id: res.name}
       }))
   }
-
+/*
+  create(object: Object, types: string): Observable<ProjectAction> {
+    return this.http
+      .post<CreateResponse>(`${DatabaseService.url}${types}/${object.date}.json`, object)
+      .pipe(map(res => {
+        return {...project, id: res.name}
+      }))
+  }
+*/
   createM(mood: Mood, type: Types): Observable<Mood> {
     return this.http
       .post<CreateResponse>(`${DatabaseService.url}${type}/${mood.date}.json`, mood)
@@ -153,23 +130,9 @@ export class DatabaseService {
       }))
   }
 
-  removeT(thought: Thought): Observable<void> {
+  remove(object: Thought|ProjectAction|Mood, type: String): Observable<void> {
     return this.http
-      .delete<void>(`${DatabaseService.urlT}/${thought.date}/${thought.id}.json`)
-  }
-
-  removeP(project: ProjectAction): Observable<void> {
-    return this.http
-      .delete<void>(`${DatabaseService.urlP}/${project.date}/${project.id}.json`)
-  }
-  removeM(mood: Mood): Observable<void> {
-    return this.http
-      .delete<void>(`${DatabaseService.urlP}/${mood.date}/${mood.id}.json`)
-  }
-
-  remove(thought: Thought): Observable<void> {
-    return this.http
-      .delete<void>(`${DatabaseService.urlT}/${thought.date}/${thought.id}.json`)
+      .delete<void>(`${DatabaseService.url}${type}/${object.date}/${object.id}.json`)
   }
 
 }

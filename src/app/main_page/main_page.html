@@ -46,7 +46,7 @@
         <td>{{mood.date}}</td>
         <td>{{mood.reason}}</td>
         <td>{{mood.what_to_do}}</td>
-        <button class="btn" (click)="remove_M(mood)">Удалить</button>
+        <button class="btn" (click)="remove(mood, 'mood')">Удалить</button>
       </tr>
       </tbody>
     </table>
@@ -116,7 +116,7 @@
           <td>{{thought.title}}</td>
           <td>{{thought.category}}</td>
           <td>{{thought.o_thought}}</td>
-          <button class="btn" (click)="remove_T(thought)">Remove</button>
+          <button class="btn" (click)="remove(thought, 'thought')">Remove</button>
         </tr>
         </tbody>
       </table>
@@ -188,7 +188,7 @@
           <td>{{project.category}}</td>
           <td>{{project.action}}</td>
 
-      <button class="btn" (click)="remove_P(project)">Remove</button>
+      <button class="btn" (click)="remove(project, 'project')">Удалить</button>
     </tr>
     </tbody>
   </table>
