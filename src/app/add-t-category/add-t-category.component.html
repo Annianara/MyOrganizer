@@ -1,0 +1,23 @@
+<div [style.display]="isVisible ? 'block' : 'none'">
+  <div class="overlay" (click)="isVisible=!isVisible" ></div>
+  <form (ngSubmit)="add_t_category()"  class="add_t_cat" [formGroup]="form_cat_of_thoughts">
+<input type="text" placeholder="Добавить новую категорию" formControlName = "new_cat" >
+  <button
+    type="submit"
+    class="btn btn-primary"
+  >Добавить</button>
+</form>
+</div>
+
+
+
+<!--
+<form class="add_t_cat">
+<input type="text" placeholder="Добавить новую категорию" >
+</form>
+-->
+
+
+
+
+

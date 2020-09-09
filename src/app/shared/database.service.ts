@@ -111,14 +111,13 @@ export class DatabaseService {
       }))
   }
   createUserCategories(thoughtCategories: ThoughtCategories){
-    let cc = this.http
+    return this.http
       .post(`${DatabaseService.url}users/${this.user}/user_preferences/categories_of_thoughts.json`, thoughtCategories)
        .pipe(map(res => {
          return {...thoughtCategories}
 
        }))
 
-    cc.subscribe(kk=>console.log(kk))
   }
 
 /*  createUserCategories(thoughtCategories: ThoughtCategories){
