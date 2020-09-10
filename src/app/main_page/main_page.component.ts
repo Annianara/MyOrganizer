@@ -6,10 +6,7 @@ import {map, startWith, switchMap} from "rxjs/operators";
 import {Mood, ProjectAction, Thought, MoodsCategories, ProjectCategories, ThoughtCategories} from "../shared/intefaces";
 import {CATEGORIES_MOODS, CATEGORIES_PROJECTS, CATEGORIES_THOUGHTS} from "../shared/select_options"
 import {MatDatepicker, MatDatepickerInputEvent} from "@angular/material/datepicker";
-import * as moment from "moment";
 import {Observable} from "rxjs";
-import {AddTCategoryComponent} from "../add-t-category/add-t-category.component";
-
 
 @Component({
   selector: 'app-header',
@@ -18,14 +15,6 @@ import {AddTCategoryComponent} from "../add-t-category/add-t-category.component"
 })
 export class Main_pageComponent implements OnInit {
 
-  calendar(){
-  }
-  statistics() {
-  }
-  show_projects(){
-   // this.databaseService.loadProjects();
-
-  }
 
   formThoughts: FormGroup
   thoughts: Thought[] = []
@@ -35,6 +24,9 @@ export class Main_pageComponent implements OnInit {
 
   formProjects: FormGroup
   projects: ProjectAction[] = []
+  projects2: ProjectAction[] = []
+
+
 
 
   filteredCategories: Observable<ProjectCategories[]>;
@@ -51,29 +43,10 @@ export class Main_pageComponent implements OnInit {
   categories_thoughts_all:ThoughtCategories[] = CATEGORIES_THOUGHTS
 
 
-
-
-  //isVisible = false
-  //itCat = new AddTCategoryComponent
-
-
-  // picker1: FormControl
- // picker2: FormControl
   select( day: MatDatepickerInputEvent<Date>) {
     this.dateService.changeDate2(day.value)
   }
-/*
-  add_t_category()
-  {
- //   this.itCat. = !this.itCat
-    this.itCat.isVisible=!this.itCat.isVisible
-  }
-*/
 
-/*  private _filter(name: string): ProjectCategories[] {
-    const filterValue = name.toLowerCase();
-    return this.projectCategories.filter(option => option.p_category.toLowerCase().indexOf(filterValue) === 0);
-  } */
   private _filter(name: string, p): []{
     const filterValue = name.toLowerCase();
     if('p_category' in p[0])
@@ -87,19 +60,109 @@ export class Main_pageComponent implements OnInit {
   }
 
     ngOnInit() {
-    this.selected = 'Отличное'
-  //  this.allMoods = this.selectOptions.allMoods
-    this.dateService.date.pipe(
-      switchMap(value => this.databaseService.load_this_day(value, 'thoughts'))
-    ).subscribe(thoughts => {
-      this.thoughts = thoughts
-    })
+      this.selected = 'Отличное'
+/*
+      this.dateService.date.pipe(
+        switchMap(value => this.databaseService.load_this_day(value, 'thoughts'))
+      ).subscribe(thoughts => {
+        this.thoughts = thoughts
+      })
+*/
 
-    this.dateService.date.pipe(
-      switchMap(value => this.databaseService.load_this_day(value, 'projects'))
-    ).subscribe(projects => {
-      this.projects = projects
-    })
+/*      this.dateService.date.pipe(
+        switchMap(value => this.databaseService.load_this_day(value, 'projects'))
+      ).subscribe(projects => {
+        this.projects = projects
+      })*/
+    //
+    //   this.dateService.date.pipe(
+    //     switchMap(value => this.databaseService.load_this_day2(value, 'projects'))).subscribe(
+    //     k => {
+    //       switch (k.type) {
+    //         case 'thoughts': {
+    //            k.data.subscribe(thoughts=>this.thoughts = thoughts)
+    //           this.thoughts = k.data
+    //         }
+    //         case 'projects': {
+    //            k.data.subscribe(projects=>this.projects = projects)
+    //         }
+    //         case 'moods': {
+    //            k.data.subscribe(moods=>this.moods = moods)
+    //         }
+    //       }
+    //     }
+    // )
+      let types = ['thoughts','projects','moods']
+      for (let type of types) {
+        let obs = this.dateService.date.pipe(
+        switchMap(value => this.databaseService.load_this_day(value, type)
+      ))
+          switch (type) {
+          case 'thoughts':
+          {obs.subscribe(thoughts => {
+            this.thoughts = thoughts})
+            break;
+          }
+            case 'projects':
+            {obs.subscribe(projects => {
+              this.projects = projects})
+              break;
+            }
+            case 'moods':
+            {obs.subscribe(moods => {
+              this.moods = moods})
+              break;
+            }
+
+      }
+        //   .subscribe(thoughts => {
+        // this.thoughts = thoughts
+      }
+
+     let k = this.dateService.date.pipe(
+        switchMap(value =>
+        {
+          let kk =  this.databaseService.load_this_day2(value, 'thoughts')
+          for (let i = 0; i< kk.length;i++)
+        {
+          switch(k[i].type)
+          {
+            case 'thoughts':
+            {
+              this.thoughts = k[i].data
+            break;}
+          case 'projects':
+            {this.projects = k[i].data
+            break;
+            }
+            case 'moods':
+            {
+              this.moods = k[i].data
+            }
+          }
+        }
+        }
+      )
+     )
+
+
+      //this.dateService.date.pipe( value=> this.databaseService.load_this_day2(value, 'thoughts')
+     //  for (let i = 0; i < k.; i++)
+     //  {
+     //   switch (k[i].) {
+     //     case 'thoughts': {
+     //       kk.data.subscribe()
+     //
+     //     }
+     //
+     //   }
+     // }
+
+ /*  this.dateService.date.pipe(
+        switchMap(value = > this.databaseService.load_this_day2(value, 'projects').data)
+      ).subscribe(projects => {
+        this.projects2 = projects
+      })*/
 
    this.dateService.date.pipe(
       switchMap(value => this.databaseService.load_user_preferences(value, 'thoughts'))
@@ -139,22 +202,6 @@ export class Main_pageComponent implements OnInit {
           map(value => typeof value === 'string' ? value : value.name),
           map(name => name ? this._filter(name, this.categories_projects) : this.categories_projects.slice())
         );
-
-/*      this.filteredThoughts = this.myControl_t.valueChanges
-        .pipe(
-          startWith(''),
-          map(value => typeof value === 'string' ? value : value.name),
-          map(name => name ? this._filter(name, this.categories_thoughts_all) : this.categories_thoughts_all.slice())
-        );*/
-      /*    this.filteredThoughts = this.myControl_t.valueChanges
-            .pipe(
-              startWith(''),
-              map(value => typeof value === 'string' ? value : value.name),
-              map(name => name ? this._filter(name, this.categories_thoughts) : this.categories_thoughts.slice())
-            );*/
-
-
-      //let itCat = new AddTCategoryComponent
 
   }
 
@@ -239,27 +286,6 @@ export class Main_pageComponent implements OnInit {
       }
     }, err => console.error(err))
   }
-/*  remove2(object: ProjectAction|Thought|Mood, objArr) { //доделать (расписать определение типов, и на их основании определить аргумент, свитч должен быть один)
-    let type
-    switch (object){
-      case (object instanceof ProjectAction):
-      {
-        type = 'thought'
-      }
-    }
-    this.databaseService.remove(object).subscribe(() => {
-      switch(type)
-      { case 'thought':
-          this.thoughts = this.thoughts.filter(t => t.id !== object.id)
-          break;
-        case 'project':
-          this.projects = this.projects.filter(t => t.id !== object.id)
-          break;
-        case 'mood':
-          this.moods = this.moods.filter((t => t.id !== object.id))
-      }
-    }, err => console.error(err))
-  }*/
 
 
 }

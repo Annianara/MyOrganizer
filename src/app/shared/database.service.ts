@@ -3,7 +3,16 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {map, reduce} from "rxjs/operators";
 import * as moment from "moment";
-import {Mood, Project, ProjectAction, ProjectsAll, Thought, MoodsCategories, ThoughtCategories} from "./intefaces";
+import {
+  Mood,
+  Project,
+  ProjectAction,
+  ProjectsAll,
+  Thought,
+  MoodsCategories,
+  ThoughtCategories,
+  Data
+} from "./intefaces";
 
 export enum Types {
   thought,
@@ -76,7 +85,6 @@ export class DatabaseService {
           if (!all_projects) {
             return []
           }
-
           for (let projects_one_day of Object.values(all_projects)) {
             for (let one_project of Object.values(projects_one_day)) {
               projects = this.actionArr(projects, one_project)
@@ -97,6 +105,27 @@ export class DatabaseService {
         }
         return Object.keys(objects).map(key => ({...objects[key], id: key}))
       }))
+  }
+
+ // load_this_day2(date: moment.Moment, type: String):[{type:String, data: Observable<any[]>}]{
+  load_this_day2(date: moment.Moment, type: String):Observable<Data[]>{
+    let types = ['thoughts','projects','moods']
+    let data:Observable<Data[]>
+    for (let type of types) {
+        data. ({
+         type: type,
+          data:
+          this.http
+            .get<Object[]>(`${DatabaseService.url}${type}/${date.format('DD-MM-YYYY')}.json`)
+            .pipe(map(objects => {
+              if (!objects) {
+                return []
+              }
+              return Object.keys(objects).map(key => ({...objects[key], id: key}))
+            }))
+      })
+    }
+    return data
   }
 
   load_user_preferences(date: moment.Moment, type: String):Observable<ThoughtCategories[]>

@@ -1,3 +1,4 @@
+import {Observable} from "rxjs";
 
 export interface Mood {
   id?: string
@@ -46,5 +47,9 @@ export interface ProjectCategories {
 }
 export interface ThoughtCategories {
   t_category: string
+}
+export interface Data {
+  type:string
+  data: Observable<ProjectAction[]|Mood[]|Thought[]>
 }
 
