@@ -21,12 +21,13 @@
 <!--<a link ="#"  class="nav-link" (click)="statistics()">Статистика</a>-->
 
 <!--<p><app-calendar></app-calendar></p>-->
-<div class = "section">
+
+<div<div class = "section">
   <div class="section_header">
     Настроение за день
-      <div class="section_button">
+    <div class="section_button">
       <a class="medium material-icons section_button">add</a>
-  </div>
+    </div>
   </div>
   <div>
     <table *ngIf="moods.length">
@@ -60,7 +61,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-<!--      <input type="text" class="input-group" formControlName="cur_mood" placeholder="Добавить настроение">-->
+      <!--      <input type="text" class="input-group" formControlName="cur_mood" placeholder="Добавить настроение">-->
       <input type="text" class="input-group" formControlName="reason" placeholder="Добавить причину настроения">
       <input type="text" class="input-group" formControlName="what_to_do" placeholder="Действия для предотвращения ситуации">
       <button
@@ -71,8 +72,7 @@
     </form>
   </div>
 </div>
-
-<div class = "section">
+class = "section">
 
   <div class="section_header">
     Мысли, идеи

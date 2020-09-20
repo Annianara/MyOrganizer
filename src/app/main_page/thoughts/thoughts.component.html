@@ -1,0 +1,51 @@
+<div class="section_header">
+  Мысли, идеи
+  <div class="section_button">
+    <a class="material-icons">add</a>
+  </div>
+</div>
+
+
+<div>
+
+  <table *ngIf="thoughts.length; else noThoughts">
+    <thead>
+    <tr>
+      <th>№</th>
+      <th>Тема для размышления</th>
+      <th>Категория размышлений</th>
+      <th>Описание размышлений</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let thought of thoughts; let i = index">
+      <strong>{{i + 1}}</strong>
+      <td>{{thought.title}}</td>
+      <td>{{thought.category}}</td>
+      <td>{{thought.o_thought}}</td>
+      <button class="btn" (click)="remove(thought, 'thought')">Remove</button>
+    </tr>
+    </tbody>
+  </table>
+
+  <form  (ngSubmit)="submit_T()" [formGroup]="formThoughts">
+    <input type="text" class="input-group" formControlName="title" placeholder="Добавить тему для размышлений">
+    <mat-form-field class="example-full-width">
+      <mat-label>Выбери тему для размышления</mat-label>
+      <label>
+        <input type="text" formControlName="category" matInput [formControl]="myControl_t" [matAutocomplete]="auto2">
+      </label>
+
+      <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn">
+        <mat-option (click)="ttt.isVisible=!ttt.isVisible">Добавить тему для размышления...</mat-option>
+        <mat-option *ngFor="let option of filteredThoughts | async" [value]="option.t_category">
+          {{option.t_category}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+   <input type="text" class="input-group" formControlName="o_thought" placeholder="Добавить мысль">
+    <button
+      type="submit"
+      class="btn btn-block">Добавить</button>
+  </form>
+</div>

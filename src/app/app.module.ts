@@ -21,16 +21,15 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
 
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {DemoMaterialModule} from '../app/material-module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatAutocompleteModule, } from '@angular/material/autocomplete';
 import {MatInputModule } from '@angular/material/input';
 import { AddTCategoryComponent } from './add-t-category/add-t-category.component';
 import { AuthenticatedComponent } from './authenticated/authenticated.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { RegistrationComponent } from './registration/registration.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { MoodComponent } from './main_page/mood/mood.component';
+import { ThoughtsComponent } from './main_page/thoughts/thoughts.component';
 
 
 
@@ -46,9 +45,9 @@ import { LoginPageComponent } from './login-page/login-page.component';
     NavbarComponent,
     AddTCategoryComponent,
     AuthenticatedComponent,
-    SignInComponent,
-    RegistrationComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    MoodComponent,
+    ThoughtsComponent
   ],
   imports: [
     BrowserModule,
