@@ -51,10 +51,7 @@
       </tbody>
     </table>
 
-
-
     <form (ngSubmit)="submit_M()" [formGroup]="formMoods">
-
       <mat-form-field appearance="fill">
         <mat-label>Выбери настроение</mat-label>
         <mat-select [(value)]="selected" formControlName="cur_mood" >

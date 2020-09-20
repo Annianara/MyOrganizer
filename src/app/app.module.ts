@@ -27,6 +27,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatAutocompleteModule, } from '@angular/material/autocomplete';
 import {MatInputModule } from '@angular/material/input';
 import { AddTCategoryComponent } from './add-t-category/add-t-category.component';
+import { AuthenticatedComponent } from './authenticated/authenticated.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 
 
@@ -40,7 +44,11 @@ import { AddTCategoryComponent } from './add-t-category/add-t-category.component
     CalendarComponent,
     ProjectsComponent,
     NavbarComponent,
-    AddTCategoryComponent
+    AddTCategoryComponent,
+    AuthenticatedComponent,
+    SignInComponent,
+    RegistrationComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +65,7 @@ import { AddTCategoryComponent } from './add-t-category/add-t-category.component
     DemoMaterialModule,
     MatFormFieldModule,
     MatAutocompleteModule,
-    MatInputModule
+    MatInputModule,
 
 
   ],

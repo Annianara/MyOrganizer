@@ -1,0 +1,19 @@
+<div class="sign-in-form">
+  <h4>Sign in</h4>
+  <form novalidate (ngSubmit)="onSubmit()" #signInForm = 'ngForm'>
+    <div class="form-group">
+    <input type = "text" autocomplete="off" name="username" required placeholder="User name"
+           ngModel #username = 'ngModel' class="form-control">
+    <div class="alert alert-danger" [hidden]="username.valid || username.pristine">Please enter your name</div>
+    </div>
+    <div class="form-group">
+      <input type = "password" autocomplete="off" name="password" required placeholder="User password"
+             ngModel #password = 'ngModel' class="form-control">
+      <div class="alert alert-danger" [hidden]="password.valid || password.pristine">Password is required</div>
+    </div>
+    <div class = "alert alert-danger" *ngIf="formError">{{formError}}</div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </form>
+</div>

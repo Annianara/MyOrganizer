@@ -107,27 +107,6 @@ export class DatabaseService {
       }))
   }
 
- // load_this_day2(date: moment.Moment, type: String):[{type:String, data: Observable<any[]>}]{
-  load_this_day2(date: moment.Moment, type: String):Observable<Data[]>{
-    let types = ['thoughts','projects','moods']
-    let data:Observable<Data[]>
-    for (let type of types) {
-        data. ({
-         type: type,
-          data:
-          this.http
-            .get<Object[]>(`${DatabaseService.url}${type}/${date.format('DD-MM-YYYY')}.json`)
-            .pipe(map(objects => {
-              if (!objects) {
-                return []
-              }
-              return Object.keys(objects).map(key => ({...objects[key], id: key}))
-            }))
-      })
-    }
-    return data
-  }
-
   load_user_preferences(date: moment.Moment, type: String):Observable<ThoughtCategories[]>
   {
     return this.http
