@@ -10,7 +10,7 @@ import {CalendarComponent} from "./calendar/calendar.component";
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MomentPipe} from "./shared/moment.pipe";
-import { ProjectsComponent } from './projects/projects.component';
+import { AllProjectsComponent } from './all_projects/all-projects.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -30,6 +30,9 @@ import { AuthenticatedComponent } from './authenticated/authenticated.component'
 import { LoginPageComponent } from './login-page/login-page.component';
 import { MoodComponent } from './main_page/mood/mood.component';
 import { ThoughtsComponent } from './main_page/thoughts/thoughts.component';
+import { OthersComponent } from './main_page/others/others.component';
+import {ProjectsComponent} from "./main_page/projects/projects.component";
+
 
 
 
@@ -42,12 +45,14 @@ import { ThoughtsComponent } from './main_page/thoughts/thoughts.component';
     SelectorComponent,
     CalendarComponent,
     ProjectsComponent,
+    AllProjectsComponent,
     NavbarComponent,
     AddTCategoryComponent,
     AuthenticatedComponent,
     LoginPageComponent,
     MoodComponent,
-    ThoughtsComponent
+    ThoughtsComponent,
+    OthersComponent
   ],
   imports: [
     BrowserModule,
@@ -60,11 +65,12 @@ import { ThoughtsComponent } from './main_page/thoughts/thoughts.component';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-
     DemoMaterialModule,
     MatFormFieldModule,
     MatAutocompleteModule,
     MatInputModule,
+
+
 
 
   ],

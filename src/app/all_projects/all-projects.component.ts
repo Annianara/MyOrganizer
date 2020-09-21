@@ -5,11 +5,11 @@ import {DateService} from "../shared/date.service";
 import {Project, ProjectAction, ProjectsAll} from "../shared/intefaces";
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss']
+  selector: 'app-all-projects',
+  templateUrl: './all-projects.component.html',
+  styleUrls: ['./all-projects.component.scss']
 })
-export class ProjectsComponent implements OnInit {
+export class AllProjectsComponent implements OnInit {
   projects: ProjectAction[] = []
   allProjects: ProjectsAll[]
   public isCollapsed = []
@@ -31,11 +31,5 @@ export class ProjectsComponent implements OnInit {
     )
 
   }
-
- /* remove(project: Project) {
-    this.databaseService.remove(project,).subscribe(() => {
-      this.projects = this.projects.filter(t => t.id !== project.id)
-    }, err => console.error(err))
-  }*/
 
 }

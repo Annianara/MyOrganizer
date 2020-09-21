@@ -1,4 +1,7 @@
-<div class="section_header">
+<div class="section">
+
+
+  <div class="section_header">
   Мысли, идеи
   <div class="section_button">
     <a class="material-icons">add</a>
@@ -7,7 +10,6 @@
 
 
 <div>
-
   <table *ngIf="thoughts.length; else noThoughts">
     <thead>
     <tr>
@@ -17,21 +19,31 @@
       <th>Описание размышлений</th>
     </tr>
     </thead>
+
     <tbody>
     <tr *ngFor="let thought of thoughts; let i = index">
       <strong>{{i + 1}}</strong>
       <td>{{thought.title}}</td>
       <td>{{thought.category}}</td>
-      <td>{{thought.o_thought}}</td>
+      <td>{{thought.thought}}</td>
       <button class="btn" (click)="remove(thought, 'thought')">Remove</button>
     </tr>
     </tbody>
+
   </table>
 
-  <form  (ngSubmit)="submit_T()" [formGroup]="formThoughts">
-    <input type="text" class="input-group" formControlName="title" placeholder="Добавить тему для размышлений">
+  <form (ngSubmit)="submit_T()" [formGroup]="formThoughts">
+
+    <label for = "title_t">Тема для размышления:</label>
+    <input type="text" class="input-group" id="title_t" formControlName="title" placeholder="Добавить тему для размышлений">
+    <div *ngIf="formThoughts.get('title').invalid && formThoughts.get('title').touched" class="validation">
+      <small *ngIf="formThoughts.get('title').errors.required">Добавьте мысль</small>
+    </div>
+
+
     <mat-form-field class="example-full-width">
       <mat-label>Выбери тему для размышления</mat-label>
+
       <label>
         <input type="text" formControlName="category" matInput [formControl]="myControl_t" [matAutocomplete]="auto2">
       </label>
@@ -43,9 +55,28 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-   <input type="text" class="input-group" formControlName="o_thought" placeholder="Добавить мысль">
+
+    <label for = "thought">Добавить мысль:</label>
+    <input type="text" class="input-group" id = "thought" formControlName="thought" placeholder="Добавить мысль">
+
+    <div *ngIf="formThoughts.get('thought').invalid && formThoughts.get('thought').touched" class="validation">
+      <small *ngIf="formThoughts.get('thought').errors.required">Добавьте мысль</small>
+    </div>
+
     <button
       type="submit"
-      class="btn btn-block">Добавить</button>
+      class="btn btn-block">Добавить
+    </button>
+
   </form>
+
+  <app-add-t-category #ttt></app-add-t-category>
+
+
+  <ng-template #noThoughts>
+    <p class="text-center">Новых мыслей пока нет...</p>
+  </ng-template>
+
+
+</div>
 </div>

@@ -14,7 +14,7 @@ export interface Thought {
   title: string
   date?: string
   category?: string
-  o_thought?: string
+  thought?: string
 }
 
 export interface Project {

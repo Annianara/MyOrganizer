@@ -32,9 +32,9 @@ export class AddTCategoryComponent implements OnInit {
 
 /*
     this.dateService.date.pipe(
-      switchMap(value => this.databaseService.load_this_day(value, 'projects'))
-    ).subscribe(projects => {
-      this.projects = projects.
+      switchMap(value => this.databaseService.load_this_day(value, 'all_projects'))
+    ).subscribe(all_projects => {
+      this.all_projects = all_projects.
     })
 */
 

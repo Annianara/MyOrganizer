@@ -27,17 +27,6 @@
     </tbody>
   </table>
 
-  <!--
-    <mat-form-field appearance="fill">
-      <mat-label>Выбери настроение</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let one_category of projectCategories" >
-          {{one_category.p_category}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  -->
-
 
   <form class="example-form">
     <mat-form-field class="example-full-width">
@@ -55,23 +44,34 @@
 
 
   <form (ngSubmit)="submit_P()" [formGroup]="formProjects">
-    <input type="text" class="input-group" formControlName="title" placeholder="Добавить название проекта">
-    <input type="text" class="input-group" formControlName="category" placeholder="Добавить категорию проекта">
-    <input type="text" class="input-group" formControlName="action" placeholder="Добавить действие для проекта">
+     <label for = "title">Название проекта:</label>
+    <input type="text" class="input-group" id = "title" formControlName="title" placeholder="Добавить название проекта">
+
+    <div *ngIf="formProjects.get('title').invalid && formProjects.get('title').touched" class="validation">
+      <small *ngIf="formProjects.get('title').errors.required">Введите название проекта</small>
+    </div>
+
+    <label for = "category">Категория проекта:</label>
+    <input type="text" class="input-group" id = "category" formControlName="category" placeholder="Добавить категорию проекта">
+
+    <label for = "action">Действие для проекта:</label>
+    <input type="text" class="input-group" id = "action" formControlName="action" placeholder="Добавить действие для проекта">
+
+    <div *ngIf="formProjects.get('action').invalid && formProjects.get('action').touched" class="validation">
+      <small *ngIf="formProjects.get('action').errors.required">Введите действие для проекта</small>
+    </div>
+
     <button
       type="submit"
       class="btn btn-block"
-    >Add</button>
+    >Добавить</button>
   </form>
 
-
-</div>
-
-<div class = "section">
-  <div class="section_header">
-    Прочее
-    <div class="section_button">
-      <a class="medium material-icons">add</a>
-    </div>
   </div>
-</div>
+
+<ng-template #noProjects>
+  <p class="te  xt-center">Действий по проектам пока нет...</p>
+</ng-template>
+
+
+

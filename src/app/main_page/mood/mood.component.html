@@ -1,45 +1,54 @@
 <div class = "section">
+
   <div class="section_header">
     Настроение за день
     <div class="section_button">
       <a class="medium material-icons section_button">add</a>
     </div>
   </div>
+
   <div>
+
     <table *ngIf="moods.length">
+
       <thead>
-      <tr>
-        <th>№</th>
-        <th>Текущее настроение</th>
-        <th>Дата время </th>
-        <th>Причина</th>
-        <th>Возможные способы исправления</th>
-      </tr>
+        <tr>
+          <th>№</th>
+          <th>Текущее настроение</th>
+          <th>Дата время </th>
+          <th>Причина</th>
+          <th>Возможные способы исправления</th>
+        </tr>
       </thead>
+
       <tbody>
-      <tr *ngFor="let mood of moods; let i = index">
-        <strong>{{i + 1}}</strong>
-        <td>{{mood.cur_mood}}</td>
-        <td>{{mood.date}}</td>
-        <td>{{mood.reason}}</td>
-        <td>{{mood.what_to_do}}</td>
+        <tr *ngFor="let mood of moods; let i = index">
+          <strong>{{i + 1}}</strong>
+          <td>{{mood.cur_mood}}</td>
+          <td>{{mood.date}}</td>
+          <td>{{mood.reason}}</td>
+          <td>{{mood.what_to_do}}</td>
         <button class="btn" (click)="remove(mood, 'mood')">Удалить</button>
-      </tr>
+        </tr>
       </tbody>
+
     </table>
 
     <form (ngSubmit)="submit_M()" [formGroup]="formMoods">
       <mat-form-field appearance="fill">
         <mat-label>Выбери настроение</mat-label>
         <mat-select [(value)]="selected" formControlName="cur_mood" >
-          <mat-option *ngFor="let one_mood of categories_moods" [value]="one_mood.mood" >
+          <mat-option *ngFor="let one_mood of categories_moods" [value]="one_mood.mood">
             {{one_mood.mood}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <!--      <input type="text" class="input-group" formControlName="cur_mood" placeholder="Добавить настроение">-->
-      <input type="text" class="input-group" formControlName="reason" placeholder="Добавить причину настроения">
-      <input type="text" class="input-group" formControlName="what_to_do" placeholder="Действия для предотвращения ситуации">
+      <label for = "reason">Добавить причину настроения:</label>
+      <input type="text" class="input-group" id = "reason" formControlName="reason" placeholder="Добавить причину настроения">
+
+      <label for = "what_to_do">Что можно сделать:</label>
+      <input type="text" class="input-group" id = "what_to_do" formControlName="what_to_do" placeholder="Действия в данной ситуации">
       <button
         type="submit"
         class="btn btn-block"
