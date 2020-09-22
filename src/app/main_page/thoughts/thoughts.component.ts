@@ -5,7 +5,8 @@ import {Observable} from "rxjs";
 import {CATEGORIES_THOUGHTS} from "../../shared/select_options";
 import {map, startWith, switchMap} from "rxjs/operators";
 import {DateService} from "../../shared/date.service";
-import {DatabaseService} from "../../shared/database.service";
+//import {DatabaseService} from "../../shared/database.service";
+import {DatabaseService} from "../../shared/database_authentication.servise"
 
 @Component({
   selector: 'app-thoughts',
@@ -35,7 +36,7 @@ export class ThoughtsComponent implements OnInit {
     let types = ['thoughts', 'projects', 'moods']
     for (let type of types) {
       let obs = this.dateService.date.pipe(
-        switchMap(value => this.databaseService.load_this_day(value, type)
+        switchMap(value => this.databaseService.load_this_day(value, 'thoughts')
         ))
           obs.subscribe(thoughts => {this.thoughts = thoughts})
     }
@@ -67,8 +68,9 @@ export class ThoughtsComponent implements OnInit {
       thought
     }
 
-    this.databaseService.createT(one_thought).subscribe(thought => {
-      this.thoughts.push(thought)
+  //  this.databaseService.createT(one_thought).subscribe(thought => {
+    this.databaseService.create(one_thought, 'thoughts').subscribe(thought => {
+      this.thoughts.push(<Thought>thought)
       this.formThoughts.reset()
     }, err => console.error(err))
   }

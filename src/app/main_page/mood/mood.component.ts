@@ -4,7 +4,9 @@ import {Mood, ProjectAction, Thought} from "../../shared/intefaces";
 import {CATEGORIES_MOODS} from "../../shared/select_options";
 import {switchMap} from "rxjs/operators";
 import {DateService} from "../../shared/date.service";
-import {DatabaseService, Types} from "../../shared/database.service";
+//import {DatabaseService, Types} from "../../shared/database.service";
+import {DatabaseService} from "../../shared/database_authentication.servise"
+
 
 @Component({
   selector: 'app-mood',
@@ -25,12 +27,13 @@ export class MoodComponent implements OnInit {
     let types = ['thoughts', 'projects', 'moods']
     for (let type of types) {
       let obs = this.dateService.date.pipe(
-        switchMap(value => this.databaseService.load_this_day(value, type)
+        switchMap(value => this.databaseService.load_this_day(value, 'moods')
         ))
           obs.subscribe(moods => {this.moods = moods})
       }
 
-    this.formMoods = new FormGroup({cur_mood: new FormControl('', Validators.required), reason: new FormControl(''), what_to_do: new FormControl(''),})
+    this.formMoods = new FormGroup({cur_mood: new FormControl('', Validators.required),
+      reason: new FormControl(''), what_to_do: new FormControl(''),})
 
   }
 
@@ -43,10 +46,15 @@ export class MoodComponent implements OnInit {
       what_to_do
     }
 
-    this.databaseService.createM(mood, Types.mood).subscribe(mood => {
-      this.moods.push(mood)
+    // this.databaseService.createM(mood, Types.mood).subscribe(mood => {
+    //   this.moods.push(mood)
+    //   this.formMoods.reset()
+    // }, err => console.error(err))
+    this.databaseService.create(mood, 'moods').subscribe(mood => {
+      this.moods.push(<Mood>mood)
       this.formMoods.reset()
     }, err => console.error(err))
+
   }
 
   remove(object: ProjectAction | Thought | Mood, type: String) {

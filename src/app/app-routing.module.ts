@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {Main_pageComponent} from './main_page/main_page.component';
 import {LoginPageComponent} from "./login-page/login-page.component";
 import {AllProjectsComponent} from "./all_projects/all-projects.component";
-import {AuthGuard} from "./shared/auth.guard";
+import {AuthGuard} from "./auth/auth.guard";
 
 
 

@@ -5,7 +5,8 @@ import {Observable} from "rxjs";
 import {CATEGORIES_PROJECTS} from "../../shared/select_options";
 import {map, startWith, switchMap} from "rxjs/operators";
 import {DateService} from "../../shared/date.service";
-import {DatabaseService} from "../../shared/database.service";
+//import {DatabaseService} from "../../shared/database.service";
+import {DatabaseService} from "../../shared/database_authentication.servise"
 
 @Component({
   selector: 'app-projects',
@@ -60,8 +61,9 @@ export class ProjectsComponent implements OnInit {
       action
     }
 
-    this.databaseService.createP(project).subscribe(project => {
-      this.projects.push(project)
+  //  this.databaseService.createP(project).subscribe(project => {
+      this.databaseService.create(project, 'projects').subscribe( project => {
+      this.projects.push(<ProjectAction>project)
       this.formProjects.reset()
     }, err => console.error(err))
 

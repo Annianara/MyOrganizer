@@ -7,7 +7,7 @@ import { Main_pageComponent } from './main_page/main_page.component';
 import {SelectorComponent} from "./selector/selector.component";
 import {CalendarComponent} from "./calendar/calendar.component";
 
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MomentPipe} from "./shared/moment.pipe";
 import { AllProjectsComponent } from './all_projects/all-projects.component';
@@ -32,6 +32,7 @@ import { MoodComponent } from './main_page/mood/mood.component';
 import { ThoughtsComponent } from './main_page/thoughts/thoughts.component';
 import { OthersComponent } from './main_page/others/others.component';
 import {ProjectsComponent} from "./main_page/projects/projects.component";
+import {AuthInterceptor} from "./auth/auth.interseptor";
 
 
 
@@ -74,7 +75,13 @@ import {ProjectsComponent} from "./main_page/projects/projects.component";
 
 
   ],
-  providers: [],
+  providers:  [
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: AuthInterceptor
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
