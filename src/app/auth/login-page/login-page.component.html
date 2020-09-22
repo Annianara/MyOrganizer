@@ -1,16 +1,18 @@
+<div class = "row">
+<!--  <div class = "col-xs-12 col-md-6 col-md-offset-3">-->
 <form [formGroup]="form"(ngSubmit)="submit()">
   <h2>Login as administrator</h2>
-  <div class = "form-control">
+  <div class = "form-group">
     <label for = "email">Email</label>
-    <input id = "email" type="text" formControlName="email">
+    <input  class = "form-control" id = "email" type="text" formControlName="email">
     <div *ngIf="form.get('email').touched && form.get('email').invalid" class="validation">
       <small *ngIf="form.get('email').errors.required">Enter email</small>
       <small *ngIf="form.get('email').errors.email">Enter valid email</small>
     </div>
   </div>
-  <div class = "form-control">
+  <div class = "form-group">
     <label for = "password">Password</label>
-    <input id = "password" type="password" formControlName="password">
+    <input class="form-control" id = "password" type="password" formControlName="password">
     <div *ngIf="form.get('password').touched && form.get('password').invalid" class="validation">
       <small *ngIf="form.get('password').errors.required">Enter password</small>
       <small *ngIf="form.get('password').errors.email">Enter valid password</small>
@@ -20,6 +22,10 @@
       </small>
     </div>
   </div>
-
-  <button type="submit" class="btn btn-primary btn-block" [disabled]="form.invalid || submitted">Logon</button>
+  <div>
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid || submitted">{{ isLoginMode? 'Login': 'Sign Up'}}</button>
+  <button class="btn btn-primary" (click)="onSwitchMode()">Switch to {{isLoginMode? 'Sign Up': 'Login'}}</button>
+  </div>
 </form>
+</div>
+<!--</div>-->

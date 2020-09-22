@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Main_pageComponent } from './main_page/main_page.component';
-import {SelectorComponent} from "./selector/selector.component";
-import {CalendarComponent} from "./calendar/calendar.component";
+import {SelectorComponent} from "./main_page/selector/selector.component";
+import {CalendarComponent} from "./main_page/calendar/calendar.component";
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -27,12 +27,13 @@ import {MatAutocompleteModule, } from '@angular/material/autocomplete';
 import {MatInputModule } from '@angular/material/input';
 import { AddTCategoryComponent } from './add-t-category/add-t-category.component';
 import { AuthenticatedComponent } from './authenticated/authenticated.component';
-import { LoginPageComponent } from './login-page/login-page.component';
+import { LoginPageComponent } from './auth/login-page/login-page.component';
 import { MoodComponent } from './main_page/mood/mood.component';
 import { ThoughtsComponent } from './main_page/thoughts/thoughts.component';
 import { OthersComponent } from './main_page/others/others.component';
 import {ProjectsComponent} from "./main_page/projects/projects.component";
 import {AuthInterceptor} from "./auth/auth.interseptor";
+import { AuthComponent } from './auth/auth.component';
 
 
 
@@ -53,7 +54,8 @@ import {AuthInterceptor} from "./auth/auth.interseptor";
     LoginPageComponent,
     MoodComponent,
     ThoughtsComponent,
-    OthersComponent
+    OthersComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

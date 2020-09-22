@@ -2,15 +2,27 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
+import {Subject} from "rxjs";
+import {User} from "./user.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+  user = new Subject<User>()
 
   constructor(private http: HttpClient) { }
 
+  signup(email:string, password: string)
+  {
+    return this.http
+      .post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`,User)
+    // {
+    //   email: email,
+    //     password,
+    //
+    // }
+  }
   login( User ) {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, User)
       .pipe(

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../auth/auth.service";
+import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
+  isLoginMode = true;
   form: FormGroup
   submitted = false
 
@@ -22,6 +23,10 @@ export class LoginPageComponent implements OnInit {
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     })
+  }
+
+  onSwitchMode(){
+    this.isLoginMode = !this.isLoginMode;
   }
 
   submit()
