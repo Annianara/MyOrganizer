@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../auth.service";
+import {AuthResponseData, AuthService} from "../auth.service";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login-page',
@@ -10,8 +11,11 @@ import {Router} from "@angular/router";
 })
 export class LoginPageComponent implements OnInit {
   isLoginMode = true;
-  form: FormGroup
-  submitted = false
+  isLoading = false;
+  error: string  = null
+
+  form: FormGroup;
+  submitted = false;
 
   constructor(
     public auth: AuthService,
@@ -29,10 +33,8 @@ export class LoginPageComponent implements OnInit {
     this.isLoginMode = !this.isLoginMode;
   }
 
-  submit()
-  {
-    if(this.form.invalid)
-    {
+  submit() {
+    if (this.form.invalid) {
       return;
     }
 
@@ -44,15 +46,39 @@ export class LoginPageComponent implements OnInit {
       returnSecureToken: true
     }
 
-     this.auth.login(user).subscribe(res =>
-    { console.log(res)
-      this.form.reset
-      this.router.navigate(['main_page'])
+    this.auth.signUp(user).subscribe(resData=>{
+      console.log(resData)
+    }, error => {
+      console.log(error)
+    })
+
+    let authObs: Observable<AuthResponseData>
+
+    this.isLoading = true
+
+    if (this.isLoginMode) {
+     authObs =  this.auth.login(user)
+    } else {
+      authObs =  this.auth.signUp(user)
+      }
+
+
+    authObs.subscribe(  res=> {
+      console.log(res)
+    this.isLoading = false
+        this.router.navigate(['main_page'])
+    this.submitted = false
+  },
+  errorMessage => {
+  console.log(errorMessage)
+  this.error = errorMessage
+  this.isLoading = false
+}), () => {
       this.submitted = false
     }
-    ), ()=>{
-      this.submitted = false
-    }
+
+
+    this.form.reset()
   }
 
 

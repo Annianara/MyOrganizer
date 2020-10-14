@@ -13,7 +13,6 @@ import {MomentPipe} from "./shared/moment.pipe";
 import { AllProjectsComponent } from './all_projects/all-projects.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -25,15 +24,14 @@ import {DemoMaterialModule} from '../app/material-module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatAutocompleteModule, } from '@angular/material/autocomplete';
 import {MatInputModule } from '@angular/material/input';
-import { AddTCategoryComponent } from './add-t-category/add-t-category.component';
-import { AuthenticatedComponent } from './authenticated/authenticated.component';
+import { AddTCategoryComponent } from './main_page/add-t-category/add-t-category.component';
 import { LoginPageComponent } from './auth/login-page/login-page.component';
 import { MoodComponent } from './main_page/mood/mood.component';
 import { ThoughtsComponent } from './main_page/thoughts/thoughts.component';
 import { OthersComponent } from './main_page/others/others.component';
 import {ProjectsComponent} from "./main_page/projects/projects.component";
 import {AuthInterceptor} from "./auth/auth.interseptor";
-import { AuthComponent } from './auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 
 
@@ -48,14 +46,12 @@ import { AuthComponent } from './auth/auth.component';
     CalendarComponent,
     ProjectsComponent,
     AllProjectsComponent,
-    NavbarComponent,
     AddTCategoryComponent,
-    AuthenticatedComponent,
     LoginPageComponent,
     MoodComponent,
     ThoughtsComponent,
     OthersComponent,
-    AuthComponent
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Thought, ThoughtCategories} from "../shared/intefaces";
-import {DatabaseService} from "../shared/database.service";
+import {Thought, ThoughtCategories} from "../../shared/intefaces";
+import {DatabaseService} from "../../shared/database.service";
 import {switchMap} from "rxjs/operators";
-import {DateService} from "../shared/date.service";
+import {DateService} from "../../shared/date.service";
 
 @Component({
   selector: 'app-add-t-category',

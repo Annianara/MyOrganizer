@@ -1,4 +1,38 @@
 
+<nav class = "navbar navbar-dark bg-dark">
+  <ul *ngIf="auth.isAuthenticated();else login" class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="">Главная</a>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Календарь</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="projects">Проекты</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link">Статистика</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" (click)="logout($event)">Выйти</a>
+    </li>
+  </ul>
+
+  <ng-template #login class = "navbar-nav">
+    <ul>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="login">Войти</a>
+      </li>
+    </ul>
+  </ng-template>
+
+
+
+  <!--<a link="all_projects" class="nav-link"  >Календарь</a>-->
+  <!--<a routerLink="all_projects" class="nav-link" (click)="show_projects()">Проекты</a>-->
+  <!--<a link ="#"  class="nav-link" (click)="statistics()">Статистика</a>-->
+</nav>
+
+
 
 <router-outlet></router-outlet>
 
