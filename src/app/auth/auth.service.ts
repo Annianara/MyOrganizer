@@ -5,6 +5,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {Subject} from "rxjs";
 import {User} from "./user.model";
 import {throwError} from "rxjs";
+import {Router} from "@angular/router";
 
 export interface AuthResponseData{
   kind: string;
@@ -21,8 +22,9 @@ export interface AuthResponseData{
 })
 export class AuthService {
   user = new Subject<User>();
+  private tokenExpirationTimer: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   signUp(User) {
     return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, User)
@@ -69,6 +71,8 @@ export class AuthService {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate )
     this.user.next(user);
+    this.autoLogout(expiresIn * 1000)
+    // localStorage.setItem('userData', JSON.stringify(user)) //если я буду хранить все юзер данные в локалсторадже
   }
 
   private setToken (response) {
@@ -82,20 +86,33 @@ export class AuthService {
   }
 
   get token () {
-    const expDate = new Date(localStorage.getItem('fb-token-exp'))
+    const expDate = new Date(new Date(localStorage.getItem('fb-token-exp')).getTime())
     if ( new Date > expDate ) {
       this.logout()
       return null
     }
+    else
+    {
+      const expirationDuration =
+        new Date(localStorage.getItem('fb-token-exp')).getTime() -
+        new Date().getTime();
+      this.autoLogout(expirationDuration);
+    }
     return localStorage.getItem('fb-token')
   }
 
-  autoLogin()
+  autoLogout(expirationDuration: number)
   {
-    const token = localStorage.getItem('fb-token')
-
+    this.tokenExpirationTimer = setTimeout(()=>this.logout(), expirationDuration)
   }
   logout() {
+    if(this.tokenExpirationTimer)
+    {
+      clearTimeout(this.tokenExpirationTimer)
+      // console.log("tokenExpiration:" + this.tokenExpirationTimer)
+      this.router.navigate(['login'])
+    }
+    this.tokenExpirationTimer = null
     this.setToken(null)
   }
 

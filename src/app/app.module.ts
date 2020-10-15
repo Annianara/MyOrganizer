@@ -32,6 +32,7 @@ import { OthersComponent } from './main_page/others/others.component';
 import {ProjectsComponent} from "./main_page/projects/projects.component";
 import {AuthInterceptor} from "./auth/auth.interseptor";
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -52,6 +53,7 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     ThoughtsComponent,
     OthersComponent,
     LoadingSpinnerComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

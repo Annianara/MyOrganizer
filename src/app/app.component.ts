@@ -8,30 +8,21 @@ import {Subscription} from "rxjs";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy{
+export class AppComponent implements OnInit{//, OnDestroy{
   title = 'MyOrganizer';
-  isAuthenticated = false
-  private userSub: Subscription
+  // isAuthenticated = false
+  // private userSub: Subscription
 
-  constructor(public auth: AuthService,
-              private router: Router) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.auth.user.subscribe(user=>{
-        this.isAuthenticated = !!user
-    })
+    // this.auth.user.subscribe(user=>{
+    //     this.isAuthenticated = !!user
+    // })
               }
 
-  logout($event)
-  {
-    $event.preventDefault()
-    this.auth.logout()
-    this.router.navigate(['login'])
-
-  }
-
-  ngOnDestroy(): void {
-    this.userSub.unsubscribe()
-  }
+  // ngOnDestroy(): void {
+  //   this.userSub.unsubscribe()
+  // }
 }

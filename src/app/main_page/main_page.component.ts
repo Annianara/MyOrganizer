@@ -9,7 +9,7 @@ import {MatDatepicker, MatDatepickerInputEvent} from "@angular/material/datepick
 import {Observable} from "rxjs";
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-main_page',
   templateUrl: './main_page.html',
   styleUrls: ['./main_page.component.scss']
 })
