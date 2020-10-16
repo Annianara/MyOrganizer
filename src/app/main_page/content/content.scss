@@ -5,6 +5,7 @@
   padding: .5rem 1rem;
 }*/
 
+
 .mat-h3, .mat-subheading-2, .mat-typography h3 {
   font-family: 'Roboto', sans-serif;
 }
@@ -34,7 +35,10 @@
 {
   margin: auto;
   color: black;
-  background-color: #ca583a;
+  //background-color: #ca583a;
+  //background-color: rgba(245,59,186,0.41);
+  background-color: rgba(245,136,149,0.41);
+
   border-radius: 5px;
   min-height: 30px;
   padding-left: 50%;
@@ -102,7 +106,12 @@
 {
   padding: 1rem;
   border-radius: inherit;
-  background: #ca583a;
+  //background: #ca583a;
+
+  //background-color: rgba(255,96,189,0.41);
+  //background-color: rgba(233, 146, 206, 0.1);
+
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -129,7 +138,8 @@ table {
 }
 th {
   text-align: left; /* Выравнивание по левому краю */
-  background: #ca583a; /* Цвет фона ячеек */
+  //background: #ca583a; /* Цвет фона ячеек */
+  background-color: rgba(245,59,186,0.41);
   padding: 5px; /* Поля вокруг содержимого ячеек */
   border: 1px solid white; /* Граница вокруг ячеек */
 }
@@ -141,12 +151,16 @@ td {
 
 
 button{
-  background: #ca583a;
+  //background: #ca583a;
+  //background-color: rgba(245,59,186,0.41);
+
+  background-color: rgb(229,207,220)
 }
 
 .btn:hover
 {
-  background-color: rgba(202, 88, 58, 0.75);
+  //background-color: rgba(202, 88, 58, 0.75);
+  background-color: rgba(245,59,186,0.75);
 }
 
 /*
@@ -161,7 +175,7 @@ a
 }
 a:hover
 {
-  color: #343a40;
+  background-color: rgba(245,59,186,0.41);
 }
 
 

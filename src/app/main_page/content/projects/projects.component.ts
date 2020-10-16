@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Mood, ProjectAction, ProjectCategories, Thought} from "../../shared/intefaces";
+import {Mood, ProjectAction, ProjectCategories, Thought} from "../../../shared/intefaces";
 import {Observable} from "rxjs";
-import {CATEGORIES_PROJECTS} from "../../shared/select_options";
+import {CATEGORIES_PROJECTS} from "../../../shared/select_options";
 import {map, startWith, switchMap} from "rxjs/operators";
-import {DateService} from "../../shared/date.service";
+import {DateService} from "../../../shared/date.service";
 //import {DatabaseService} from "../../shared/database.service";
-import {DatabaseService} from "../../shared/database_authentication.servise"
+import {DatabaseService} from "../../../shared/database_authentication.servise"
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss']
+  styleUrls: ['./projects.component.scss', '../content.scss']
 })
 export class ProjectsComponent implements OnInit {
 

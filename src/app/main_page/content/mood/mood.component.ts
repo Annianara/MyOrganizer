@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Mood, ProjectAction, Thought} from "../../shared/intefaces";
-import {CATEGORIES_MOODS} from "../../shared/select_options";
+import {Mood, ProjectAction, Thought} from "../../../shared/intefaces";
+import {CATEGORIES_MOODS} from "../../../shared/select_options";
 import {switchMap} from "rxjs/operators";
-import {DateService} from "../../shared/date.service";
+import {DateService} from "../../../shared/date.service";
 //import {DatabaseService, Types} from "../../shared/database.service";
-import {DatabaseService} from "../../shared/database_authentication.servise"
+import {DatabaseService} from "../../../shared/database_authentication.servise"
 
 
 @Component({
   selector: 'app-mood',
   templateUrl: './mood.component.html',
-  styleUrls: ['./mood.component.scss']
+  styleUrls: ['./mood.component.scss', '../content.scss']
 })
 export class MoodComponent implements OnInit {
   formMoods: FormGroup

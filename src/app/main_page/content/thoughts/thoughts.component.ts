@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Mood, ProjectAction, Thought, ThoughtCategories} from "../../shared/intefaces";
+import {Mood, ProjectAction, Thought, ThoughtCategories} from "../../../shared/intefaces";
 import {Observable} from "rxjs";
-import {CATEGORIES_THOUGHTS} from "../../shared/select_options";
+import {CATEGORIES_THOUGHTS} from "../../../shared/select_options";
 import {map, startWith, switchMap} from "rxjs/operators";
-import {DateService} from "../../shared/date.service";
+import {DateService} from "../../../shared/date.service";
 //import {DatabaseService} from "../../shared/database.service";
-import {DatabaseService} from "../../shared/database_authentication.servise"
+import {DatabaseService} from "../../../shared/database_authentication.servise"
 
 @Component({
   selector: 'app-thoughts',
   templateUrl: './thoughts.component.html',
-  styleUrls: ['./thoughts.component.scss']
+  styleUrls: ['./thoughts.component.scss', '../content.scss']
 })
 export class ThoughtsComponent implements OnInit {
   formThoughts: FormGroup

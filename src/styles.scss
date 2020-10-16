@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 *{
   font-family: 'Source Sans Pro', sans-serif;
-
 }
 
 body {
@@ -11,14 +10,8 @@ body {
   text-align: left;
   //background-color: #fff;
   overflow-x: scroll;
-  /*background-image: url("sources/background27.png"); */
-  //background-image: url("sources/bg-dark-4784.jpg");
-  //background-color: #C67D53;
   background-image: url("sources/18449077.jpg");
-
 }
-//html, body { height: 100%;  }
-//body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 :root {
@@ -55,8 +48,5 @@ html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
-}
-*, ::after, ::before {
-  box-sizing: border-box;
 }
 
