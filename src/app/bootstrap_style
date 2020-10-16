@@ -2,7 +2,7 @@
 element.style {
 }
 .bg-light {
-  background-color: #f8f9fa!important;
+  //background-color: #f8f9fa!important;
 }
 
 body {
@@ -19,7 +19,7 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #fff;
+
 }
 *, ::after, ::before {
   box-sizing: border-box;

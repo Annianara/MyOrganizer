@@ -1,8 +1,18 @@
-form{
+#login{
   max-width: 600px;
-  margin: 0 auto;
+  min-width: 400px;
+  //margin: 0 auto;
+  position: absolute;
+  top:36%;
+  left: 37%;
 }
-
+.spinner{
+  top: 38%;
+  left: 38%;
+}
 .btn{
   margin-right: .4rem;
+  background-color: rgba(245,59,186,0.41);
+  border: none;
 }
+

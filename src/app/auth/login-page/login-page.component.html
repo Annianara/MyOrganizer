@@ -1,13 +1,15 @@
-<div class = "row">
- <div class = "col-xs-12 col-md-6 col-md-offset-3">
-  <div class="alert alert-danger  text-center" *ngIf="error">
+<!--<div class = "row">-->
+<!-- <div class = "col-xs-12 col-md-6 col-md-offset-3 mx-auto">-->
+  <div class="alert alert-danger text-center" *ngIf="error">
     <p>{{error}}</p>
   </div>
-  <div class="text-center"*ngIf="isLoading">
-    <app-loading-spinner ></app-loading-spinner>
+
+<div id = "login">
+  <div class="text-center spinner"*ngIf="isLoading">
+    <app-loading-spinner></app-loading-spinner>
   </div>
-<form [formGroup]="form"(ngSubmit)="submit()" *ngIf="!isLoading">
-  <h2>Login as administrator</h2>
+
+<form class="form text-center" [formGroup]="form"(ngSubmit)="submit()" *ngIf="!isLoading">
   <div class = "form-group">
     <label for = "email">Email</label>
     <input  class = "form-control" id = "email" type="text" formControlName="email">
@@ -36,4 +38,6 @@
   </div>
 </form>
 </div>
-</div>
+<!--   </div>-->
+<!--</div>-->
+

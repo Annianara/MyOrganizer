@@ -4,15 +4,7 @@
  // display: block;
   padding: .5rem 1rem;
 }*/
-body{
-  color: white;
-  //    font-family: 'Roboto', sans-serif;
-  font-size: 1rem;
-  line-height: 1.6;
-  background: #fff;
-  color: #cccccc;
 
-}
 
 .mat-h3, .mat-subheading-2, .mat-typography h3 {
   font-family: 'Roboto', sans-serif;
@@ -21,7 +13,7 @@ body{
 .choose_date
 {
   height: 50px;
-  background: white;
+  //background: white;
   display:flex;
   flex-direction: row;
   justify-content: center;
@@ -81,13 +73,13 @@ body{
   border-radius: 5px;
 
   //background: rgba(114,106,83,0.44);
-  background: rgba(255, 255, 255, 0.78);
+  //background: rgba(255, 255, 255, 0.78);
 
 
   margin: 1rem;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 
-  max-width: 750px;
+  //max-width: 750px;
   margin-left: auto;
   margin-right: auto;
 }

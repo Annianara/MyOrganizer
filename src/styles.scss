@@ -7,14 +7,18 @@
 body {
   margin: 0;
   font-size: 1.5rem;
-  color: white;
+  //color: white;
   text-align: left;
-  background-color: #fff;
+  //background-color: #fff;
   overflow-x: scroll;
   /*background-image: url("sources/background27.png"); */
-  background-image: url("sources/bg-dark-4784.jpg");
+  //background-image: url("sources/bg-dark-4784.jpg");
+  //background-color: #C67D53;
+  background-image: url("sources/18449077.jpg");
 
 }
+//html, body { height: 100%;  }
+//body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 :root {
@@ -56,5 +60,3 @@ html {
   box-sizing: border-box;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

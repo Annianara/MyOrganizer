@@ -15,8 +15,6 @@ import {Observable} from "rxjs";
 })
 export class Main_pageComponent implements OnInit {
 
-
-
   select(day: MatDatepickerInputEvent<Date>) {
     this.dateService.changeDate2(day.value)
   }
