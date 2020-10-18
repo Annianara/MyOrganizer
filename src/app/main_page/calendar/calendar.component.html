@@ -1,30 +1,9 @@
-<table>
-  <thead>
-  <tr>
-    <th>Sun</th>
-    <th>Mon</th>
-    <th>Tue</th>
-    <th>Wen</th>
-    <th>Thu</th>
-    <th>Fri</th>
-    <th>Sat</th>
-  </tr>
-  </thead>
 
-  <tbody>
-  <tr *ngFor="let week of calendar">
-    <td
-      *ngFor="let day of week.days"
-      [class.disabled]="day.disabled"
-      (click)="select(day.value)"
-    >
-      <span
-        [class.selected]="day.selected"
-        [class.active]="day.active"
-      >
-        {{ day.value | moment:'ddd DD' }}
-      </span>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div class="date_input text-center datepicker">
+  <mat-form-field class="date_input" color="accent">
+    <mat-label class="date_input">Выбрать другую дату</mat-label>
+    <input class="date_input" matInput [matDatepicker]="picker1"  (dateInput)="select($event)" (dateChange)="select($event)">
+    <mat-datepicker-toggle class="date_input" matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker class="date_input" #picker1></mat-datepicker>
+  </mat-form-field>
+</div>

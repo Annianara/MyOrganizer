@@ -11,7 +11,7 @@ import {DatabaseService} from "../../../shared/database_authentication.servise"
 @Component({
   selector: 'app-mood',
   templateUrl: './mood.component.html',
-  styleUrls: ['./mood.component.scss', '../content.scss']
+  styleUrls: ['./mood.component.scss', '../blocks.scss']
 })
 export class MoodComponent implements OnInit {
   formMoods: FormGroup

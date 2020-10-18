@@ -1,74 +1,7 @@
 
-
-/*.nav-link {
- // display: block;
-  padding: .5rem 1rem;
-}*/
-
-
-.mat-h3, .mat-subheading-2, .mat-typography h3 {
-  font-family: 'Roboto', sans-serif;
-}
-
-.choose_date
-{
-  height: 50px;
-  //background: white;
-  display:flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-/*
-.date_input
-{
-  height: 20px;
-  padding-right: 20rem;
-}
-*/
-
-.mat-form-field-appearance-fill .mat-form-field-flex {
-  border-radius: 4px 4px 0 0;
-  padding: .75em .75em 0 46.75em;
-}
-.card-header-tabs
-{
-  margin: auto;
-  color: black;
-  //background-color: #ca583a;
-  //background-color: rgba(245,59,186,0.41);
-  background-color: rgba(245,136,149,0.41);
-
-  border-radius: 5px;
-  min-height: 30px;
-  padding-left: 50%;
-}
-
-.navbar-nav
-{
-  display:flex;
-  flex-direction: row;
-}
-
-.nav-scroller {
-  position: relative;
-  z-index: 2;
-  height: 3rem;
-  overflow-y: hidden;
-  padding: .5rem;
-}
-
-.navbar-nav .nav-link {
-  padding-right: 5px;
-  padding-left: 5px;
-}
-
-
-
 .shadow-sm {
   box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
 }
-
 
 .section
 {
@@ -85,15 +18,18 @@
   //max-width: 750px;
   margin-left: auto;
   margin-right: auto;
+
+  display: flex;
+  flex-direction: column;
 }
 
-.text-center
-{
-  text-align: center;
-  color: white;
-  font-weight: lighter;
-  font-size: 1.4rem;
-}
+//.text-center
+//{
+//  text-align: center;
+//  color: white;
+//  font-weight: lighter;
+//  font-size: 1.4rem;
+//}
 
 .section_button
 {
@@ -104,7 +40,9 @@
 
 .section_header
 {
-  padding: 1rem;
+
+  padding-top: 1.3rem;
+  padding-bottom: 1rem;
   border-radius: inherit;
   //background: #ca583a;
 
@@ -115,12 +53,54 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-;
+
 }
+
+.section_body
+{
+  flex: 1;
+  //margin-top: 1rem;
+  //padding-bottom: 0;
+  //margin-bottom: 0;
+  //height: 90%;
+  //position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+form{
+  flex:1;
+  display: flex;
+
+  flex-direction: column;
+
+  position: relative;
+  //height: 100%;
+  //position: relative;
+  //bottom: 0;
+  //top: 0;
+  //left: 0;
+  //right: 0;
+}
+//.form{
+//
+//  //position: absolute;
+//  //bottom: 0;
+//  //top: 3rem;
+//  //left: 0;
+//  //right: 0;
+//}
 
 .footer
 {
-  margin: 8rem 2rem;
+  position: absolute;
+  bottom: 0;
+  //margin-bottom: 0;
+  //position:absolute;
+  //top:100%;
+  //bottom: 0;
+  //margin-top: 13.5%;
+  //margin: 8rem 2rem;
   //margin-top: auto;
   //bottom: 5px;
   //padding-bottom: 1rem;
@@ -128,10 +108,10 @@
 }
 
 table {
-  margin-top: 10%;
+  //margin-top: 10%;
   margin-left: auto;
   margin-right: auto;
-  width: 60%; /* Ширина таблицы */
+  width: 97%; /* Ширина таблицы */
   border: 4px  white; /* Рамка вокруг таблицы */
   border-radius: 20px;
   border-collapse: collapse; /* Отображать только одинарные линии */
@@ -139,7 +119,7 @@ table {
 th {
   text-align: left; /* Выравнивание по левому краю */
   //background: #ca583a; /* Цвет фона ячеек */
-  background-color: rgba(245,59,186,0.41);
+  background-color: rgba(119,45,91,0.41);
   padding: 5px; /* Поля вокруг содержимого ячеек */
   border: 1px solid white; /* Граница вокруг ячеек */
 }
@@ -148,7 +128,12 @@ td {
   border: 1px solid white; /* Граница вокруг ячеек */
   color: white;
 }
+.btn_add{
+ width: 102.75%;
+  margin-left: -1.25rem;
 
+
+ }
 
 button{
   //background: #ca583a;
@@ -160,9 +145,13 @@ button{
 .btn:hover
 {
   //background-color: rgba(202, 88, 58, 0.75);
-  background-color: rgba(245,59,186,0.75);
+  background-color: rgba(119,45,91,0.41);
 }
 
+mat-form-field
+{
+    width: 100%;
+}
 /*
 .material-icons
 {

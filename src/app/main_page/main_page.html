@@ -1,18 +1,8 @@
-<!--<script src="../all_projects/all-projects.component.ts"></script>-->
-<!--<app-navbar></app-navbar>-->
-
 <h3 class="card-header-tabs">Главная страница</h3>
 
 <div class="choose_date">
-<app-selector></app-selector>
-  <div class="date_input">
-  <mat-form-field class="date_input"  color="accent" appearance="fill">
-    <mat-label class="date_input">Выберите другую дату</mat-label>
-    <input class="date_input" matInput [matDatepicker]="picker1"  (dateInput)="select($event)" (dateChange)="select($event)">
-    <mat-datepicker-toggle class="date_input" matSuffix [for]="picker1"></mat-datepicker-toggle>
-    <mat-datepicker class="date_input" #picker1></mat-datepicker>
-  </mat-form-field>
-  </div>
+  <app-selector></app-selector>
+  <app-calendar></app-calendar>
 </div>
 
 <div class="container">
@@ -21,10 +11,3 @@
 <app-projects></app-projects>
 <app-others></app-others>
 </div>
-
-<section>
-  <header>
-    Organizer: <strong>{{dateService.date | async | moment:'DD.MM.YYYY'}}</strong>
-    <hr />
-  </header>
-</section>

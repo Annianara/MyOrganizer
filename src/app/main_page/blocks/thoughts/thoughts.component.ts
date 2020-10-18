@@ -11,7 +11,7 @@ import {DatabaseService} from "../../../shared/database_authentication.servise"
 @Component({
   selector: 'app-thoughts',
   templateUrl: './thoughts.component.html',
-  styleUrls: ['./thoughts.component.scss', '../content.scss']
+  styleUrls: ['./thoughts.component.scss', '../blocks.scss']
 })
 export class ThoughtsComponent implements OnInit {
   formThoughts: FormGroup

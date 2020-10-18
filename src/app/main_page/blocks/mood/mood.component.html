@@ -1,4 +1,4 @@
-<div class = "section">
+<div class = "section container">
 
   <div class="section_header">
     Настроение за день
@@ -7,10 +7,8 @@
     </div>
   </div>
 
-  <div>
-
+  <div class="section_body">
     <table *ngIf="moods.length">
-
       <thead>
         <tr>
           <th>№</th>
@@ -18,6 +16,7 @@
           <th>Дата время </th>
           <th>Причина</th>
           <th>Возможные способы исправления</th>
+
         </tr>
       </thead>
 
@@ -28,15 +27,16 @@
           <td>{{mood.date}}</td>
           <td>{{mood.reason}}</td>
           <td>{{mood.what_to_do}}</td>
-        <button class="btn" (click)="remove(mood, 'mood')">Удалить</button>
+        <button class="btn" (click)="remove(mood, 'mood')">-</button>
         </tr>
       </tbody>
 
     </table>
 
+<!--    <div class = "form">-->
     <form (ngSubmit)="submit_M()" [formGroup]="formMoods">
-      <mat-form-field appearance="fill">
-        <mat-label>Выбери настроение</mat-label>
+      <mat-form-field class="text-center mood_select" >
+        <mat-label class="text-center">Выбери настроение</mat-label>
         <mat-select [(value)]="selected" formControlName="cur_mood" >
           <mat-option *ngFor="let one_mood of categories_moods" [value]="one_mood.mood">
             {{one_mood.mood}}
@@ -44,16 +44,21 @@
         </mat-select>
       </mat-form-field>
       <!--      <input type="text" class="input-group" formControlName="cur_mood" placeholder="Добавить настроение">-->
+      <p></p>
       <label for = "reason">Добавить причину настроения:</label>
       <input type="text" class="input-group" id = "reason" formControlName="reason" placeholder="Добавить причину настроения">
 
       <label for = "what_to_do">Что можно сделать:</label>
       <input type="text" class="input-group" id = "what_to_do" formControlName="what_to_do" placeholder="Действия в данной ситуации">
+<!--     <p></p>-->
+
       <button
         type="submit"
-        class="btn btn-block"
+        class="btn btn-block btn_add footer"
       >Добавить</button>
 
     </form>
+    </div>
+
   </div>
-</div>
+<!--</div>-->

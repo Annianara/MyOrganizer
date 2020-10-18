@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Main_pageComponent } from './main_page/main_page.component';
 import {SelectorComponent} from "./main_page/selector/selector.component";
-import {CalendarComponent} from "./main_page/calendar/calendar.component";
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -26,13 +25,14 @@ import {MatAutocompleteModule, } from '@angular/material/autocomplete';
 import {MatInputModule } from '@angular/material/input';
 import { AddTCategoryComponent } from './main_page/add-t-category/add-t-category.component';
 import { LoginPageComponent } from './auth/login-page/login-page.component';
-import { MoodComponent } from './main_page/content/mood/mood.component';
-import { ThoughtsComponent } from './main_page/content/thoughts/thoughts.component';
-import { OthersComponent } from './main_page/content/others/others.component';
-import {ProjectsComponent} from "./main_page/content/projects/projects.component";
+import { MoodComponent } from './main_page/blocks/mood/mood.component';
+import { ThoughtsComponent } from './main_page/blocks/thoughts/thoughts.component';
+import { OthersComponent } from './main_page/blocks/others/others.component';
+import {ProjectsComponent} from "./main_page/blocks/projects/projects.component";
 import {AuthInterceptor} from "./auth/auth.interseptor";
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { HeaderComponent } from './header/header.component';
+import { CalendarComponent } from './main_page/calendar/calendar.component';
 
 
 
@@ -44,7 +44,6 @@ import { HeaderComponent } from './header/header.component';
     Main_pageComponent,
     MomentPipe,
     SelectorComponent,
-    CalendarComponent,
     ProjectsComponent,
     AllProjectsComponent,
     AddTCategoryComponent,
@@ -54,6 +53,7 @@ import { HeaderComponent } from './header/header.component';
     OthersComponent,
     LoadingSpinnerComponent,
     HeaderComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,

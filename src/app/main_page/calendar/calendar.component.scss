@@ -1,34 +1,12 @@
-table {
-  width: 100%;
-  margin-bottom: 1rem;
-  border-collapse: collapse;
 
-  td, th {
-    border: 1px solid #000;
-    padding: .5rem 1rem;
-    color: white;
-  }
+.datepicker{
+  //.mat-form-field-appearance-fill .mat-form-field-flex{
+  //  //background-color: rgba(0,0,0,0);
+  //  //padding:0;
+  //}
+  margin-left: 2%;
+  margin-right: auto;
+  //width: 200px;
 
-  td {
-    text-align: center;
-    transition: all .2s;
-
-    &.disabled {
-      opacity: .5;
-    }
-
-    &:hover:not(.disabled) {
-      background: #eee;
-      cursor: pointer;
-    }
-  }
-
-  .active {
-    color: var(--primary-color);
-    font-weight: bold;
-  }
-
-  .selected {
-    color: blue;
-  }
 }
+

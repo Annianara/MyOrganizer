@@ -11,7 +11,7 @@ import {DatabaseService} from "../../../shared/database_authentication.servise"
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss', '../content.scss']
+  styleUrls: ['./projects.component.scss', '../blocks.scss']
 })
 export class ProjectsComponent implements OnInit {
 

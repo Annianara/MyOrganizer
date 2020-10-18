@@ -19,30 +19,12 @@ export class Main_pageComponent implements OnInit {
     this.dateService.changeDate2(day.value)
   }
 
-  constructor(public dateService: DateService,
-              private databaseService: DatabaseService) {
+  constructor(public dateService: DateService,)
+  {
   }
 
   ngOnInit() {
 
   }
-
-  displayFn(p): string {
-    if (p) {
-      return p
-      /*      if ('p_category' in p)
-            return  p.p_category
-            if ('t_category' in p)
-            return   p.t_category*/
-    } else return ''
-  }
-
-
-
-
-
-
-
-
 
 }

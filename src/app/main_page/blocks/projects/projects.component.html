@@ -1,11 +1,12 @@
 
-<div class = "section">
+<div class = "section container">
   <div class="section_header">
     Информация по проектам
     <div class="section_button">
       <a class="medium material-icons">add</a>
     </div>
   </div>
+  <div class="section_body">
   <table *ngIf="projects.length; else noProjects">
     <thead>
     <tr>
@@ -28,8 +29,8 @@
   </table>
 
 
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
+<!--  <form class="example-form">-->
+    <mat-form-field class="example-full-width project_select">
       <mat-label>Выбери тему для проекта</mat-label>
       <label>
         <input type="text" matInput [formControl]="myControl_c" [matAutocomplete]="auto">
@@ -40,7 +41,7 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-  </form>
+<!--  </form>-->
 
 
   <form (ngSubmit)="submit_P()" [formGroup]="formProjects">
@@ -63,15 +64,13 @@
 
     <button
       type="submit"
-      class="btn btn-block"
+      class="btn btn-block footer btn_add"
     >Добавить</button>
   </form>
 
-  </div>
 
 <ng-template #noProjects>
   <p class="te  xt-center">Действий по проектам пока нет...</p>
 </ng-template>
-
-
-
+  </div>
+</div>
