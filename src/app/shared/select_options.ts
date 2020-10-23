@@ -25,7 +25,6 @@ export const CATEGORIES_MOODS: MoodsCategories[] =
         { p_category: 'Музыка'},
         { p_category: 'Дом'},
         { p_category: 'Уход за собой'},
-        { p_category: 'Саморазвитие'},
         { p_category: 'Изучение иностранных языков'},
         { p_category: 'Кулинария'},
         { p_category: 'Рисование'},

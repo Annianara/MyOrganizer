@@ -1,12 +1,14 @@
 
-<div class = "section container">
+<div class = "section">
   <div class="section_header">
     Информация по проектам
     <div class="section_button">
-      <a class="medium material-icons">add</a>
+      <a class="material-icons section_button" (click)="click()">add</a>
     </div>
   </div>
-  <div class="section_body">
+
+  <div class="section_body container">
+    <ng-template #no_click>
   <table *ngIf="projects.length; else noProjects">
     <thead>
     <tr>
@@ -14,6 +16,7 @@
       <th>Название проекта</th>
       <th>Категория проекта</th>
       <th>Действия по проекту</th>
+      <th>Удалить</th>
     </tr>
     </thead>
     <tbody>
@@ -22,19 +25,21 @@
       <td>{{project.title}}</td>
       <td>{{project.category}}</td>
       <td>{{project.action}}</td>
-
-      <button class="btn" (click)="remove(project, 'project')">Удалить</button>
+      <td><span class="material-icons mi-del" (click)="remove(project, 'projects')">delete</span></td>
     </tr>
     </tbody>
   </table>
+    </ng-template>
 
 
 <!--  <form class="example-form">-->
+    <form *ngIf="is_clicked;else no_click" (ngSubmit)="submit()" [formGroup]="formProjects">
+      <div class="form">
     <mat-form-field class="example-full-width project_select">
       <mat-label>Выбери тему для проекта</mat-label>
-      <label>
-        <input type="text" matInput [formControl]="myControl_c" [matAutocomplete]="auto">
-      </label>
+
+        <input type="text" matInput formControlName="category" [formControl]="myControl_c" [matAutocomplete]="auto">
+
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let option of filteredCategories | async" [value]="option.p_category">
           {{option.p_category}}
@@ -42,9 +47,6 @@
       </mat-autocomplete>
     </mat-form-field>
 <!--  </form>-->
-
-
-  <form (ngSubmit)="submit_P()" [formGroup]="formProjects">
      <label for = "title">Название проекта:</label>
     <input type="text" class="input-group" id = "title" formControlName="title" placeholder="Добавить название проекта">
 
@@ -52,8 +54,8 @@
       <small *ngIf="formProjects.get('title').errors.required">Введите название проекта</small>
     </div>
 
-    <label for = "category">Категория проекта:</label>
-    <input type="text" class="input-group" id = "category" formControlName="category" placeholder="Добавить категорию проекта">
+<!--    <label for = "category">Категория проекта:</label>-->
+<!--    <input type="text" class="input-group" id = "category" placeholder="Добавить категорию проекта">-->
 
     <label for = "action">Действие для проекта:</label>
     <input type="text" class="input-group" id = "action" formControlName="action" placeholder="Добавить действие для проекта">
@@ -61,6 +63,7 @@
     <div *ngIf="formProjects.get('action').invalid && formProjects.get('action').touched" class="validation">
       <small *ngIf="formProjects.get('action').errors.required">Введите действие для проекта</small>
     </div>
+      </div>
 
     <button
       type="submit"
@@ -70,7 +73,7 @@
 
 
 <ng-template #noProjects>
-  <p class="te  xt-center">Действий по проектам пока нет...</p>
+  <p class="text-center nodata  ">Действий по проектам пока нет...</p>
 </ng-template>
   </div>
 </div>

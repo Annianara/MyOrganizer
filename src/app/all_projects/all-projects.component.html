@@ -1,6 +1,60 @@
 <!--<app-navbar></app-navbar>-->
 <h2 class="card-header-tabs">Информация по проектам</h2>
 
+<!--<table *ngIf="allProjects; else noProjects">-->
+<!--  <thead>-->
+<!--  <tr>-->
+<!--    <th>№</th>-->
+<!--    <th>Название проекта</th>-->
+<!--    <th>Категория проекта</th>-->
+<!--    <th>Дата</th>-->
+<!--    <th>Краткое описание</th>-->
+<!--&lt;!&ndash;    <th>Действие</th>&ndash;&gt;-->
+<!--    <th>Заняло по времени</th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--  <tbody *ngFor="let allProject of allProjects let ii = index">-->
+<!--&lt;!&ndash;  <ng-container *ngFor="let allProject of allProjects let ii = index">&ndash;&gt;-->
+<!--    <tr (click)="isCollapsed[ii] = !isCollapsed[ii]"-->
+<!--        [attr.aria-expanded]="!isCollapsed[ii]">-->
+<!--      <td>{{ii+1}}</td>-->
+<!--      <td>{{allProject.project.title}}</td>-->
+<!--      <td>{{allProject.project.category}}</td>-->
+<!--      <td>{{allProject.project.date_begin}}</td>-->
+<!--      <td></td>-->
+<!--      <td></td>-->
+<!--      <td>{{allProject.project.total_time}}</td>-->
+<!--    </tr>-->
+<!--&lt;!&ndash;    <table>&ndash;&gt;-->
+<!--    <tr class="prAction" [ngbCollapse]="isCollapsed[ii]" (click)="isCollapsed[ii] = !isCollapsed[ii]">-->
+<!--      <th>№</th>-->
+<!--      <th>Название проекта</th>-->
+<!--      <th>Категория проекта</th>-->
+<!--      <th>Дата</th>-->
+<!--      <th>Краткое описание</th>-->
+<!--      <th>Действие</th>-->
+<!--      <th>Заняло по времени</th>-->
+<!--    </tr>-->
+
+<!--    <tr class="prAction" *ngFor="let oneProject of allProject.projectAction; let i = index" [ngbCollapse]="isCollapsed[ii]" (click)="isCollapsed[ii] = !isCollapsed[ii]">-->
+<!--      <td>{{i+1}}</td>-->
+<!--      <td class="prAction">{{oneProject.title}}</td>-->
+<!--      <td>{{oneProject.category}}</td>-->
+<!--      <td>{{oneProject.date}}</td>-->
+<!--      <td>{{oneProject.short_description}}</td>-->
+<!--      <td>{{oneProject.action}}</td>-->
+<!--      <td>{{oneProject.time}}</td>-->
+<!--    </tr>-->
+<!--&lt;!&ndash;    </table>&ndash;&gt;-->
+<!--&lt;!&ndash;  </ng-container>&ndash;&gt;-->
+<!--  </tbody>-->
+<!--</table>-->
+
+
+<ng-template #noProjects>
+  <p class="noprojects">Проектов пока нет...
+</ng-template>
+
 <table *ngIf="allProjects; else noProjects">
   <thead>
   <tr>
@@ -13,42 +67,46 @@
     <th>Заняло по времени</th>
   </tr>
   </thead>
-  <tbody>
-  <ng-container *ngFor="let allProject of allProjects let ii = index">
-    <tr (click)="isCollapsed[ii] = !isCollapsed[ii]"
-        [attr.aria-expanded]="!isCollapsed[ii]">
-      <td>{{ii+1}}</td>
-      <td>{{allProject.project.title}}</td>
-      <td>{{allProject.project.category}}</td>
-      <td>{{allProject.project.date_begin}}</td>
-      <td></td>
-      <td></td>
-      <td>{{allProject.project.total_time}}</td>
-    </tr>
-    <tr [ngbCollapse]="isCollapsed[ii]" (click)="isCollapsed[ii] = !isCollapsed[ii]">
-      <th>№</th>
-      <th>Название проекта</th>
-      <th>Категория проекта</th>
-      <th>Дата</th>
-      <th>Краткое описание</th>
-      <th>Действие</th>
-      <th>Заняло по времени</th>
-    </tr>
+<!--  <ng-container *ngFor="let allProject of allProjects let ii = index">-->
+  <tbody *ngFor="let allProject of allProjects let ii = index">
+  <!--  <ng-container *ngFor="let allProject of allProjects let ii = index">-->
+  <tr (click)="animateMe(ii)">
+<!--        ="isCollapsed[ii] = !isCollapsed[ii]"-->
+<!--      [attr.aria-expanded]="!isCollapsed[ii]">-->
+    <td>{{ii+1}}</td>
+    <td>{{allProject.project.title}}</td>
+    <td>{{allProject.project.category}}</td>
+    <td>{{allProject.project.date_begin}}</td>
+    <td></td>
+    <td></td>
+    <td>{{allProject.project.total_time}}</td>
+  </tr>
+  <!--    <table>-->
+  <div class="inner"  [@myfirstanimation] = 'state[ii]'>
+  <tr class="prAction">
+<!--      [ngbCollapse]="isCollapsed[ii]" (click)="isCollapsed[ii] = !isCollapsed[ii]"-->
+    <th>№</th>
+    <th>Название проекта</th>
+    <th>Категория проекта</th>
+    <th>Дата</th>
+    <th>Краткое описание</th>
+    <th>Действие</th>
+    <th>Заняло по времени</th>
+  </tr>
 
-    <tr class="prAction" *ngFor="let oneProject of allProject.projectAction; let i = index" [ngbCollapse]="isCollapsed[ii]" (click)="isCollapsed[ii] = !isCollapsed[ii]">
-      <td>{{i+1}}</td>
-      <td>{{oneProject.title}}</td>
-      <td>{{oneProject.category}}</td>
-      <td>{{oneProject.date}}</td>
-      <td>{{oneProject.short_description}}</td>
-      <td>{{oneProject.action}}</td>
-      <td>{{oneProject.time}}</td>
-    </tr>
-  </ng-container>
+  <tr class="prAction inner" *ngFor="let oneProject of allProject.projectAction; let i = index">
+<!--      [ngbCollapse]="isCollapsed[ii]" (click)="isCollapsed[ii] = !isCollapsed[ii]"-->
+
+    <td>{{i+1}}</td>
+    <td class="prAction">{{oneProject.title}}</td>
+    <td>{{oneProject.category}}</td>
+    <td>{{oneProject.date}}</td>
+    <td>{{oneProject.short_description}}</td>
+    <td>{{oneProject.action}}</td>
+    <td>{{oneProject.time}}</td>
+  </tr>
+  </div>
+  <!--    </table>-->
+  <!--  </ng-container>-->
   </tbody>
 </table>
-
-
-<ng-template #noProjects>
-  <p>Проектов пока нет...
-</ng-template>

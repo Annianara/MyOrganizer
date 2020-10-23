@@ -1,35 +1,56 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DatabaseService} from "../shared/database.service";
-import {switchMap} from "rxjs/operators";
+import {DatabaseService} from "../shared/database_authentication.servise";
+import {switchMap, take} from "rxjs/operators";
 import {DateService} from "../shared/date.service";
 import {Project, ProjectAction, ProjectsAll} from "../shared/intefaces";
+import {AuthService} from "../auth/auth.service";
+
+// import {trigger, state, style, transition,} from
+import {trigger, state, style, transition, animate, keyframes} from "@angular/animations";
 
 @Component({
   selector: 'app-all-projects',
   templateUrl: './all-projects.component.html',
-  styleUrls: ['./all-projects.component.scss']
+  styleUrls: ['./all-projects.component.scss'],
+  animations:[
+    trigger('myfirstanimation',[
+      state('small', style({height:'0px'})),
+      state('large',style({height:'100px'})),
+
+      transition('small<=>large', animate('400ms ease-in'))
+    ])
+  ]
 })
 export class AllProjectsComponent implements OnInit {
   projects: ProjectAction[] = []
   allProjects: ProjectsAll[]
   public isCollapsed = []
 
-  constructor(private databaseService: DatabaseService, private dateService: DateService) {
+  state:string[] = []
+
+  animateMe(i)
+  {
+    this.state[i] = (this.state[i] === 'small'? 'large': 'small')
+  }
+
+  constructor(private databaseService: DatabaseService, private dateService: DateService, private auth:AuthService) {
   }
 
   ngOnInit(): void {
-    this.dateService.date.pipe(
-      switchMap(value => this.databaseService.loadAllProjects())
-    ).subscribe(allProjects => {
+    this.auth.user.pipe(take(1),
+      switchMap(()=> this.databaseService.loadAllProjects()
+      )).subscribe(allProjects => {
         this.allProjects = allProjects.sort((a, b) => {
             if (a.project.title > b.project.title) return 1; else if (a.project.title < b.project.title) return -1; else return 0
           }
         )
-        for (let i = 0; i <= this.allProjects.length; i++)
+        for (let i = 0; i <= this.allProjects.length; i++) {
           this.isCollapsed[i] = true
+          this.state[i] = 'small'
+          // string = 'small'
+        }
       }
     )
-
   }
 
 }

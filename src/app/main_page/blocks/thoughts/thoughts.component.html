@@ -1,15 +1,15 @@
-<div class="section container">
+<div class="section">
 
 
   <div class="section_header">
   Мысли, идеи
   <div class="section_button">
-    <a class="material-icons">add</a>
+    <a class=" material-icons section_button" (click)="clicked()" >add</a>
   </div>
 </div>
 
-
-<div class="section_body">
+<div class="section_body container">
+  <ng-template #dontclicked>
   <table *ngIf="thoughts.length; else noThoughts">
     <thead>
     <tr>
@@ -22,18 +22,19 @@
 
     <tbody>
     <tr *ngFor="let thought of thoughts; let i = index">
-      <strong>{{i + 1}}</strong>
+      <td><strong>{{i + 1}}</strong></td>
       <td>{{thought.title}}</td>
       <td>{{thought.category}}</td>
       <td>{{thought.thought}}</td>
-      <button class="btn" (click)="remove(thought, 'thought')">Remove</button>
+      <td><span class="material-icons mi-del" (click)="remove(thought, 'thought')">delete</span></td>
     </tr>
     </tbody>
 
   </table>
+  </ng-template>
 
-  <form (ngSubmit)="submit_T()" [formGroup]="formThoughts">
-
+  <form *ngIf="is_clicked;else dontclicked" (ngSubmit)="submit()" [formGroup]="formThoughts">
+    <div class="form">
     <label for = "title_t">Тема для размышления:</label>
     <input type="text" class="input-group" id="title_t" formControlName="title" placeholder="Добавить тему для размышлений">
     <div *ngIf="formThoughts.get('title').invalid && formThoughts.get('title').touched" class="validation">
@@ -62,7 +63,7 @@
     <div *ngIf="formThoughts.get('thought').invalid && formThoughts.get('thought').touched" class="validation">
       <small *ngIf="formThoughts.get('thought').errors.required">Добавьте мысль</small>
     </div>
-
+    </div>
     <button
       type="submit"
       class="btn btn-block footer btn_add">Добавить
@@ -74,7 +75,7 @@
 
 
   <ng-template #noThoughts>
-    <p class="text-center">Новых мыслей пока нет...</p>
+    <p class="text-center nodata">Новых мыслей пока нет...</p>
   </ng-template>
 
 

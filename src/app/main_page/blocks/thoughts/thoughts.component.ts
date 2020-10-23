@@ -21,7 +21,13 @@ export class ThoughtsComponent implements OnInit {
   categories_thoughts = CATEGORIES_THOUGHTS
   categories_thoughts_user: ThoughtCategories[] = []
   categories_thoughts_all: ThoughtCategories[] = CATEGORIES_THOUGHTS
+  is_clicked = false
 
+
+  clicked()
+  {
+    this.is_clicked=!this.is_clicked
+  }
 
   private _filter(name: string, p): [] {
     const filterValue = name.toLowerCase();
@@ -46,7 +52,9 @@ export class ThoughtsComponent implements OnInit {
     ).subscribe(cat_thoughts_user => {
       this.categories_thoughts_user = cat_thoughts_user
       this.categories_thoughts_all = [...cat_thoughts_user, ...this.categories_thoughts]
-      this.filteredThoughts = this.myControl_t.valueChanges
+
+      // this.filteredThoughts = this.myControl_t.valueChanges
+      this.filteredThoughts = this.formThoughts.get('category').valueChanges
         .pipe(
           startWith(''),
           map(value => typeof value === 'string' ? value : value.name),
@@ -59,7 +67,7 @@ export class ThoughtsComponent implements OnInit {
                                               thought: new FormControl('', Validators.required)})
 
   }
-  submit_T() {
+  submit() {
     const {title,category,thought} = this.formThoughts.value
     const one_thought: Thought = {
       title,
@@ -73,6 +81,8 @@ export class ThoughtsComponent implements OnInit {
       this.thoughts.push(<Thought>thought)
       this.formThoughts.reset()
     }, err => console.error(err))
+
+    this.clicked()
   }
 
   remove(object: ProjectAction | Thought | Mood, type: String) {

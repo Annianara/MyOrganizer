@@ -30,6 +30,7 @@ body {
   margin: 8px;
 }
 :root {
+  --transparent_pink: rgba(229,207,220, 0.7);
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;

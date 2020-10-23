@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, OnInit} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {map, reduce} from "rxjs/operators";
@@ -14,6 +14,7 @@ import {
   Data
 } from "./intefaces";
 import {environment} from "../../environments/environment";
+import {AuthService} from "../auth/auth.service";
 
 export enum Types {
   thought,
@@ -37,9 +38,13 @@ export class DatabaseService {
   static url = 'https://myorganizer-e93d5.firebaseio.com/'
 
 /*  static urlP = 'https://myorganizerpb.firebaseio.com/projects'*/
-  user = 'admin' //по идее, вместо переменной нужен сервис, который определяет юзера, в этой переменной мы должны получать ид пользователя
-
-  constructor(private http: HttpClient) {
+    user
+  constructor(private http: HttpClient, private auth: AuthService) {
+    // this.user = localStorage.getItem('uid') //по идее, вместо переменной нужен сервис, который определяет юзера, в этой переменной мы должны получать ид пользователя
+    this.auth.user.subscribe(us=> {
+      this.user = us.id
+      // console.log("us id:"+ us.id)}
+    })
   }
 
   actionArr(projects: ProjectsAll[], one_project: ProjectAction) {
@@ -80,8 +85,11 @@ export class DatabaseService {
 
   loadAllProjects(): Observable<ProjectsAll[]> {
     let projects: ProjectsAll[] = []
+    // let user
+    // this.auth.user.subscribe(cur_user =>user = cur_user)
+    // console.log("usl:" + this.user)
     return this.http
-      .get<ProjectsAll[]>(`${DatabaseService.url}/projects.json`)
+      .get<ProjectsAll[]>(`${DatabaseService.url}/projects/${this.user}.json`)
       .pipe(map(all_projects => {
           if (!all_projects) {
             return []
@@ -99,7 +107,7 @@ export class DatabaseService {
 
   load_this_day(date: moment.Moment, type: String): Observable<any[]> {
     return this.http
-      .get<Object[]>(`${DatabaseService.url}${type}/${date.format('DD-MM-YYYY')}.json`)
+      .get<Object[]>(`${DatabaseService.url}${type}/${this.user}/${date.format('DD-MM-YYYY')}.json`)
       .pipe(map(objects => {
         if (!objects) {
           return []
@@ -155,7 +163,7 @@ export class DatabaseService {
   }*/
     create(object: Thought|ProjectAction|Mood, types: string): Observable<Object> {
       return this.http
-        .post<CreateResponse>(`${environment.fbDbUrl}${types}/${object.date}.json`, object)
+        .post<CreateResponse>(`${environment.fbDbUrl}${types}/${this.user}/${object.date}.json`, object)
         .pipe(map(res => {
           return {...object, id: res.name}
         }))
@@ -171,7 +179,7 @@ export class DatabaseService {
 
   remove(object: Thought|ProjectAction|Mood, type: String): Observable<void> {
     return this.http
-      .delete<void>(`${DatabaseService.url}${type}/${object.date}/${object.id}.json`)
+      .delete<void>(`${DatabaseService.url}${type}/${this.user}/${object.date}/${object.id}.json`)
   }
 
 }

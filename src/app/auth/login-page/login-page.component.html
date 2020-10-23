@@ -4,15 +4,15 @@
     <p>{{error}}</p>
   </div>
 
-<div id = "login">
-  <p class="display-4 text-center " >Вход</p>
+  <div id = "login">
   <div class="text-center spinner"*ngIf="isLoading">
     <app-loading-spinner></app-loading-spinner>
   </div>
 
 <form class="form text-center" [formGroup]="form"(ngSubmit)="submit()" *ngIf="!isLoading">
+  <p class="display-4 text-center" >{{isLoginMode? 'Регистрация': 'Вход'}}</p>
   <div class = "form-group">
-    <label for = "email">Email</label>
+    <label for = "email">Электронная почта</label>
     <input  class = "form-control" id = "email" type="text" formControlName="email">
     <div *ngIf="form.get('email').touched && form.get('email').invalid" class="validation">
       <small *ngIf="form.get('email').errors.required">Enter email</small>
@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class = "form-group">
-    <label for = "password">Password</label>
+    <label for = "password">Пароль</label>
     <input class="form-control" id = "password" type="password" formControlName="password">
     <div *ngIf="form.get('password').touched && form.get('password').invalid" class="validation">
       <small *ngIf="form.get('password').errors.required">Enter password</small>
@@ -34,11 +34,11 @@
   <div>
   <button type="submit" class="btn btn-primary">
 <!--          [disabled]="form.invalid || submitted"-->
-  {{ isLoginMode? 'Login': 'Sign Up'}}</button>
-  <button class="btn btn-primary" (click)="onSwitchMode()">Switch to {{isLoginMode? 'Sign Up': 'Login'}}</button>
+  {{ isLoginMode? 'Войти': 'Зарегистрироваться'}}</button>
+  <button class="btn btn-primary" (click)="onSwitchMode()">Переключиться на {{isLoginMode? 'регистрацию': 'вход'}}</button>
   </div>
 </form>
-</div>
-<!--   </div>-->
 <!--</div>-->
+<!--   </div>-->
+</div>
 

@@ -2,13 +2,24 @@
   max-width: 600px;
   min-width: 400px;
   //margin: 0 auto;
-  position: absolute;
-  top:36%;
-  left: 37%;
+  //position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+  //background-color: rgba(212,173,194, 0.63);
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 31px;
+  padding: 70px;
+  padding-top: 50px;
+  //top:36%;
+  //left: 37%;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
 }
 .spinner{
-  top: 38%;
-  left: 38%;
+  margin-top:10%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .btn{
   margin-right: .4rem;

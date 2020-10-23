@@ -36,6 +36,7 @@ export class AuthService {
         }
        ))
   }
+
   login( User ) {
     return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, User)
       .pipe(catchError(this.handleError),
@@ -66,11 +67,22 @@ export class AuthService {
     }
     return throwError(errorMessage)
   }
+
   private handleAuthentication(email: string, userId:string, token: string, expiresIn: number)
   {
+    console.log(userId)
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate )
+    // this.user.subscribe(us =>console.log("User:"+us.id))
     this.user.next(user);
+
+    const sbj = new Subject<number>()
+
+    sbj.subscribe(vl => console.log(`1st: ${vl}`))
+    sbj.next(3)
+    sbj.subscribe(vl => console.log(`2nd: ${vl}`))
+    sbj.next(9)
+
     this.autoLogout(expiresIn * 1000)
     // localStorage.setItem('userData', JSON.stringify(user)) //если я буду хранить все юзер данные в локалсторадже
   }
@@ -80,6 +92,8 @@ export class AuthService {
       const expData = new Date( new Date().getTime() + +response.expiresIn * 1000)
       localStorage.setItem('fb-token-exp', expData.toString())
       localStorage.setItem('fb-token', response.idToken)
+      localStorage.setItem('uid', response.localId)
+      localStorage.setItem('email', response.email)
     } else {
       localStorage.clear()
     }
@@ -94,8 +108,10 @@ export class AuthService {
     else
     {
       const expirationDuration =
-        new Date(localStorage.getItem('fb-token-exp')).getTime() -
-        new Date().getTime();
+        new Date(localStorage.getItem('fb-token-exp')).getTime() - new Date().getTime();
+      const user = new User(localStorage.getItem('email'), localStorage.getItem('uid'), localStorage.getItem('fb-token'), new Date(new Date(localStorage.getItem('fb-token-exp')).getTime()) )
+      // this.user.subscribe(us =>console.log("User:"+us.id))
+      this.user.next(user);//не уверена насчет этих строчек, новое значение падает в юзер как будто бесконечным циклом
       this.autoLogout(expirationDuration);
     }
     return localStorage.getItem('fb-token')

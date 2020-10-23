@@ -1,40 +1,46 @@
-<div class = "section container">
+<div class = "section">
 
   <div class="section_header">
     Настроение за день
     <div class="section_button">
-      <a class="medium material-icons section_button">add</a>
+      <a class="material-icons" (click)="click()">add</a>
     </div>
   </div>
 
-  <div class="section_body">
-    <table *ngIf="moods.length">
+  <div class="section_body container">
+    <ng-template #dontclicked>
+    <table  *ngIf="moods.length; else noMoods">
       <thead>
         <tr>
           <th>№</th>
           <th>Текущее настроение</th>
           <th>Дата время </th>
           <th>Причина</th>
-          <th>Возможные способы исправления</th>
+          <th>Как можно исправить (плохое настроение)</th>
+          <th>Удалить</th>
 
         </tr>
       </thead>
 
       <tbody>
         <tr *ngFor="let mood of moods; let i = index">
-          <strong>{{i + 1}}</strong>
+         <td><strong>{{i + 1}}</strong></td>
           <td>{{mood.cur_mood}}</td>
           <td>{{mood.date}}</td>
           <td>{{mood.reason}}</td>
           <td>{{mood.what_to_do}}</td>
-        <button class="btn" (click)="remove(mood, 'mood')">-</button>
+<!--        <button class="btn" (click)="remove(mood, 'mood')">-</button>-->
+         <td><span class="material-icons mi-del" (click)="remove(mood, 'mood')">delete</span></td>
         </tr>
       </tbody>
 
     </table>
+    </ng-template>
 
 <!--    <div class = "form">-->
-    <form (ngSubmit)="submit_M()" [formGroup]="formMoods">
+
+    <form *ngIf="is_clicked; else dontclicked" (ngSubmit)="submit()" [formGroup]="formMoods">
+      <div class="form">
       <mat-form-field class="text-center mood_select" >
         <mat-label class="text-center">Выбери настроение</mat-label>
         <mat-select [(value)]="selected" formControlName="cur_mood" >
@@ -44,21 +50,32 @@
         </mat-select>
       </mat-form-field>
       <!--      <input type="text" class="input-group" formControlName="cur_mood" placeholder="Добавить настроение">-->
-      <p></p>
+<!--      <p></p>-->
       <label for = "reason">Добавить причину настроения:</label>
       <input type="text" class="input-group" id = "reason" formControlName="reason" placeholder="Добавить причину настроения">
 
-      <label for = "what_to_do">Что можно сделать:</label>
+      <label for = "what_to_do">Как можно исправить (плохое настроение):</label>
       <input type="text" class="input-group" id = "what_to_do" formControlName="what_to_do" placeholder="Действия в данной ситуации">
 <!--     <p></p>-->
-
+      </div>
       <button
         type="submit"
         class="btn btn-block btn_add footer"
       >Добавить</button>
 
     </form>
-    </div>
 
+
+
+    <ng-template #noMoods>
+      <p class="text-center nodata">Настроение пока не выбрано..</p>
+<!--      <button-->
+<!--        type="submit"-->
+<!--        class="btn invisible" (click)="click()">-->
+<!--        Добавить настроение</button>-->
+
+    </ng-template>
+
+  </div>
   </div>
 <!--</div>-->

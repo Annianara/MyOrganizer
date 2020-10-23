@@ -3,43 +3,86 @@ body{
     font-size: 1rem;
     line-height: 1.6;
     background: #fff;
-    color: #cccccc;
+    //color: #cccccc;
 
 }
 
-.prAction td{
- // background-color: rgba(202, 88, 58, 0.75);
-  background: #ca583a;
- color: black;
-//  color: white;
-}
+//.prAction {
+// // background-color: rgba(202, 88, 58, 0.75);
+// // background: #ca583a;
+// // background-color: rgb(229,207,220);
+// //color: black;
+//  margin-left: 1rem;
+////  color: white;
+//  padding: 7px;
+//
+//}
+
+
 
 table {
   margin-top: 10%;
   margin-left: auto;
   margin-right: auto;
-  width: 60%; /* Ширина таблицы */
-  border: 4px  white; /* Рамка вокруг таблицы */
+  min-width: 60%; /* Ширина таблицы */
+  //border: 4px  white; /* Рамка вокруг таблицы */
   border-radius: 20px;
-  border-collapse: collapse; /* Отображать только одинарные линии */
-}
-th {
-  text-align: left; /* Выравнивание по левому краю */
-  background: #ca583a; /* Цвет фона ячеек */
-  padding: 5px; /* Поля вокруг содержимого ячеек */
-  border: 1px solid white; /* Граница вокруг ячеек */
-}
-td {
-  padding: 5px; /* Поля вокруг содержимого ячеек */
-  border: 1px solid white; /* Граница вокруг ячеек */
-  color: white;
+  //border-collapse: collapse; /* Отображать только одинарные линии */
+  background: rgba(255, 255, 255, 0.5);
+  //background-color: rgba(233, 146, 206, 0.1);
+  border-spacing: 7px 11px;
+
 }
 
+th {
+  //text-align: left; /* Выравнивание по левому краю */
+  //background: #ca583a; /* Цвет фона ячеек */
+  //background-color: rgba(119,45,91,0.41);
+  //padding: 5px; /* Поля вокруг содержимого ячеек */
+  //border: 1px solid white; /* Граница вокруг ячеек */
+  //border-radius: 10px;
+  padding: 10px;
+  background-color: rgba(233, 146, 206, 0.1);
+}
+table th:first-child
+{
+  border-top-left-radius: 10px;
+}
+table th:last-child
+{
+  border-top-right-radius: 10px;
+}
+
+tr{
+  //margin: 1rem;
+
+  box-shadow: 0 0 10px rgba(0,0,0,0.25), 0 0 0 rgba(0,0,0,0.22);
+}
+
+
+td {
+  padding: 10px; /* Поля вокруг содержимого ячеек */
+  border: 1px none white; /* Граница вокруг ячеек */
+  //color: white;
+  //border-radius: 10px;
+
+}
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+.inner{
+  height: 0;
+  overflow: hidden;
+}
 .card-header-tabs
 {
-  margin: auto;
   color: black;
-  background-color: #ca583a;
+  text-align: center;
+  background-color: rgb(229,207,220);
   border-radius: 5px;
   min-height: 30px;
 }
@@ -50,11 +93,19 @@ h2{
 
 tr:hover {
  // color: rgba(255, 255, 255, .75);
-  background-color: rgba(202, 88, 58, 0.75);
+ // background-color: rgba(202, 88, 58, 0.75);
+  background-color: rgba(119,45,91,0.41);
 }
 
 .input-group
 {
-  min-width: 300px;
-  border-radius: 20px;
+  //min-width: 300px;
+  //border-radius: 20px;
+}
+
+.noprojects{
+  margin-top: 10%;
+ text-align: center;
+  font-weight: bold;
+  font-size: x-large;
 }

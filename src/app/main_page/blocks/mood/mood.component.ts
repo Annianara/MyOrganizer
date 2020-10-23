@@ -18,6 +18,7 @@ export class MoodComponent implements OnInit {
   moods: Mood[] = []
   selected = 'Отличное'
   categories_moods = CATEGORIES_MOODS
+  is_clicked = false
 
   constructor(public dateService: DateService,
               private databaseService: DatabaseService) { }
@@ -37,7 +38,11 @@ export class MoodComponent implements OnInit {
 
   }
 
-  submit_M() {
+  click()
+  {
+    this.is_clicked=!this.is_clicked
+  }
+  submit() {
     const {cur_mood, reason, what_to_do} = this.formMoods.value
     const mood: Mood = {
       cur_mood,
@@ -45,32 +50,18 @@ export class MoodComponent implements OnInit {
       reason,
       what_to_do
     }
-
-    // this.databaseService.createM(mood, Types.mood).subscribe(mood => {
-    //   this.moods.push(mood)
-    //   this.formMoods.reset()
-    // }, err => console.error(err))
     this.databaseService.create(mood, 'moods').subscribe(mood => {
       this.moods.push(<Mood>mood)
       this.formMoods.reset()
     }, err => console.error(err))
 
+    this.click()
   }
 
   remove(object: ProjectAction | Thought | Mood, type: String) {
     this.databaseService.remove(object, type).subscribe(() => {
       this.moods = this.moods.filter((t => t.id !== object.id))
     }, err => console.error(err))
-  }
-
-  displayFn(p): string {
-    if (p) {
-      return p
-      /*      if ('p_category' in p)
-            return  p.p_category
-            if ('t_category' in p)
-            return   p.t_category*/
-    } else return ''
   }
 
 }

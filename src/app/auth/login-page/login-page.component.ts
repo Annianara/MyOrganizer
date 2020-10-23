@@ -46,11 +46,11 @@ export class LoginPageComponent implements OnInit {
       returnSecureToken: true
     }
 
-    this.auth.signUp(user).subscribe(resData=>{
-      console.log(resData)
-    }, error => {
-      console.log(error)
-    })
+    // this.auth.signUp(user).subscribe(resData=>{
+    //   console.log(resData)
+    // }, error => {
+    //   console.log(error)
+    // })
 
     let authObs: Observable<AuthResponseData>
 

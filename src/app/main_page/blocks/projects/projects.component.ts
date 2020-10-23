@@ -23,6 +23,13 @@ export class ProjectsComponent implements OnInit {
   filteredCategories: Observable<ProjectCategories[]>;
   categories_projects = CATEGORIES_PROJECTS
 
+  is_clicked = false
+
+  click()
+  {
+    this.is_clicked=!this.is_clicked
+  }
+
   private _filter(name: string, p): [] {
     const filterValue = name.toLowerCase();
     if ('p_category' in p[0])
@@ -43,7 +50,8 @@ export class ProjectsComponent implements OnInit {
                                                category: new FormControl('',Validators.required),
                                                action: new FormControl('', Validators.required),})
 
-    this.filteredCategories = this.myControl_c.valueChanges
+    this.filteredCategories = this.formProjects.get('category').valueChanges
+    // this.filteredCategories = this.myControl_c.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.name),
@@ -52,7 +60,7 @@ export class ProjectsComponent implements OnInit {
 
   }
 
-  submit_P() {
+  submit() {
     const  {title, action, category} = this.formProjects.value
     const project: ProjectAction = {
       title,
@@ -67,6 +75,7 @@ export class ProjectsComponent implements OnInit {
       this.formProjects.reset()
     }, err => console.error(err))
 
+    this.click()
   }
   remove(object: ProjectAction | Thought | Mood, type: String) {
     this.databaseService.remove(object, type).subscribe(() => {
