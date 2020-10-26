@@ -17,7 +17,7 @@
           <th>Дата время </th>
           <th>Причина</th>
           <th>Как можно исправить (плохое настроение)</th>
-          <th>Удалить</th>
+<!--          <th>Удалить</th>-->
 
         </tr>
       </thead>
@@ -41,14 +41,24 @@
 
     <form *ngIf="is_clicked; else dontclicked" (ngSubmit)="submit()" [formGroup]="formMoods">
       <div class="form">
-      <mat-form-field class="text-center mood_select" >
-        <mat-label class="text-center">Выбери настроение</mat-label>
-        <mat-select [(value)]="selected" formControlName="cur_mood" >
-          <mat-option *ngFor="let one_mood of categories_moods" [value]="one_mood.mood">
-            {{one_mood.mood}}
+
+<!--      <mat-form-field class="text-center mood_select" >-->
+<!--        <mat-label class="text-center">Выбери настроение</mat-label>-->
+<!--        <mat-select [(value)]="selected" formControlName="cur_mood" >-->
+<!--          <mat-option *ngFor="let one_mood of categories_moods" [value]="one_mood.mood">-->
+<!--            {{one_mood.mood}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+
+        <label for = "cur_mood">Текущее настроение:</label>
+        <input type="text" placeholder="Выбери настроение" id = "cur_mood" formControlName="cur_mood" [matAutocomplete]="auto">
+
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredCategories | async" [value]="option.category">
+            {{option.category}}
           </mat-option>
-        </mat-select>
-      </mat-form-field>
+        </mat-autocomplete>
       <!--      <input type="text" class="input-group" formControlName="cur_mood" placeholder="Добавить настроение">-->
 <!--      <p></p>-->
       <label for = "reason">Добавить причину настроения:</label>

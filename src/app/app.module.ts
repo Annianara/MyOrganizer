@@ -33,6 +33,7 @@ import {AuthInterceptor} from "./auth/auth.interseptor";
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { HeaderComponent } from './header/header.component';
 import { CalendarComponent } from './main_page/calendar/calendar.component';
+import { AddUserCategoriesComponent } from './add-user-categories/add-user-categories.component';
 
 
 
@@ -54,6 +55,7 @@ import { CalendarComponent } from './main_page/calendar/calendar.component';
     LoadingSpinnerComponent,
     HeaderComponent,
     CalendarComponent,
+    AddUserCategoriesComponent,
   ],
   imports: [
     BrowserModule,

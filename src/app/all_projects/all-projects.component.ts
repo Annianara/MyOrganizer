@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {DatabaseService} from "../shared/database_authentication.servise";
 import {switchMap, take} from "rxjs/operators";
 import {DateService} from "../shared/date.service";
@@ -8,6 +8,7 @@ import {AuthService} from "../auth/auth.service";
 // import {trigger, state, style, transition,} from
 import {trigger, state, style, transition, animate, keyframes} from "@angular/animations";
 
+
 @Component({
   selector: 'app-all-projects',
   templateUrl: './all-projects.component.html',
@@ -16,8 +17,11 @@ import {trigger, state, style, transition, animate, keyframes} from "@angular/an
     trigger('myfirstanimation',[
       state('small', style({height:'0px'})),
       state('large',style({height:'100px'})),
+      state('expanded',style({height:'*'})),
 
-      transition('small<=>large', animate('400ms ease-in'))
+      // transition('small<=>large', animate('400ms ease-in'))
+      // transition(':small', animate('400ms ease-in'))
+      transition('small<=>expanded', animate('400ms ease-in'))
     ])
   ]
 })
@@ -28,7 +32,19 @@ export class AllProjectsComponent implements OnInit {
 
   state:string[] = []
 
+  @ViewChildren('inner_tables') inner_tables:QueryList<ElementRef>
+  m_heights:number[]=[]
+
+
   animateMe(i)
+  {
+    this.state[i] = (this.state[i] === 'small'? 'large': 'small')
+  }
+  animateMe3(i)
+  {
+    this.state[i] = (this.state[i] === 'small'? 'expanded': 'small')
+  }
+  animateMe2(i)
   {
     this.state[i] = (this.state[i] === 'small'? 'large': 'small')
   }
@@ -45,10 +61,12 @@ export class AllProjectsComponent implements OnInit {
           }
         )
         for (let i = 0; i <= this.allProjects.length; i++) {
-          this.isCollapsed[i] = true
+          // this.isCollapsed[i] = true
           this.state[i] = 'small'
           // string = 'small'
+         // this.m_heights[i] =  this.inner_tables.[i].nativeElement.offsetHeight
         }
+      // this.inner_tables.forEach((child) => { child.nativeElement.offsetHeight })
       }
     )
   }

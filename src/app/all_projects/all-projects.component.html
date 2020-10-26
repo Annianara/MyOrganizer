@@ -55,22 +55,26 @@
   <p class="noprojects">Проектов пока нет...
 </ng-template>
 
-<table *ngIf="allProjects; else noProjects">
-  <thead>
+<ng-container *ngIf="allProjects; else noProjects">
+<table class="table_header">
+<!--  <thead>-->
   <tr>
     <th>№</th>
     <th>Название проекта</th>
     <th>Категория проекта</th>
     <th>Дата</th>
     <th>Краткое описание</th>
-    <th>Действие</th>
+<!--    <th>Действие</th>-->
     <th>Заняло по времени</th>
   </tr>
-  </thead>
-<!--  <ng-container *ngFor="let allProject of allProjects let ii = index">-->
-  <tbody *ngFor="let allProject of allProjects let ii = index">
+</table>
+<!--  </thead>-->
+  <ng-container *ngFor="let allProject of allProjects let ii = index">
+    <table>
+<!--  <tbody *ngFor="let allProject of allProjects let ii = index">-->
+<!--    <tbody>-->
   <!--  <ng-container *ngFor="let allProject of allProjects let ii = index">-->
-  <tr (click)="animateMe(ii)">
+  <tr (click)="animateMe3(ii)">
 <!--        ="isCollapsed[ii] = !isCollapsed[ii]"-->
 <!--      [attr.aria-expanded]="!isCollapsed[ii]">-->
     <td>{{ii+1}}</td>
@@ -81,8 +85,15 @@
     <td></td>
     <td>{{allProject.project.total_time}}</td>
   </tr>
+</table>
+<!--    </tbody>-->
   <!--    <table>-->
-  <div class="inner"  [@myfirstanimation] = 'state[ii]'>
+    <div class="inner"  [@myfirstanimation] = 'state[ii]'>
+
+
+    <table #inner_tables class="inner_table">
+
+
   <tr class="prAction">
 <!--      [ngbCollapse]="isCollapsed[ii]" (click)="isCollapsed[ii] = !isCollapsed[ii]"-->
     <th>№</th>
@@ -105,8 +116,10 @@
     <td>{{oneProject.action}}</td>
     <td>{{oneProject.time}}</td>
   </tr>
-  </div>
+    </table>
+    </div>
   <!--    </table>-->
   <!--  </ng-container>-->
-  </tbody>
-</table>
+<!--  </tbody>-->
+  </ng-container>
+</ng-container>

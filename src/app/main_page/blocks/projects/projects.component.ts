@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Mood, ProjectAction, ProjectCategories, Thought} from "../../../shared/intefaces";
 import {Observable} from "rxjs";
@@ -7,6 +7,7 @@ import {map, startWith, switchMap} from "rxjs/operators";
 import {DateService} from "../../../shared/date.service";
 //import {DatabaseService} from "../../shared/database.service";
 import {DatabaseService} from "../../../shared/database_authentication.servise"
+import {AddUserCategoriesComponent} from "../../../add-user-categories/add-user-categories.component";
 
 @Component({
   selector: 'app-projects',
@@ -16,14 +17,19 @@ import {DatabaseService} from "../../../shared/database_authentication.servise"
 export class ProjectsComponent implements OnInit {
 
 
-  myControl_c = new FormControl();
+  // myControl_c = new FormControl();
 
   formProjects: FormGroup
   projects: ProjectAction[] = []
   filteredCategories: Observable<ProjectCategories[]>;
-  categories_projects = CATEGORIES_PROJECTS
+  categories_default = CATEGORIES_PROJECTS
+  categories_all
 
   is_clicked = false
+
+  userPreferences:string[]=[]
+  @ViewChild(AddUserCategoriesComponent, {static: false})
+  private addUserCategoriesComponent: AddUserCategoriesComponent;
 
   click()
   {
@@ -45,23 +51,36 @@ export class ProjectsComponent implements OnInit {
         switchMap(value => this.databaseService.load_this_day(value, 'projects')
         ))
           obs.subscribe(projects => { this.projects = projects})
+    this.dateService.date.pipe(
+      switchMap(value => this.databaseService.load_user_preferences('projects'))
+    ).subscribe(preferences => {
+      this.userPreferences = preferences
+      this.categories_all = [...this.userPreferences, ...this.categories_default]
 
-    this.formProjects = new FormGroup({title: new FormControl('', Validators.required),
+      this.filteredCategories = this.formProjects.get('category').valueChanges
+        // this.filteredCategories = this.myControl_c.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.name),
+          map(name => name ? this._filter(name, this.categories_default) : this.categories_default.slice())
+        );
+    })
+
+      this.formProjects = new FormGroup({title: new FormControl('', Validators.required),
                                                category: new FormControl('',Validators.required),
                                                action: new FormControl('', Validators.required),})
-
-    this.filteredCategories = this.formProjects.get('category').valueChanges
-    // this.filteredCategories = this.myControl_c.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name, this.categories_projects) : this.categories_projects.slice())
-      );
-
   }
 
   submit() {
+
     const  {title, action, category} = this.formProjects.value
+    if (!this.categories_default.includes(category))
+    {
+      this.addUserCategoriesComponent.isVisible=true
+      this.addUserCategoriesComponent.add_category('projects', category, this.userPreferences).subscribe
+      (user_preference=> this.userPreferences.push(user_preference))
+
+    }
     const project: ProjectAction = {
       title,
       date: this.dateService.date.value.format('DD-MM-YYYY'),
@@ -83,14 +102,14 @@ export class ProjectsComponent implements OnInit {
     }, err => console.error(err))
   }
 
-  displayFn(p): string {
-    if (p) {
-      return p
-      /*      if ('p_category' in p)
-            return  p.p_category
-            if ('t_category' in p)
-            return   p.t_category*/
-    } else return ''
-  }
+  // displayFn(p): string {
+  //   if (p) {
+  //     return p
+  //     /*      if ('p_category' in p)
+  //           return  p.p_category
+  //           if ('t_category' in p)
+  //           return   p.t_category*/
+  //   } else return ''
+  // }
 
 }

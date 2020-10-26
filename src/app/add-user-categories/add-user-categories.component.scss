@@ -1,0 +1,25 @@
+.add_t_cat
+{
+  position: fixed;
+  //margin: auto auto;
+  z-index: 100;
+  width: 500px;
+  height: 300px;
+  left: 50%;
+  top:50%;
+
+  background-color: white;
+
+  // overflow: hidden;
+  //  display: none;
+}
+
+.overlay {
+  background-color: rgba(0,0,0,0.7);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  top:0;
+  left: 0;
+
+}

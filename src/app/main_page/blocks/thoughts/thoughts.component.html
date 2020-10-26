@@ -42,20 +42,33 @@
     </div>
 
 
-    <mat-form-field class="example-full-width">
-      <mat-label>Выбери тему для размышления</mat-label>
+<!--    <mat-form-field class="example-full-width">-->
+<!--      <mat-label>Выбери тему для размышления</mat-label>-->
 
-      <label>
-        <input type="text" formControlName="category" matInput [formControl]="myControl_t" [matAutocomplete]="auto2">
-      </label>
+<!--      <label>-->
+<!--        <input type="text" formControlName="category" matInput [formControl]="myControl_t" [matAutocomplete]="auto2">-->
+<!--      </label>-->
+
+<!--      <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn">-->
+<!--        <mat-option (click)="ttt.isVisible=!ttt.isVisible">Добавить тему для размышления...</mat-option>-->
+<!--        <mat-option *ngFor="let option of filteredThoughts | async" [value]="option.t_category">-->
+<!--          {{option.t_category}}-->
+<!--        </mat-option>-->
+<!--      </mat-autocomplete>-->
+<!--    </mat-form-field>-->
+
+      <label for = "category">Категория размышления</label>
+      <input type="text" placeholder="Выбери категорию для размышления:" id = "category" formControlName="category" [formControl]="myControl_t" [matAutocomplete]="auto2">
 
       <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn">
         <mat-option (click)="ttt.isVisible=!ttt.isVisible">Добавить тему для размышления...</mat-option>
-        <mat-option *ngFor="let option of filteredThoughts | async" [value]="option.t_category">
-          {{option.t_category}}
+        <mat-option *ngFor="let option of filteredThoughts | async" [value]="option.category">
+          {{option.category}}
         </mat-option>
       </mat-autocomplete>
-    </mat-form-field>
+
+
+
 
     <label for = "thought">Добавить мысль:</label>
     <input type="text" class="input-group" id = "thought" formControlName="thought" placeholder="Добавить мысль">
@@ -64,6 +77,9 @@
       <small *ngIf="formThoughts.get('thought').errors.required">Добавьте мысль</small>
     </div>
     </div>
+
+
+
     <button
       type="submit"
       class="btn btn-block footer btn_add">Добавить

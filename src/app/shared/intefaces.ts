@@ -40,13 +40,13 @@ export interface ProjectsAll{
 
 
 export interface MoodsCategories {
-  mood: string
+  category: string
 }
 export interface ProjectCategories {
-  p_category: string
+  category: string
 }
 export interface ThoughtCategories {
-  t_category: string
+  category: string
 }
 export interface Data {
   type:string

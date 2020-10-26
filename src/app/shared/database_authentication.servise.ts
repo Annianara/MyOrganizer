@@ -11,7 +11,7 @@ import {
   Thought,
   MoodsCategories,
   ThoughtCategories,
-  Data
+  Data, ProjectCategories
 } from "./intefaces";
 import {environment} from "../../environments/environment";
 import {AuthService} from "../auth/auth.service";
@@ -116,10 +116,10 @@ export class DatabaseService {
       }))
   }
 
-  load_user_preferences(date: moment.Moment, type: String):Observable<ThoughtCategories[]>
+  load_user_preferences( type: String):Observable<any[]>
   {
     return this.http
-      .get<ThoughtCategories[]>(`${DatabaseService.url}users/${this.user}/user_preferences/categories_of_thoughts.json`)
+      .get<Object[]>(`${DatabaseService.url}/${type}/${this.user}/user_preferences.json`)
       .pipe(map(objects => {
         if (!objects) {
           return []
@@ -127,11 +127,12 @@ export class DatabaseService {
         return Object.keys(objects).map(key => ({...objects[key], id: key}))
       }))
   }
-  createUserCategories(thoughtCategories: ThoughtCategories){
+  createUserCategories(type:string, user_preferences: ThoughtCategories|ProjectCategories|MoodsCategories):Observable<any>
+  {
     return this.http
-      .post(`${DatabaseService.url}users/${this.user}/user_preferences/categories_of_thoughts.json`, thoughtCategories)
+      .post(`${DatabaseService.url}/${type}/${this.user}/user_preferences.json`, user_preferences)
       .pipe(map(res => {
-        return {...thoughtCategories}
+        return {...user_preferences}
 
       }))
 

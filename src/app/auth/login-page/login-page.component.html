@@ -4,12 +4,13 @@
     <p>{{error}}</p>
   </div>
 
-  <div id = "login">
+
   <div class="text-center spinner"*ngIf="isLoading">
     <app-loading-spinner></app-loading-spinner>
   </div>
 
-<form class="form text-center" [formGroup]="form"(ngSubmit)="submit()" *ngIf="!isLoading">
+<div id = "login" *ngIf="!isLoading">
+<form class="form text-center" [formGroup]="form"(ngSubmit)="submit()" >
   <p class="display-4 text-center" >{{isLoginMode? 'Регистрация': 'Вход'}}</p>
   <div class = "form-group">
     <label for = "email">Электронная почта</label>

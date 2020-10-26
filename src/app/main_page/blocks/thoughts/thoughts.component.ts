@@ -48,7 +48,7 @@ export class ThoughtsComponent implements OnInit {
     }
 
     this.dateService.date.pipe(
-      switchMap(value => this.databaseService.load_user_preferences(value, 'thoughts'))
+      switchMap(value => this.databaseService.load_user_preferences('thoughts'))
     ).subscribe(cat_thoughts_user => {
       this.categories_thoughts_user = cat_thoughts_user
       this.categories_thoughts_all = [...cat_thoughts_user, ...this.categories_thoughts]

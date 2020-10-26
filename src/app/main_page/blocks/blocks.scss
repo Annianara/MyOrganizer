@@ -68,7 +68,7 @@ form{
 
 }
 .form{
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
 }
 .footer
 {
@@ -137,6 +137,7 @@ button{
   background-color: rgba(119,45,91,0.41);
 }
 
+
 mat-form-field
 {
     width: 100%;
@@ -152,15 +153,23 @@ mat-form-field
 
 .mi-del
 {
-  color: rgba(0,0,0,0.3);
+  //color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0);
   font-size: x-large;
   //margin: 0;
   //padding: 0;
 }
-.mi-del:hover
+//.mi-del:hover
+//{
+//  color: rgba(0,0,0,0.63);
+//}
+
+tr:hover .mi-del
 {
   color: rgba(0,0,0,0.63);
+  cursor: pointer;
 }
+
 
 a
 {

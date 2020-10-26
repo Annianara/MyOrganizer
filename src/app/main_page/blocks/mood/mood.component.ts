@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Mood, ProjectAction, Thought} from "../../../shared/intefaces";
-import {CATEGORIES_MOODS} from "../../../shared/select_options";
-import {switchMap} from "rxjs/operators";
+import {Mood, MoodsCategories, ProjectAction, ProjectCategories, Thought} from "../../../shared/intefaces";
+import {CATEGORIES_MOODS, CATEGORIES_PROJECTS} from "../../../shared/select_options";
+import {map, startWith, switchMap} from "rxjs/operators";
 import {DateService} from "../../../shared/date.service";
 //import {DatabaseService, Types} from "../../shared/database.service";
 import {DatabaseService} from "../../../shared/database_authentication.servise"
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -15,6 +16,9 @@ import {DatabaseService} from "../../../shared/database_authentication.servise"
 })
 export class MoodComponent implements OnInit {
   formMoods: FormGroup
+  filteredCategories: Observable<MoodsCategories[]>;
+
+
   moods: Mood[] = []
   selected = 'Отличное'
   categories_moods = CATEGORIES_MOODS
@@ -36,12 +40,30 @@ export class MoodComponent implements OnInit {
     this.formMoods = new FormGroup({cur_mood: new FormControl('', Validators.required),
       reason: new FormControl(''), what_to_do: new FormControl(''),})
 
+    this.filteredCategories = this.formMoods.get('cur_mood').valueChanges
+      // this.filteredCategories = this.myControl_c.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this._filter(name, this.categories_moods) : this.categories_moods.slice())
+      );
+
+
   }
 
   click()
   {
     this.is_clicked=!this.is_clicked
   }
+
+  private _filter(name: string, p): [] {
+    const filterValue = name.toLowerCase();
+    if ('mood' in p[0])
+      return p.filter(option => option.mood.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+
+
   submit() {
     const {cur_mood, reason, what_to_do} = this.formMoods.value
     const mood: Mood = {

@@ -43,7 +43,7 @@ export class AddTCategoryComponent implements OnInit {
   add_t_category() {
     const {new_cat} = this.form_cat_of_thoughts.value
     const thoughtCategory: ThoughtCategories = {
-      t_category: new_cat
+      category: new_cat
     }
     this.databaseService.createUserCategories(thoughtCategory).subscribe()
     this.form_cat_of_thoughts.reset()
