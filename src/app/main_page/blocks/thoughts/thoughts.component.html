@@ -1,15 +1,14 @@
 <div class="section">
 
-
   <div class="section_header">
-  Мысли, идеи
+    Мысли, идеи
   <div class="section_button">
     <a class=" material-icons section_button" (click)="clicked()" >add</a>
   </div>
 </div>
 
 <div class="section_body container">
-  <ng-template #dontclicked>
+  <ng-template #data>
   <table *ngIf="thoughts.length; else noThoughts">
     <thead>
     <tr>
@@ -33,7 +32,7 @@
   </table>
   </ng-template>
 
-  <form *ngIf="is_clicked;else dontclicked" (ngSubmit)="submit()" [formGroup]="formThoughts">
+  <form *ngIf="is_clicked;else data" (ngSubmit)="submit()" [formGroup]="formThoughts">
     <div class="form">
     <label for = "title_t">Тема для размышления:</label>
     <input type="text" class="input-group" id="title_t" formControlName="title" placeholder="Добавить тему для размышлений">
@@ -41,27 +40,11 @@
       <small *ngIf="formThoughts.get('title').errors.required">Добавьте мысль</small>
     </div>
 
-
-<!--    <mat-form-field class="example-full-width">-->
-<!--      <mat-label>Выбери тему для размышления</mat-label>-->
-
-<!--      <label>-->
-<!--        <input type="text" formControlName="category" matInput [formControl]="myControl_t" [matAutocomplete]="auto2">-->
-<!--      </label>-->
-
-<!--      <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn">-->
-<!--        <mat-option (click)="ttt.isVisible=!ttt.isVisible">Добавить тему для размышления...</mat-option>-->
-<!--        <mat-option *ngFor="let option of filteredThoughts | async" [value]="option.t_category">-->
-<!--          {{option.t_category}}-->
-<!--        </mat-option>-->
-<!--      </mat-autocomplete>-->
-<!--    </mat-form-field>-->
-
       <label for = "category">Категория размышления</label>
-      <input type="text" placeholder="Выбери категорию для размышления:" id = "category" formControlName="category" [formControl]="myControl_t" [matAutocomplete]="auto2">
+      <input type="text" placeholder="Выбери категорию для размышления:" id = "category" formControlName="category"  [matAutocomplete]="auto2">
 
-      <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn">
-        <mat-option (click)="ttt.isVisible=!ttt.isVisible">Добавить тему для размышления...</mat-option>
+      <mat-autocomplete #auto2="matAutocomplete">
+<!--        <mat-option (click)="ttt.isVisible=!ttt.isVisible">Добавить тему для размышления...</mat-option>-->
         <mat-option *ngFor="let option of filteredThoughts | async" [value]="option.category">
           {{option.category}}
         </mat-option>
@@ -86,8 +69,9 @@
     </button>
 
   </form>
+  <app-add-user-categories></app-add-user-categories>
 
-  <app-add-t-category #ttt></app-add-t-category>
+<!--  <app-add-t-category #ttt></app-add-t-category>-->
 
 
   <ng-template #noThoughts>

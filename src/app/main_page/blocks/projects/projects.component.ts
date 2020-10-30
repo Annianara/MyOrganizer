@@ -23,23 +23,23 @@ export class ProjectsComponent implements OnInit {
   projects: ProjectAction[] = []
   filteredCategories: Observable<ProjectCategories[]>;
   categories_default = CATEGORIES_PROJECTS
-  categories_all
-
+  userPreferences: ProjectCategories[] = []
+  categories_all: ProjectCategories[]= CATEGORIES_PROJECTS
   is_clicked = false
 
-  userPreferences:string[]=[]
+
   @ViewChild(AddUserCategoriesComponent, {static: false})
   private addUserCategoriesComponent: AddUserCategoriesComponent;
 
-  click()
+  clicked()
   {
     this.is_clicked=!this.is_clicked
   }
 
   private _filter(name: string, p): [] {
     const filterValue = name.toLowerCase();
-    if ('p_category' in p[0])
-      return p.filter(option => option.p_category.toLowerCase().indexOf(filterValue) === 0);
+    if ('category' in p[0])
+      return p.filter(option => option.category.toLowerCase().indexOf(filterValue) === 0);
   }
 
   constructor(public dateService: DateService,
@@ -51,34 +51,42 @@ export class ProjectsComponent implements OnInit {
         switchMap(value => this.databaseService.load_this_day(value, 'projects')
         ))
           obs.subscribe(projects => { this.projects = projects})
-    this.dateService.date.pipe(
-      switchMap(value => this.databaseService.load_user_preferences('projects'))
-    ).subscribe(preferences => {
+
+
+  this.databaseService.load_user_categories('projects')
+    .subscribe(preferences => {
       this.userPreferences = preferences
-      this.categories_all = [...this.userPreferences, ...this.categories_default]
+      console.log("preferences"+preferences)
+      // this.categories_all = [ ...this.categories_default, ...this.userPreferences]
 
       this.filteredCategories = this.formProjects.get('category').valueChanges
-        // this.filteredCategories = this.myControl_c.valueChanges
         .pipe(
           startWith(''),
           map(value => typeof value === 'string' ? value : value.name),
-          map(name => name ? this._filter(name, this.categories_default) : this.categories_default.slice())
+          map(name => name ? this._filter(name, this.categories_all) : this.categories_all.slice())
         );
     })
 
-      this.formProjects = new FormGroup({title: new FormControl('', Validators.required),
-                                               category: new FormControl('',Validators.required),
+      this.formProjects = new FormGroup({category: new FormControl('', Validators.required),
+                                               title: new FormControl('',Validators.required),
                                                action: new FormControl('', Validators.required),})
   }
 
   submit() {
 
     const  {title, action, category} = this.formProjects.value
-    if (!this.categories_default.includes(category))
+    let index_first = this.categories_all.map(p => p.category).indexOf(category)
+    if (index_first==-1)
+    // if (!this.categories_default.includes(category))
     {
       this.addUserCategoriesComponent.isVisible=true
-      this.addUserCategoriesComponent.add_category('projects', category, this.userPreferences).subscribe
-      (user_preference=> this.userPreferences.push(user_preference))
+      this.addUserCategoriesComponent.category = category
+      this.addUserCategoriesComponent.type = 'projects'
+      this.addUserCategoriesComponent.added_category.subscribe(user_preference=> {this.userPreferences.push(user_preference)
+        this.categories_all.push(user_preference)}
+      )
+      // this.addUserCategoriesComponent.add_category('projects', category).subscribe
+      // (user_preference=> this.userPreferences.push(user_preference))
 
     }
     const project: ProjectAction = {
@@ -94,7 +102,7 @@ export class ProjectsComponent implements OnInit {
       this.formProjects.reset()
     }, err => console.error(err))
 
-    this.click()
+    this.clicked()
   }
   remove(object: ProjectAction | Thought | Mood, type: String) {
     this.databaseService.remove(object, type).subscribe(() => {

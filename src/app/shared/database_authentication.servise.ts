@@ -22,6 +22,10 @@ export enum Types {
   mood
 }
 
+interface CreateResponseCategory{
+  // name: string
+  category: string
+}
 interface CreateResponse {
   name: string
   category: string
@@ -83,7 +87,7 @@ export class DatabaseService {
     return projects
   }
 
-  loadAllProjects(): Observable<ProjectsAll[]> {
+  load_all_projects(): Observable<ProjectsAll[]> {
     let projects: ProjectsAll[] = []
     // let user
     // this.auth.user.subscribe(cur_user =>user = cur_user)
@@ -116,10 +120,10 @@ export class DatabaseService {
       }))
   }
 
-  load_user_preferences( type: String):Observable<any[]>
+  load_user_categories(type: String):Observable<any[]>
   {
     return this.http
-      .get<Object[]>(`${DatabaseService.url}/${type}/${this.user}/user_preferences.json`)
+      .get<Object[]>(`${environment.fbDbUrl}user_preferences/${this.user}/${type}.json`)
       .pipe(map(objects => {
         if (!objects) {
           return []
@@ -127,15 +131,24 @@ export class DatabaseService {
         return Object.keys(objects).map(key => ({...objects[key], id: key}))
       }))
   }
-  createUserCategories(type:string, user_preferences: ThoughtCategories|ProjectCategories|MoodsCategories):Observable<any>
+  create_user_categories(type:string, user_preferences:{category:string}):Observable<Object>
   {
+    console.log("Хочу, чтобы он что-то делал")
     return this.http
-      .post(`${DatabaseService.url}/${type}/${this.user}/user_preferences.json`, user_preferences)
+      .post(`${environment.fbDbUrl}user_preferences/${this.user}/${type}.json`, user_preferences)
       .pipe(map(res => {
+        console.log("Он что-то делает")
         return {...user_preferences}
 
       }))
 
+  }
+  create(object: Thought|ProjectAction|Mood, types: string): Observable<Object> {
+    return this.http
+      .post<CreateResponse>(`${environment.fbDbUrl}${types}/${this.user}/${object.date}.json`, object)
+      .pipe(map(res => {
+        return {...object, id: res.name}
+      }))
   }
 
   /*  createUserCategories(thoughtCategories: ThoughtCategories){
@@ -162,13 +175,6 @@ export class DatabaseService {
         return {...project, id: res.name}
       }))
   }*/
-    create(object: Thought|ProjectAction|Mood, types: string): Observable<Object> {
-      return this.http
-        .post<CreateResponse>(`${environment.fbDbUrl}${types}/${this.user}/${object.date}.json`, object)
-        .pipe(map(res => {
-          return {...object, id: res.name}
-        }))
-    }
 
 /*  createM(mood: Mood, type: Types): Observable<Mood> {
     return this.http

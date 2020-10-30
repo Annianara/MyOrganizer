@@ -1,14 +1,14 @@
-
 <div class = "section">
+
   <div class="section_header">
     Информация по проектам
     <div class="section_button">
-      <a class="material-icons section_button" (click)="click()">add</a>
+      <a class="material-icons section_button" (click)="clicked()">add</a>
     </div>
   </div>
 
   <div class="section_body container">
-    <ng-template #no_click>
+    <ng-template #data>
   <table *ngIf="projects.length; else noProjects">
     <thead>
     <tr>
@@ -16,9 +16,9 @@
       <th>Название проекта</th>
       <th>Категория проекта</th>
       <th>Действия по проекту</th>
-<!--      <th>Удалить</th>-->
     </tr>
     </thead>
+
     <tbody>
     <tr *ngFor="let project of projects; let i = index">
       <td> <strong>{{i + 1}}</strong></td>
@@ -33,24 +33,16 @@
 
 
 <!--  <form class="example-form">-->
-    <form *ngIf="is_clicked;else no_click" (ngSubmit)="submit()" [formGroup]="formProjects">
+    <form *ngIf="is_clicked;else data" (ngSubmit)="submit()" [formGroup]="formProjects">
       <div class="form">
-<!--    <mat-form-field class="example-full-width project_select">-->
-<!--      <mat-label>Выбери тему для проекта</mat-label>-->
+        <label for = "title">Название проекта:</label>
+        <input type="text" class="input-group" id = "title" formControlName="title" placeholder="Добавить название проекта">
 
-<!--        <input type="text" matInput formControlName="category" [formControl]="myControl_c" [matAutocomplete]="auto">-->
+        <div *ngIf="formProjects.get('title').invalid && formProjects.get('title').touched" class="validation">
+          <small *ngIf="formProjects.get('title').errors.required">Введите название проекта</small>
+        </div>
 
-<!--      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">-->
-<!--        <mat-option *ngFor="let option of filteredCategories | async" [value]="option.p_category">-->
-<!--          {{option.p_category}}-->
-<!--        </mat-option>-->
-<!--      </mat-autocomplete>-->
-<!--    </mat-form-field>  -->
-<!--        <mat-form-field class="example-full-width project_select">-->
-<!--      <mat-label>Выбери тему для проекта</mat-label>-->
-
-<!--          <form class="example-form">-->
-            <label for = "category">Категория проекта:</label>
+        <label for = "category">Категория проекта:</label>
         <input type="text" placeholder="Выбери категорию" id = "category" formControlName="category" [matAutocomplete]="auto">
 
     <mat-autocomplete #auto="matAutocomplete"> <!--  [displayWith]="displayFn">-->
@@ -58,19 +50,6 @@
           {{option.category}}
         </mat-option>
       </mat-autocomplete>
-<!--          </form>-->
-<!--    </mat-form-field>-->
-
-<!--  </form>-->
-     <label for = "title">Название проекта:</label>
-    <input type="text" class="input-group" id = "title" formControlName="title" placeholder="Добавить название проекта">
-
-    <div *ngIf="formProjects.get('title').invalid && formProjects.get('title').touched" class="validation">
-      <small *ngIf="formProjects.get('title').errors.required">Введите название проекта</small>
-    </div>
-
-<!--    <label for = "category">Категория проекта:</label>-->
-<!--    <input type="text" class="input-group" id = "category" placeholder="Добавить категорию проекта">-->
 
     <label for = "action">Действие для проекта:</label>
     <input type="text" class="input-group" id = "action" formControlName="action" placeholder="Добавить действие для проекта">
@@ -86,11 +65,10 @@
     >Добавить</button>
   </form>
 
-
+    <app-add-user-categories></app-add-user-categories>
 <ng-template #noProjects>
   <p class="text-center nodata  ">Действий по проектам пока нет...</p>
 </ng-template>
-  </div>
 
-  <app-add-user-categories></app-add-user-categories>
+  </div>
 </div>

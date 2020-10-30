@@ -54,7 +54,7 @@ export class AllProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.user.pipe(take(1),
-      switchMap(()=> this.databaseService.loadAllProjects()
+      switchMap(()=> this.databaseService.load_all_projects()
       )).subscribe(allProjects => {
         this.allProjects = allProjects.sort((a, b) => {
             if (a.project.title > b.project.title) return 1; else if (a.project.title < b.project.title) return -1; else return 0

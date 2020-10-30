@@ -1,10 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { FormGroup} from "@angular/forms";
 import {Thought, ThoughtCategories} from "../shared/intefaces";
 import {DatabaseService} from "../shared/database_authentication.servise";
-import {DateService} from "../shared/date.service";
-import {switchMap} from "rxjs/operators";
-import {Observable} from "rxjs";
+
+import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-add-user-categories',
@@ -13,57 +12,39 @@ import {Observable} from "rxjs";
 })
 export class AddUserCategoriesComponent implements OnInit {
 
-  @Input() type
+
   isVisible = false
 
-  form_cat_of_thoughts: FormGroup
-  thoughts: Thought[] = []
+  added_category
 
-  added_categories
+  // thoughts: Thought[] = []
 
-  addedthoughts
+  private _type:string=''
+  private _category:string=''
 
 
-  constructor(private databaseService: DatabaseService, public dateService: DateService) {
+  set type(type:string)
+  {this._type=type}
+
+  set category(category:string)
+  {this._category=category}
+
+
+  constructor(private databaseService: DatabaseService) {
   }
 
   ngOnInit(): void {
-    this.form_cat_of_thoughts = new FormGroup({
-      new_cat: new FormControl('', Validators.required)
-    })
-
-    /*
-        this.dateService.date.pipe(
-          switchMap(value => this.databaseService.load_this_day(value, 'all_projects'))
-        ).subscribe(all_projects => {
-          this.all_projects = all_projects.
-        })
-    */
-
   }
 
-  add_t_category() {
-    const {new_cat} = this.form_cat_of_thoughts.value
-    const thoughtCategory: ThoughtCategories = {
-      category: new_cat
-    }
-    // this.databaseService.createUserCategories(thoughtCategory).subscribe()
-    this.form_cat_of_thoughts.reset()
-    this.isVisible = false
-  }
-
-  add_category(type:string, category:string, m:string[]):Observable<any>
+  // add_category(type:string, category:string):Observable<any>
+  add_category()
+    // :Observable<any>
   {
-    const thoughtCategory = {
-      category: category
+    const new_category = {
+      category: this._category
     }
-
     this.isVisible = false
-     return  this.databaseService.createUserCategories(type, thoughtCategory)
-
-      // m.push(s)
-
-   // return m
+     this.added_category= this.databaseService.create_user_categories(this._type, new_category)
   }
 
 }
