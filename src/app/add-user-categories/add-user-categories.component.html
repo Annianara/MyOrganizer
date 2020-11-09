@@ -1,8 +1,10 @@
 <div [style.display]="isVisible ? 'block' : 'none'">
   <div class="overlay"  [style.display]="isVisible ? 'block' : 'none'" (click)="isVisible=!isVisible" ></div>
   <form (ngSubmit)="add_category()"  class="add_t_cat">
-  <h5 class="h5">Добавить категорию в пользовательские категории?</h5>
+  <h5 class="h6 text-center">Добавить категорию в пользовательские категории?</h5>
+    <div class="text-center">
   <button type="submit" class="btn btn-outline-success">Да</button>
   <button type="button" class="btn btn-outline-danger" (click)="isVisible=!isVisible">Нет</button>
+    </div>
   </form>
 </div>

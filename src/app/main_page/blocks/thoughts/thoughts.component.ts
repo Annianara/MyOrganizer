@@ -81,6 +81,7 @@ export class ThoughtsComponent implements OnInit {
       this.addUserCategoriesComponent.isVisible=true
       this.addUserCategoriesComponent.category = category
       this.addUserCategoriesComponent.type = 'thoughts'
+      
       // this.addUserCategoriesComponent.add_category('projects', category).subscribe
       // (user_preference=> this.userPreferences.push(user_preference))
 
@@ -116,4 +117,7 @@ export class ThoughtsComponent implements OnInit {
   //           return   p.t_category*/
   //   } else return ''
   // }
+  getUserData(value){
+    value.subscribe((value)=>{this.categories_all.push(value)})
+  }
 }

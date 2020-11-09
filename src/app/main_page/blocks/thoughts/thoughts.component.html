@@ -7,7 +7,7 @@
   </div>
 </div>
 
-<div class="section_body container">
+<div class="section_body">
   <ng-template #data>
   <table *ngIf="thoughts.length; else noThoughts">
     <thead>
@@ -33,7 +33,7 @@
   </ng-template>
 
   <form *ngIf="is_clicked;else data" (ngSubmit)="submit()" [formGroup]="formThoughts">
-    <div class="form">
+    <div class="form container">
     <label for = "title_t">Тема для размышления:</label>
     <input type="text" class="input-group" id="title_t" formControlName="title" placeholder="Добавить тему для размышлений">
     <div *ngIf="formThoughts.get('title').invalid && formThoughts.get('title').touched" class="validation">
@@ -69,7 +69,6 @@
     </button>
 
   </form>
-  <app-add-user-categories></app-add-user-categories>
 
 <!--  <app-add-t-category #ttt></app-add-t-category>-->
 
@@ -80,4 +79,6 @@
 
 
 </div>
+  <app-add-user-categories (getUserData)="getUserData($event)"></app-add-user-categories>
+
 </div>

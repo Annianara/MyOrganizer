@@ -58,8 +58,8 @@ export class MoodComponent implements OnInit {
 
   private _filter(name: string, p): [] {
     const filterValue = name.toLowerCase();
-    if ('mood' in p[0])
-      return p.filter(option => option.mood.toLowerCase().indexOf(filterValue) === 0);
+    if ('category' in p[0])
+      return p.filter(option => option.category.toLowerCase().indexOf(filterValue) === 0);
   }
 
 

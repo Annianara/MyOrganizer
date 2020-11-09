@@ -6,6 +6,7 @@ export interface Mood {
   cur_mood: string
   reason?: string
   what_to_do?: string
+  completed?: boolean
 }
 
 

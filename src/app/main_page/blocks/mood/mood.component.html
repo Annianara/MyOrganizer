@@ -7,14 +7,14 @@
     </div>
   </div>
 
-  <div class="section_body container">
+  <div class="section_body">
     <ng-template #dontclicked>
     <table  *ngIf="moods.length; else noMoods">
       <thead>
         <tr>
           <th>№</th>
           <th>Текущее настроение</th>
-          <th>Дата время </th>
+          <th>Дата </th>
           <th>Причина</th>
           <th>Как можно исправить (плохое настроение)</th>
 <!--          <th>Удалить</th>-->
@@ -40,7 +40,7 @@
 <!--    <div class = "form">-->
 
     <form *ngIf="is_clicked; else dontclicked" (ngSubmit)="submit()" [formGroup]="formMoods">
-      <div class="form">
+      <div class="form container">
 
 <!--      <mat-form-field class="text-center mood_select" >-->
 <!--        <mat-label class="text-center">Выбери настроение</mat-label>-->
@@ -87,5 +87,6 @@
     </ng-template>
 
   </div>
+
   </div>
 <!--</div>-->

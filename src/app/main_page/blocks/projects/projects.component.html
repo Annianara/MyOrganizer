@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <div class="section_body container">
+  <div class="section_body">
     <ng-template #data>
   <table *ngIf="projects.length; else noProjects">
     <thead>
@@ -34,7 +34,8 @@
 
 <!--  <form class="example-form">-->
     <form *ngIf="is_clicked;else data" (ngSubmit)="submit()" [formGroup]="formProjects">
-      <div class="form">
+      <div class="form container">
+
         <label for = "title">Название проекта:</label>
         <input type="text" class="input-group" id = "title" formControlName="title" placeholder="Добавить название проекта">
 
@@ -65,10 +66,12 @@
     >Добавить</button>
   </form>
 
-    <app-add-user-categories></app-add-user-categories>
+
 <ng-template #noProjects>
-  <p class="text-center nodata  ">Действий по проектам пока нет...</p>
+  <p class="text-center nodata">Действий по проектам пока нет...</p>
 </ng-template>
 
   </div>
+  <app-add-user-categories (getUserData)="getUserData($event)"></app-add-user-categories>
+
 </div>

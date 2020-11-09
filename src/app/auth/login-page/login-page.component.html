@@ -11,7 +11,7 @@
 
 <div id = "login" *ngIf="!isLoading">
 <form class="form text-center" [formGroup]="form"(ngSubmit)="submit()" >
-  <p class="display-4 text-center" >{{isLoginMode? 'Вход'  : 'Регистрация'}}</p>
+  <p class="h3 text-center" >{{isLoginMode? 'Вход'  : 'Регистрация'}}</p>
   <div class = "form-group">
     <label for = "email">Электронная почта</label>
     <input  class = "form-control" id = "email" type="text" formControlName="email">

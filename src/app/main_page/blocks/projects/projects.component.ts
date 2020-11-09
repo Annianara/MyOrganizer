@@ -46,7 +46,6 @@ export class ProjectsComponent implements OnInit {
               private databaseService: DatabaseService) { }
 
   ngOnInit(): void {
-
       let obs = this.dateService.date.pipe(
         switchMap(value => this.databaseService.load_this_day(value, 'projects')
         ))
@@ -56,8 +55,8 @@ export class ProjectsComponent implements OnInit {
   this.databaseService.load_user_categories('projects')
     .subscribe(preferences => {
       this.userPreferences = preferences
-      console.log("preferences"+preferences)
-      // this.categories_all = [ ...this.categories_default, ...this.userPreferences]
+      // console.log("preferences"+preferences)
+      this.categories_all = [ ...this.categories_default, ...this.userPreferences]
 
       this.filteredCategories = this.formProjects.get('category').valueChanges
         .pipe(
@@ -73,22 +72,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   submit() {
-
     const  {title, action, category} = this.formProjects.value
-    let index_first = this.categories_all.map(p => p.category).indexOf(category)
-    if (index_first==-1)
-    // if (!this.categories_default.includes(category))
-    {
-      this.addUserCategoriesComponent.isVisible=true
-      this.addUserCategoriesComponent.category = category
-      this.addUserCategoriesComponent.type = 'projects'
-      this.addUserCategoriesComponent.added_category.subscribe(user_preference=> {this.userPreferences.push(user_preference)
-        this.categories_all.push(user_preference)}
-      )
-      // this.addUserCategoriesComponent.add_category('projects', category).subscribe
-      // (user_preference=> this.userPreferences.push(user_preference))
-
-    }
     const project: ProjectAction = {
       title,
       date: this.dateService.date.value.format('DD-MM-YYYY'),
@@ -96,7 +80,25 @@ export class ProjectsComponent implements OnInit {
       action
     }
 
-  //  this.databaseService.createP(project).subscribe(project => {
+    let index_first = this.categories_all.map(p => p.category).indexOf(category)
+    if (index_first==-1)
+    {
+      this.addUserCategoriesComponent.isVisible=true
+      this.addUserCategoriesComponent.category = category
+      this.addUserCategoriesComponent.type = 'projects'
+      // this.addUserCategoriesComponent.added_category.subscribe(user_preference=> {this.userPreferences.push(user_preference)
+      //   this.categories_all.push(user_preference)
+      // }, err => console.error("Ошибка"+ err)
+      // )
+      // this.addUserCategoriesComponent.add_category((value)=>value.subscribe
+      // (user_preference=> {
+      //     this.userPreferences.push(user_preference)
+      //     this.categories_all.push(user_preference)
+      //   }
+      // ))
+    }
+
+
       this.databaseService.create(project, 'projects').subscribe( project => {
       this.projects.push(<ProjectAction>project)
       this.formProjects.reset()
@@ -110,14 +112,8 @@ export class ProjectsComponent implements OnInit {
     }, err => console.error(err))
   }
 
-  // displayFn(p): string {
-  //   if (p) {
-  //     return p
-  //     /*      if ('p_category' in p)
-  //           return  p.p_category
-  //           if ('t_category' in p)
-  //           return   p.t_category*/
-  //   } else return ''
-  // }
+  getUserData(value){
+    value.subscribe((value)=>{this.categories_all.push(value)})
+  }
 
 }
