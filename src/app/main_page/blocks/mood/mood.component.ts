@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Mood, MoodsCategories, ProjectAction, ProjectCategories, Thought} from "../../../shared/intefaces";
-import {CATEGORIES_MOODS, CATEGORIES_PROJECTS} from "../../../shared/select_options";
+import {Mood, MoodsCategories, ProjectAction, Thought} from "../../../shared/intefaces";
+import {CATEGORIES_MOODS} from "../../../shared/select_options";
 import {map, startWith, switchMap} from "rxjs/operators";
 import {DateService} from "../../../shared/date.service";
-//import {DatabaseService, Types} from "../../shared/database.service";
 import {DatabaseService} from "../../../shared/database_authentication.servise"
 import {Observable} from "rxjs";
 
@@ -41,7 +40,6 @@ export class MoodComponent implements OnInit {
       reason: new FormControl(''), what_to_do: new FormControl(''),})
 
     this.filteredCategories = this.formMoods.get('cur_mood').valueChanges
-      // this.filteredCategories = this.myControl_c.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.name),
@@ -61,8 +59,6 @@ export class MoodComponent implements OnInit {
     if ('category' in p[0])
       return p.filter(option => option.category.toLowerCase().indexOf(filterValue) === 0);
   }
-
-
 
   submit() {
     const {cur_mood, reason, what_to_do} = this.formMoods.value

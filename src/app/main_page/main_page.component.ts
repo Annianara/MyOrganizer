@@ -1,12 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {DatabaseService, Types} from "../shared/database.service";
 import {DateService} from "../shared/date.service";
-import {map, startWith, switchMap} from "rxjs/operators";
-import {Mood, ProjectAction, Thought, MoodsCategories, ProjectCategories, ThoughtCategories} from "../shared/intefaces";
-import {CATEGORIES_MOODS, CATEGORIES_PROJECTS, CATEGORIES_THOUGHTS} from "../shared/select_options"
-import {MatDatepicker, MatDatepickerInputEvent} from "@angular/material/datepicker";
-import {Observable} from "rxjs";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
 @Component({
   selector: 'app-main_page',
@@ -16,12 +10,11 @@ import {Observable} from "rxjs";
 export class Main_pageComponent implements OnInit {
 
   select(day: MatDatepickerInputEvent<Date>) {
-    this.dateService.changeDate2(day.value)
+    this.dateService.changeDate(day.value)
   }
 
-  constructor(public dateService: DateService,)
-  {
-  }
+  constructor(public dateService: DateService)
+  {}
 
   ngOnInit() {
 

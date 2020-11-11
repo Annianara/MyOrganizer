@@ -1,17 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from "./auth/auth.service";
-import {Router} from "@angular/router";
-import {Subscription} from "rxjs";
+import {Component, OnInit} from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{//, OnDestroy{
+export class AppComponent implements OnInit{
   title = 'MyOrganizer';
   // isAuthenticated = false
-  // private userSub: Subscription
 
   constructor() {
   }
@@ -22,7 +19,4 @@ export class AppComponent implements OnInit{//, OnDestroy{
     // })
               }
 
-  // ngOnDestroy(): void {
-  //   this.userSub.unsubscribe()
-  // }
 }

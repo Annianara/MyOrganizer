@@ -1,19 +1,12 @@
 #login{
-  max-width: 600px;
-  min-width: 400px;
-  //margin: 0 auto;
-  //position: absolute;
+  max-width: 30rem;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10%;
-  //background-color: rgba(212,173,194, 0.63);
+  margin-top: 7rem;
   background-color: rgba(255,255,255,0.8);
-  border-radius: 31px;
-  padding: 70px;
-  padding-top: 50px;
-  //top:36%;
-  //left: 37%;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.22)
 
 }
 .spinner{
@@ -23,9 +16,37 @@
 }
 
 .btn{
-  margin-right: .4rem;
-  background-color: rgb(212,173,194);
+  margin-right: 0.5rem;
+  //background-color: rgb(212,173,194);
+  background-color:#d4adc2bf;
   border: none;
+  border-radius: 0.5rem;
+  width: 12rem;
+  height: 3.5rem;
 
 }
 
+small{
+  margin: 1rem;
+  color:black;
+}
+
+input{
+  &.ng-invalid.ng-touched{
+    border: 1px solid red;
+  }
+  &.ng-valid.ng-touched{
+    border: 1px solid green;
+  }
+}
+
+small{
+  //margin: 1rem;
+  margin: 0;
+  color:red;
+}
+
+.btn{
+  //text-align: center;
+
+}

@@ -6,47 +6,31 @@
 .section
 {
   min-height: 100px;
-  border-radius: 20px;
+  border-radius: 15px;
 
-
-  //background: rgba(255, 255, 255, 0.78);
-  background: rgba(255, 255, 255, 0.5);
-
-
+  background: rgba(255, 255, 255, 0.85);
   margin: 1rem;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-
-  //max-width: 750px;
-  margin-left: auto;
-  margin-right: auto;
-
+  box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.22);
   display: flex;
   flex-direction: column;
 }
 
-
-.section_button
-{
-  border-radius: inherit;
-  //margin-right: 1rem;
-  //background: inherit;
-}
-
 .section_header
 {
-
   border-radius: inherit;
   font-weight: bold;
-  padding: 1.3rem 2rem 1.3rem 2rem;
+  //padding: 1.0rem 2rem 1.0rem 2rem;
+  padding: 0.5rem 2rem 0.5rem 2rem;
 
-  //background: #ca583a;
-  //background-color: rgba(255,96,189,0.41);
-  background-color: rgba(233, 146, 206, 0.1);
 
+  //background-color: rgb(232 206 224 / 50%);
+  background-color: #d4adc257;
+  box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.22);
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  //margin-bottom: 1rem;
 
 }
 
@@ -77,51 +61,86 @@ form{
 }
 
 table {
-  //margin-top: 10%;
   margin-left: auto;
   margin-right: auto;
-  width: 97%; /* Ширина таблицы */
-  //border: 1px solid white; /* Рамка вокруг таблицы */
-  border-radius: 20px;
-  //box-shadow: 0 0 0 1px white; // 1
-  //box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-  box-shadow: 0 0 10px rgba(0,0,0,0.25), 0 0 0 rgba(0,0,0,0.22);
+  width: 99%; /* Ширина таблицы */
+  //width: 100%; /* Ширина таблицы */
+  //border-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.22);
   text-align: center;
   //border-collapse: collapse; /* Отображать только одинарные линии */
-  //background-color:  rgba(229,207,220, 0.7);
-  //background-color:  rgb(229,207,220);
-  //background-color: white;
-  //padding: 5px;
-  //margin-left: 1rem;
-  background: rgba(255, 255, 255, 0.2);
-  margin-bottom: 4rem;
+  //margin-bottom: 1.2rem;
+  margin-bottom: 0.4rem;
 }
 th {
-  //text-align: left; /* Выравнивание по левому краю */
-  //background: #ca583a; /* Цвет фона ячеек */
-  //background-color: rgba(119,45,91,0.41);
   padding: 15px; /* Поля вокруг содержимого ячеек */
-  //border: 1px solid white; /* Граница вокруг ячеек */
   text-align: center;
+  //text-align: left;
 }
 td {
-  padding: 15px; /* Поля вокруг содержимого ячеек */
-  //border: 1px solid white; /* Граница вокруг ячеек */
-  //color: white;
+  padding: 10px; /* Поля вокруг содержимого ячеек */
   color: black;
+  min-width: 6rem;
+  border-top: 1px solid #e8e9eb;
+}
+
+tr:hover .mi-del
+{
+  color: rgba(0,0,0,0.63);
+  cursor: pointer;
 }
 
 
+//table {
+//  //width: 100%;
+//  border: 0px;
+//  border-collapse: collapse;}
+//table thead {font-weight: bold;}
+//table td {padding: 0.6rem 1rem; }
+
+@media screen and (max-width: 800px) {
+  table{
+    border-radius: 0;
+  }
+  table thead {
+    display: none;
+  }
+  table tr {
+    //display: block;
+    //margin-bottom: 1rem;
+    border-bottom: 2px solid #e8e9eb;
+  }
+  table td {
+    display: block;
+    //float: right;
+    text-align: right;
+    //padding-left: 1rem;
+    //min-height: 1rem;
+    padding-left: 12rem;
+    //width: 51%;
+    min-height: 4rem;
+  }
+  table td:before {
+    content: attr(aria-label);
+    float: left;
+    font-weight: bold;
+    text-align: left;
+    width: 10rem;
+    margin-left: -11rem;
+  }
+}
+
 .btn_add{
- width: 102.75%;
-  margin-left: -1.25rem;
+  //border-radius: 15px;
+  border-radius: 13px;
  }
 
 button{
-  //background: #ca583a;
-  //background-color: rgba(245,59,186,0.41);
+  //background-color: rgb(229,207,220)
+  background-color: #d4adc257;
 
-  background-color: rgb(229,207,220)
 }
 
 .btn-remove
@@ -145,30 +164,22 @@ mat-form-field
 
 .material-icons
 {
-  //color: black;
-  //color: rgba(245,59,186,0.41);
   color: rgba(0,0,0,0.63);
-  border-radius: inherit;
+  border-radius: 1rem;
 }
 
 .mi-del
 {
   //color: rgba(0,0,0,0.3);
   color: rgba(0,0,0,0);
-  font-size: x-large;
-  //margin: 0;
-  //padding: 0;
+  //font-size: x-large;
 }
+
 //.mi-del:hover
 //{
 //  color: rgba(0,0,0,0.63);
 //}
 
-tr:hover .mi-del
-{
-  color: rgba(0,0,0,0.63);
-  cursor: pointer;
-}
 
 
 a
@@ -178,8 +189,7 @@ a
 a:hover
 {
   //background-color: rgba(245,59,186,0.41);
-//background-color: var(--transparent_pink);
-background-color: var(--hover_pink);
+  background-color: var(--transparent_pink);
   text-decoration: none;
 }
 
@@ -188,8 +198,10 @@ input{
   margin-bottom: 1rem;
 }
 
-.nodata{
-  font-size: larger;
+.required{
+  margin: -0.5rem;
 }
 
-
+.nodata{
+  margin: 1rem;
+}

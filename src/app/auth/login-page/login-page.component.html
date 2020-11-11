@@ -1,45 +1,42 @@
-<!--<div class = "row">-->
-<!-- <div class = "col-xs-12 col-md-6 col-md-offset-3 mx-auto">-->
-  <div class="alert alert-danger text-center" *ngIf="error">
-    <p>{{error}}</p>
-  </div>
 
 
-  <div class="text-center spinner"*ngIf="isLoading">
+  <div class="text-center spinner" *ngIf="isLoading">
     <app-loading-spinner></app-loading-spinner>
   </div>
 
 <div id = "login" *ngIf="!isLoading">
-<form class="form text-center" [formGroup]="form"(ngSubmit)="submit()" >
+<form class="form text-center" [formGroup]="form" (ngSubmit)="submit()" >
   <p class="h3 text-center" >{{isLoginMode? 'Вход'  : 'Регистрация'}}</p>
   <div class = "form-group">
     <label for = "email">Электронная почта</label>
     <input  class = "form-control" id = "email" type="text" formControlName="email">
     <div *ngIf="form.get('email').touched && form.get('email').invalid" class="validation">
-      <small *ngIf="form.get('email').errors.required">Enter email</small>
-      <small *ngIf="form.get('email').errors.email">Enter valid email</small>
+      <small *ngIf="form.get('email').errors.required">Введите email</small>
+      <small *ngIf="form.get('email').errors.email">Введите корректный email</small>
     </div>
   </div>
   <div class = "form-group">
     <label for = "password">Пароль</label>
     <input class="form-control" id = "password" type="password" formControlName="password">
     <div *ngIf="form.get('password').touched && form.get('password').invalid" class="validation">
-      <small *ngIf="form.get('password').errors.required">Enter password</small>
-      <small *ngIf="form.get('password').errors.email">Enter valid password</small>
-      <small *ngIf="form.get('password').errors.minLength">
-        Password must be at least {{form.get('password').errors.minlength.requiredLength}} characters.
-        Now he {{form.get('password').errors.minlength.actualLength}}
+      <small *ngIf="form.get('password').errors.required">Введите пароль</small>
+      <small *ngIf="form.get('password').errors.minlength">Пароль должен состоять как минимум из {{form.get('password').errors.minlength.requiredLength}} символов.
+        Сейчас введено {{form.get('password').errors.minlength.actualLength}}.
       </small>
     </div>
   </div>
   <div>
-  <button type="submit" class="btn btn-primary">
-<!--          [disabled]="form.invalid || submitted"-->
-  {{ isLoginMode? 'Войти' : 'Зарегистрироваться'}}</button>
-  <button class="btn btn-primary" (click)="onSwitchMode()">Переключиться на {{isLoginMode? 'регистрацию': 'вход'}}</button>
+  <button type="submit" class="btn btn-primary"   [disabled]="form.invalid || submitted">{{ isLoginMode? 'Войти' : 'Зарегистрироваться'}}</button>
+<!--        -->
+  <button type="button" class="btn btn-primary" (click)="onSwitchMode()">Переключиться на {{isLoginMode? 'регистрацию': 'вход'}}</button>
   </div>
 </form>
-<!--</div>-->
+  <div class="text-center mat-error" *ngIf="error">
+    {{error}}
+  </div>
+
+
+  <!--</div>-->
 <!--   </div>-->
 </div>
 

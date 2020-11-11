@@ -51,18 +51,18 @@ export class AuthService {
 
   private handleError(errorRes: HttpErrorResponse)
   {
-    let errorMessage = 'An unknown message occured!'
+    let errorMessage = 'Произошла неизвестная ошибка'
     if(!errorRes.error || !errorRes.error.error)
     {return throwError(errorMessage)}
     switch (errorRes.error.error.message) {
       case 'EMAIL_EXISTS':
-       errorMessage = 'This email exists already'
+       errorMessage = 'Пользователь с данным email уже существует'
         break
       case 'EMAIL_NOT_FOUND':
-        errorMessage  = 'This email does not exists'
+        errorMessage  = 'Введите корректный email'
         break
       case 'INVALID_PASSWORD':
-        errorMessage = 'This password is not correct'
+        errorMessage = 'Введите корректный пароль'
         break
     }
     return throwError(errorMessage)
@@ -73,18 +73,12 @@ export class AuthService {
     console.log(userId)
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate )
-    // this.user.subscribe(us =>console.log("User:"+us.id))
     this.user.next(user);
 
-    const sbj = new Subject<number>()
 
-    sbj.subscribe(vl => console.log(`1st: ${vl}`))
-    sbj.next(3)
-    sbj.subscribe(vl => console.log(`2nd: ${vl}`))
-    sbj.next(9)
 
     this.autoLogout(expiresIn * 1000)
-    // localStorage.setItem('userData', JSON.stringify(user)) //если я буду хранить все юзер данные в локалсторадже
+    localStorage.setItem('userData', JSON.stringify(user))
   }
 
   private setToken (response) {
@@ -110,8 +104,7 @@ export class AuthService {
       const expirationDuration =
         new Date(localStorage.getItem('fb-token-exp')).getTime() - new Date().getTime();
       const user = new User(localStorage.getItem('email'), localStorage.getItem('uid'), localStorage.getItem('fb-token'), new Date(new Date(localStorage.getItem('fb-token-exp')).getTime()) )
-      // this.user.subscribe(us =>console.log("User:"+us.id))
-      this.user.next(user);//не уверена насчет этих строчек, новое значение падает в юзер как будто бесконечным циклом
+      this.user.next(user);
       this.autoLogout(expirationDuration);
     }
     return localStorage.getItem('fb-token')
@@ -125,7 +118,6 @@ export class AuthService {
     if(this.tokenExpirationTimer)
     {
       clearTimeout(this.tokenExpirationTimer)
-      // console.log("tokenExpiration:" + this.tokenExpirationTimer)
       this.router.navigate(['login'])
     }
     this.tokenExpirationTimer = null

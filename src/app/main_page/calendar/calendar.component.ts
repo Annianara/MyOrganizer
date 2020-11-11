@@ -15,7 +15,7 @@ export class CalendarComponent implements OnInit {
   }
 
   select(day: MatDatepickerInputEvent<Date>) {
-    this.dateService.changeDate2(day.value)
+    this.dateService.changeDate(day.value)
   }
 
 }

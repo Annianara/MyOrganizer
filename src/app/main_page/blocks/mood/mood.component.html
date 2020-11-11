@@ -17,20 +17,18 @@
           <th>Дата </th>
           <th>Причина</th>
           <th>Как можно исправить (плохое настроение)</th>
-<!--          <th>Удалить</th>-->
 
         </tr>
       </thead>
 
       <tbody>
         <tr *ngFor="let mood of moods; let i = index">
-         <td><strong>{{i + 1}}</strong></td>
-          <td>{{mood.cur_mood}}</td>
-          <td>{{mood.date}}</td>
-          <td>{{mood.reason}}</td>
-          <td>{{mood.what_to_do}}</td>
-<!--        <button class="btn" (click)="remove(mood, 'mood')">-</button>-->
-         <td><span class="material-icons mi-del" (click)="remove(mood, 'mood')">delete</span></td>
+         <td aria-label="№"><strong>{{i + 1}}</strong></td>
+          <td aria-label="Текущее настроение">{{mood.cur_mood}}</td>
+          <td aria-label="Дата">{{mood.date}}</td>
+          <td aria-label="Причина">{{mood.reason}}</td>
+          <td aria-label="Как можно исправить (плохое настроение)">{{mood.what_to_do}}</td>
+         <td aria-label="Удалить"><span class="material-icons mi-del" (click)="remove(mood, 'mood')">delete</span></td>
         </tr>
       </tbody>
 
@@ -41,15 +39,6 @@
 
     <form *ngIf="is_clicked; else dontclicked" (ngSubmit)="submit()" [formGroup]="formMoods">
       <div class="form container">
-
-<!--      <mat-form-field class="text-center mood_select" >-->
-<!--        <mat-label class="text-center">Выбери настроение</mat-label>-->
-<!--        <mat-select [(value)]="selected" formControlName="cur_mood" >-->
-<!--          <mat-option *ngFor="let one_mood of categories_moods" [value]="one_mood.mood">-->
-<!--            {{one_mood.mood}}-->
-<!--          </mat-option>-->
-<!--        </mat-select>-->
-<!--      </mat-form-field>-->
 
         <label for = "cur_mood">Текущее настроение:</label>
         <input type="text" placeholder="Выбери настроение" id = "cur_mood" formControlName="cur_mood" [matAutocomplete]="auto">
@@ -66,7 +55,6 @@
 
       <label for = "what_to_do">Как можно исправить (плохое настроение):</label>
       <input type="text" class="input-group" id = "what_to_do" formControlName="what_to_do" placeholder="Действия в данной ситуации">
-<!--     <p></p>-->
       </div>
       <button
         type="submit"
@@ -76,17 +64,10 @@
     </form>
 
 
-
     <ng-template #noMoods>
       <p class="text-center nodata">Настроение пока не выбрано..</p>
-<!--      <button-->
-<!--        type="submit"-->
-<!--        class="btn invisible" (click)="click()">-->
-<!--        Добавить настроение</button>-->
-
     </ng-template>
 
   </div>
 
   </div>
-<!--</div>-->

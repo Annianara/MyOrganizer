@@ -24,13 +24,14 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
+      email: new FormControl(null, [ Validators.email]),
+      password: new FormControl(null, [Validators.minLength(6)]),
     })
   }
 
   onSwitchMode(){
     this.isLoginMode = !this.isLoginMode;
+    this.error = ""
   }
 
   submit() {
@@ -45,12 +46,6 @@ export class LoginPageComponent implements OnInit {
       password: this.form.value.password,
       returnSecureToken: true
     }
-
-    // this.auth.signUp(user).subscribe(resData=>{
-    //   console.log(resData)
-    // }, error => {
-    //   console.log(error)
-    // })
 
     let authObs: Observable<AuthResponseData>
 
@@ -70,17 +65,13 @@ export class LoginPageComponent implements OnInit {
     this.submitted = false
   },
   errorMessage => {
-  console.log(errorMessage)
   this.error = errorMessage
   this.isLoading = false
 }), () => {
       this.submitted = false
     }
 
-
     this.form.reset()
   }
-
-
 
 }

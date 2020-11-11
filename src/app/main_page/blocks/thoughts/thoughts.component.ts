@@ -17,7 +17,6 @@ export class ThoughtsComponent implements OnInit {
   formThoughts: FormGroup
   thoughts: Thought[] = []
   filteredThoughts: Observable<ThoughtCategories[]>;
-  // myControl_t = new FormControl();
   categories_default = CATEGORIES_THOUGHTS
   user_preferences: ThoughtCategories[] = []
   categories_all: ThoughtCategories[] = CATEGORIES_THOUGHTS
@@ -50,15 +49,11 @@ export class ThoughtsComponent implements OnInit {
           obs.subscribe(thoughts => {this.thoughts = thoughts})
 
 
-    // this.dateService.date.pipe(
-    //   switchMap(value =>
-        this.databaseService.load_user_categories('thoughts')
-  // ))
-  .subscribe(preferences => {
+    this.databaseService.load_user_categories('thoughts')
+    .subscribe(preferences => {
       this.user_preferences = preferences
       this.categories_all = [ ...this.categories_default, ...this.user_preferences]
 
-      // this.filteredThoughts = this.myControl_t.valueChanges
       this.filteredThoughts = this.formThoughts.get('category').valueChanges
         .pipe(
           startWith(''),
@@ -76,14 +71,10 @@ export class ThoughtsComponent implements OnInit {
     const {title,category,thought} = this.formThoughts.value
     let index_first = this.categories_all.map(p => p.category).indexOf(category)
     if (index_first==-1)
-      // if (!this.categories_default.includes(category))
     {
       this.addUserCategoriesComponent.isVisible=true
       this.addUserCategoriesComponent.category = category
       this.addUserCategoriesComponent.type = 'thoughts'
-      
-      // this.addUserCategoriesComponent.add_category('projects', category).subscribe
-      // (user_preference=> this.userPreferences.push(user_preference))
 
     }
     const one_thought: Thought = {
@@ -93,7 +84,6 @@ export class ThoughtsComponent implements OnInit {
       thought
     }
 
-  //  this.databaseService.createT(one_thought).subscribe(thought => {
       this.databaseService.create(one_thought, 'thoughts').subscribe(thought => {
       this.thoughts.push(<Thought>thought)
       this.formThoughts.reset()
@@ -107,16 +97,7 @@ export class ThoughtsComponent implements OnInit {
       this.thoughts = this.thoughts.filter(t => t.id !== object.id)
     }, err => console.error(err))
   }
-  //
-  // displayFn(p): string {
-  //   if (p) {
-  //     return p
-  //     /*      if ('p_category' in p)
-  //           return  p.p_category
-  //           if ('t_category' in p)
-  //           return   p.t_category*/
-  //   } else return ''
-  // }
+
   getUserData(value){
     value.subscribe((value)=>{this.categories_all.push(value)})
   }

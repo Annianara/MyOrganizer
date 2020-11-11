@@ -6,22 +6,25 @@ import {BehaviorSubject} from 'rxjs';
   providedIn: "root"
 })
 export class DateService {
-  public date: BehaviorSubject<moment.Moment> = new BehaviorSubject(moment())
+
+  public date: BehaviorSubject<moment.Moment> = new BehaviorSubject(moment().locale('ru'))
+
+
 
   changeDay(dir: number) {
     const value = this.date.value.add(dir, 'day')
     this.date.next(value)
   }
 
-  changeDate(date: moment.Moment) {
-    const value = this.date.value.set({
-      date: date.date(),
-      month: date.month()
-    })
-    this.date.next(value)
-  }
+  // changeDate(date: moment.Moment) {
+  //   const value = this.date.value.set({
+  //     date: date.date(),
+  //     month: date.month()
+  //   })
+  //   this.date.next(value)
+  // }
 
-  changeDate2(date: Date)
+  changeDate(date: Date)
   {
     const value = this.date.value.set({
       date: date.getDate(),

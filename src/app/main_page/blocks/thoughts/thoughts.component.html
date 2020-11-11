@@ -21,11 +21,11 @@
 
     <tbody>
     <tr *ngFor="let thought of thoughts; let i = index">
-      <td><strong>{{i + 1}}</strong></td>
-      <td>{{thought.title}}</td>
-      <td>{{thought.category}}</td>
-      <td>{{thought.thought}}</td>
-      <td><span class="material-icons mi-del" (click)="remove(thought, 'thought')">delete</span></td>
+      <td aria-label="№"><strong>{{i + 1}}</strong></td>
+      <td aria-label="Тема для размышления">{{thought.title}}</td>
+      <td aria-label="Категория размышлений">{{thought.category}}</td>
+      <td aria-label="Описание размышлений">{{thought.thought}}</td>
+      <td aria-label="Удалить"><span class="material-icons mi-del" (click)="remove(thought, 'thoughts')">delete</span></td>
     </tr>
     </tbody>
 
@@ -36,9 +36,9 @@
     <div class="form container">
     <label for = "title_t">Тема для размышления:</label>
     <input type="text" class="input-group" id="title_t" formControlName="title" placeholder="Добавить тему для размышлений">
-    <div *ngIf="formThoughts.get('title').invalid && formThoughts.get('title').touched" class="validation">
-      <small *ngIf="formThoughts.get('title').errors.required">Добавьте мысль</small>
-    </div>
+<!--    <div *ngIf="formThoughts.get('title').invalid && formThoughts.get('title').touched" class="validation">-->
+<!--      <small class="required" *ngIf="formThoughts.get('title').errors.required">*Поле обязательно для заполнения</small>-->
+<!--    </div>-->
 
       <label for = "category">Категория размышления</label>
       <input type="text" placeholder="Выбери категорию для размышления:" id = "category" formControlName="category"  [matAutocomplete]="auto2">
@@ -50,27 +50,19 @@
         </mat-option>
       </mat-autocomplete>
 
-
-
-
     <label for = "thought">Добавить мысль:</label>
     <input type="text" class="input-group" id = "thought" formControlName="thought" placeholder="Добавить мысль">
-
-    <div *ngIf="formThoughts.get('thought').invalid && formThoughts.get('thought').touched" class="validation">
-      <small *ngIf="formThoughts.get('thought').errors.required">Добавьте мысль</small>
+<!--    <div *ngIf="formThoughts.get('thought').invalid && formThoughts.get('thought').touched" class="validation">-->
+<!--      <small *ngIf="formThoughts.get('thought').errors.required">*Поле обязательно для заполнения </small>-->
+<!--    </div>-->
     </div>
-    </div>
-
-
 
     <button
-      type="submit"
+      type="submit" [disabled] = "formThoughts.invalid"
       class="btn btn-block footer btn_add">Добавить
     </button>
 
   </form>
-
-<!--  <app-add-t-category #ttt></app-add-t-category>-->
 
 
   <ng-template #noThoughts>

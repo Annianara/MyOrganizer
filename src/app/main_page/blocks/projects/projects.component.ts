@@ -5,7 +5,6 @@ import {Observable} from "rxjs";
 import {CATEGORIES_PROJECTS} from "../../../shared/select_options";
 import {map, startWith, switchMap} from "rxjs/operators";
 import {DateService} from "../../../shared/date.service";
-//import {DatabaseService} from "../../shared/database.service";
 import {DatabaseService} from "../../../shared/database_authentication.servise"
 import {AddUserCategoriesComponent} from "../../../add-user-categories/add-user-categories.component";
 
@@ -15,9 +14,6 @@ import {AddUserCategoriesComponent} from "../../../add-user-categories/add-user-
   styleUrls: ['./projects.component.scss', '../blocks.scss']
 })
 export class ProjectsComponent implements OnInit {
-
-
-  // myControl_c = new FormControl();
 
   formProjects: FormGroup
   projects: ProjectAction[] = []
@@ -86,16 +82,6 @@ export class ProjectsComponent implements OnInit {
       this.addUserCategoriesComponent.isVisible=true
       this.addUserCategoriesComponent.category = category
       this.addUserCategoriesComponent.type = 'projects'
-      // this.addUserCategoriesComponent.added_category.subscribe(user_preference=> {this.userPreferences.push(user_preference)
-      //   this.categories_all.push(user_preference)
-      // }, err => console.error("Ошибка"+ err)
-      // )
-      // this.addUserCategoriesComponent.add_category((value)=>value.subscribe
-      // (user_preference=> {
-      //     this.userPreferences.push(user_preference)
-      //     this.categories_all.push(user_preference)
-      //   }
-      // ))
     }
 
 

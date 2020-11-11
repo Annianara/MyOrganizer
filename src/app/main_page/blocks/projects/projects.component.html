@@ -21,11 +21,11 @@
 
     <tbody>
     <tr *ngFor="let project of projects; let i = index">
-      <td> <strong>{{i + 1}}</strong></td>
-      <td>{{project.title}}</td>
-      <td>{{project.category}}</td>
-      <td>{{project.action}}</td>
-      <td><span class="material-icons mi-del" (click)="remove(project, 'projects')">delete</span></td>
+      <td aria-label="№"> <strong>{{i + 1}}</strong></td>
+      <td aria-label="Название проекта">{{project.title}}</td>
+      <td aria-label="Категория проекта">{{project.category}}</td>
+      <td aria-label="Действия по проекту">{{project.action}}</td>
+      <td aria-label="Удалить"><span class="material-icons mi-del" (click)="remove(project, 'projects')">delete</span></td>
     </tr>
     </tbody>
   </table>

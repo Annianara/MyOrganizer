@@ -1,6 +1,6 @@
 
 <div class="date_input text-center datepicker">
-  <mat-form-field class="date_input" color="accent">
+  <mat-form-field class="date_input" >
     <mat-label class="date_input">Выбрать другую дату</mat-label>
     <input class="date_input" matInput [matDatepicker]="picker1"  (dateInput)="select($event)" (dateChange)="select($event)" style="text-align: center">
     <mat-datepicker-toggle class="date_input" matSuffix [for]="picker1"></mat-datepicker-toggle>

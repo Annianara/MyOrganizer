@@ -36,6 +36,7 @@
           },
           "configurations": {
             "production": {
+              "localize": ["ru","en"],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -62,6 +63,9 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "ru": {
+              "localize": true
             }
           }
         },
@@ -73,6 +77,19 @@
           "configurations": {
             "production": {
               "browserTarget": "MyOrganizer:build:production"
+            }
+          }
+        },
+        "i18n": {
+          "sourceLocale": "en-US",
+          "locales": {
+            "ru": {
+              "translation": "src/locales/messages.ru.xlf",
+              "baseHref": ""
+            },
+            "en": {
+              "translation": "src/locales/messages.en.xlf",
+              "baseHref": ""
             }
           }
         },
