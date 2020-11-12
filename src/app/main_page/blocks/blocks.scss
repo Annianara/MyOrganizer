@@ -17,21 +17,12 @@
 
 .section_header
 {
-  //background-color:#dabbbb63;
-  //background-color: rgba(215,183,187,0.7);
   background-color: rgb(211 180 185 / 63%);
-  //box-shadow: inset 0px -14px 13px 0px rgba(0, 0, 0, 0.22);
-  //box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.22);
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.22);
-  //border-radius: inherit;
   font-weight: bold;
-  //padding: 1.0rem 2rem 1.0rem 2rem;
   padding: 0.5rem 2rem 0.5rem 2rem;
 
 
-  //background-color: rgb(232 206 224 / 50%);
-  //background-color: #d4adc257;
-  //box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.22);
 
   display: flex;
   flex-direction: row;
@@ -99,13 +90,6 @@ tr:hover .mi-del
 }
 
 
-//table {
-//  //width: 100%;
-//  border: 0px;
-//  border-collapse: collapse;}
-//table thead {font-weight: bold;}
-//table td {padding: 0.6rem 1rem; }
-
 @media screen and (max-width: 800px) {
   table{
     border-radius: 0;
@@ -114,18 +98,15 @@ tr:hover .mi-del
     display: none;
   }
   table tr {
-    //display: block;
-    //margin-bottom: 1rem;
+
     border-bottom: 2px solid #e8e9eb;
   }
   table td {
     display: block;
     //float: right;
     text-align: right;
-    //padding-left: 1rem;
-    //min-height: 1rem;
     padding-left: 12rem;
-    //width: 51%;
+
     min-height: 4rem;
   }
   table td:before {
@@ -139,12 +120,21 @@ tr:hover .mi-del
 }
 
 .btn_add{
-  //border-radius: 15px;
-  border-radius: 13px;
+
+  background-color: rgb(211 180 185 / 63%);
+  border-radius: inherit;
+
  }
 
+.btn:hover
+{
+
+  background-color: rgb(211 180 185 / 100%);
+}
+
+
 button{
-  //background-color: rgb(229,207,220)
+
   background-color: #d4adc257;
 
 }
@@ -152,15 +142,9 @@ button{
 .btn-remove
 {
   background-color: rgb(0,0,0,0.0);
-  //padding-left: 0;
   margin-left: 0;
 }
 
-.btn:hover
-{
-  //background-color: rgba(202, 88, 58, 0.75);
-  background-color: rgba(119,45,91,0.41);
-}
 
 
 mat-form-field
@@ -176,17 +160,10 @@ mat-form-field
 
 .mi-del
 {
-  //color: rgba(0,0,0,0.3);
+
   color: rgba(0,0,0,0);
-  //font-size: x-large;
+
 }
-
-//.mi-del:hover
-//{
-//  color: rgba(0,0,0,0.63);
-//}
-
-
 
 a
 {

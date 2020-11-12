@@ -9,7 +9,7 @@ import {SelectorComponent} from "./main_page/selector/selector.component";
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MomentPipe} from "./shared/moment.pipe";
-import { AllProjectsComponent } from './all_projects/all-projects.component';
+// import { AllProjectsComponent } from './all_projects/all-projects.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -44,7 +44,7 @@ import { AddUserCategoriesComponent } from './add-user-categories/add-user-categ
     MomentPipe,
     SelectorComponent,
     ProjectsComponent,
-    AllProjectsComponent,
+    // AllProjectsComponent,
     LoginPageComponent,
     MoodComponent,
     ThoughtsComponent,

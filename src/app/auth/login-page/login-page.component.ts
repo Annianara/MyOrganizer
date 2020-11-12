@@ -59,7 +59,7 @@ export class LoginPageComponent implements OnInit {
 
 
     authObs.subscribe(  res=> {
-      console.log(res)
+      // console.log(res)
     this.isLoading = false
         this.router.navigate(['main_page'])
     this.submitted = false
