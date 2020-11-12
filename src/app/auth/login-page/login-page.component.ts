@@ -68,9 +68,9 @@ export class LoginPageComponent implements OnInit {
   this.error = errorMessage
   this.isLoading = false
 }), () => {
-      this.submitted = false
     }
 
+    this.submitted = false
     this.form.reset()
   }
 
