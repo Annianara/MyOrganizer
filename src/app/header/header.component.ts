@@ -14,11 +14,7 @@ export class HeaderComponent implements OnInit {
   constructor(public auth: AuthService) { }
 
   ngOnInit(): void {
-    this.auth.user.pipe(
-      take(1),
-      map( us=>{this.email=us.email
-      console.log("jj:"+us)})
-      )
+
     if(this.auth.isAuthenticated())
     {
       this.auth.user.subscribe(us=>this.email=us.email)
