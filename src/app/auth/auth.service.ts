@@ -110,6 +110,19 @@ export class AuthService {
     return localStorage.getItem('fb-token')
   }
 
+  get uid(){
+    const expDate = new Date(new Date(localStorage.getItem('fb-token-exp')).getTime())
+    if ( new Date > expDate ) {
+      this.logout()
+      return null
+    }
+    else
+    {
+      return localStorage.getItem('uid')
+    }
+
+  }
+
   autoLogout(expirationDuration: number)
   {
     this.tokenExpirationTimer = setTimeout(()=>this.logout(), expirationDuration)

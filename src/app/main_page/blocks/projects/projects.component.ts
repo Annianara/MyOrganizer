@@ -3,10 +3,11 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Mood, ProjectAction, ProjectCategories, Thought} from "../../../shared/intefaces";
 import {Observable} from "rxjs";
 import {CATEGORIES_PROJECTS} from "../../../shared/select_options";
-import {map, startWith, switchMap} from "rxjs/operators";
+import {map, startWith, switchMap, take} from "rxjs/operators";
 import {DateService} from "../../../shared/date.service";
 import {DatabaseService} from "../../../shared/database_authentication.servise"
 import {AddUserCategoriesComponent} from "../../../add-user-categories/add-user-categories.component";
+import {AuthService} from "../../../auth/auth.service";
 
 @Component({
   selector: 'app-projects',
@@ -42,30 +43,43 @@ export class ProjectsComponent implements OnInit {
               private databaseService: DatabaseService) { }
 
   ngOnInit(): void {
-      let obs = this.dateService.date.pipe(
-        switchMap(value => this.databaseService.load_this_day(value, 'projects')
-        ))
-          obs.subscribe(projects => { this.projects = projects})
 
 
-  this.databaseService.load_user_categories('projects')
-    .subscribe(preferences => {
-      this.userPreferences = preferences
-      // console.log("preferences"+preferences)
-      this.categories_all = [ ...this.categories_default, ...this.userPreferences]
+     this.databaseService.auth_Obs.pipe(take(1),switchMap(()=>
+      this.dateService.date.pipe(
+       switchMap(value => this.databaseService.load_this_day(value, 'projects')
+       )))).subscribe(projects => {
+       console.log("да")
+       this.projects = projects
+     })
+     // this.databaseService.auth_Obs.subscribe(()=>
+     //  this.dateService.date.pipe(
+     //   switchMap(value => this.databaseService.load_this_day(value, 'projects')
+     //   )).subscribe(projects => {
+     //    console.log("да")
+     //    this.projects = projects
+     //  }))
 
-      this.filteredCategories = this.formProjects.get('category').valueChanges
-        .pipe(
-          startWith(''),
-          map(value => typeof value === 'string' ? value : value.name),
-          map(name => name ? this._filter(name, this.categories_all) : this.categories_all.slice())
-        );
-    })
+   this.databaseService.auth_Obs.pipe(take(1),switchMap(()=>
+     this.databaseService.load_user_categories('projects'))).subscribe(preferences => {
+     this.userPreferences = preferences
+     // console.log("preferences"+preferences)
+     this.categories_all = [ ...this.categories_default, ...this.userPreferences]
 
-      this.formProjects = new FormGroup({category: new FormControl('', Validators.required),
-                                               title: new FormControl('',Validators.required),
-                                               action: new FormControl('', Validators.required),})
+     this.filteredCategories = this.formProjects.get('category').valueChanges
+       .pipe(
+         startWith(''),
+         map(value => typeof value === 'string' ? value : value.name),
+         map(name => name ? this._filter(name, this.categories_all) : this.categories_all.slice())
+       );
+   })
+
+
+    this.formProjects = new FormGroup({category: new FormControl('', Validators.required),
+      title: new FormControl('',Validators.required),
+      action: new FormControl('', Validators.required),})
   }
+
 
   submit() {
     const  {title, action, category} = this.formProjects.value

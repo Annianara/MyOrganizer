@@ -1,0 +1,34 @@
+
+<nav class = "navbar navbar-dark bg-dark">
+
+
+  <div *ngIf="auth.isAuthenticated();else login" id="navbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="">Главная</a>
+      </li>
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" routerLink="projects">Проекты</a>-->
+<!--      </li>-->
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" href="#">Статистика</a>-->
+<!--      </li>-->
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="logout($event)">Выйти</a>
+      </li>
+    </ul>
+
+    <a class="email" >{{email}}</a>
+  </div>
+
+    <ng-template #login>
+      <div>
+<!--      <div class="navbar-collapse" >-->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="login">Войти</a>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+</nav>

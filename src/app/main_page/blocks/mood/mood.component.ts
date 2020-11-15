@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Mood, MoodsCategories, ProjectAction, Thought} from "../../../shared/intefaces";
 import {CATEGORIES_MOODS} from "../../../shared/select_options";
-import {map, startWith, switchMap} from "rxjs/operators";
+import {map, startWith, switchMap, take} from "rxjs/operators";
 import {DateService} from "../../../shared/date.service";
 import {DatabaseService} from "../../../shared/database_authentication.servise"
 import {Observable} from "rxjs";
@@ -27,28 +27,47 @@ export class MoodComponent implements OnInit {
               private databaseService: DatabaseService) { }
 
   ngOnInit(): void {
+    let obs
 //    this.selected = 'Отличное'
-    let types = ['thoughts', 'projects', 'moods']
-    for (let type of types) {
-      let obs = this.dateService.date.pipe(
-        switchMap(value => this.databaseService.load_this_day(value, 'moods')
-        ))
-          obs.subscribe(moods => {this.moods = moods})
-      }
+    this.databaseService.auth_Obs.pipe(take(1),switchMap(
+      val=>
+         this.dateService.date.pipe(
+          switchMap(value => this.databaseService.load_this_day(value, 'moods')
+          ))
 
-    this.formMoods = new FormGroup({cur_mood: new FormControl('', Validators.required),
-      reason: new FormControl(''), what_to_do: new FormControl(''),})
+    )).subscribe(moods => {
+          console.log("moods")
+          this.moods = moods
+          this.filteredCategories = this.formMoods.get('cur_mood').valueChanges
+            .pipe(
+              startWith(''),
+              map(value => typeof value === 'string' ? value : value.name),
+              map(name =>  name ? this._filter(name, this.categories_moods) : this.categories_moods.slice())
+            );
+        })
 
-    this.filteredCategories = this.formMoods.get('cur_mood').valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name, this.categories_moods) : this.categories_moods.slice())
-      );
+
+     // this.databaseService.auth_Obs.subscribe(
+     //  val=>
+     //    this.dateService.date.pipe(
+     //      switchMap(value => this.databaseService.load_this_day(value, 'moods')
+     //      )).subscribe(moods => {
+     //      console.log("moods")
+     //      this.moods = moods
+     //      this.filteredCategories = this.formMoods.get('cur_mood').valueChanges
+     //        .pipe(
+     //          startWith(''),
+     //          map(value => typeof value === 'string' ? value : value.name),
+     //          map(name => name ? this._filter(name, this.categories_moods) : this.categories_moods.slice())
+     //        );
+     //    }))
 
 
+    this.formMoods = new FormGroup({
+      cur_mood: new FormControl('', Validators.required),
+      reason: new FormControl(''), what_to_do: new FormControl(''),
+    })
   }
-
   click()
   {
     this.is_clicked=!this.is_clicked

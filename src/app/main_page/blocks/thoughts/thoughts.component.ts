@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Mood, ProjectAction, Thought, ThoughtCategories} from "../../../shared/intefaces";
 import {Observable} from "rxjs";
 import {CATEGORIES_THOUGHTS} from "../../../shared/select_options";
-import {map, startWith, switchMap} from "rxjs/operators";
+import {map, startWith, switchMap, take} from "rxjs/operators";
 import {DateService} from "../../../shared/date.service";
 import {DatabaseService} from "../../../shared/database_authentication.servise"
 import {AddUserCategoriesComponent} from "../../../add-user-categories/add-user-categories.component";
@@ -42,14 +42,13 @@ export class ThoughtsComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-      let obs = this.dateService.date.pipe(
+    this.databaseService.auth_Obs.pipe(take(1),switchMap(()=>
+       this.dateService.date.pipe(
         switchMap(value => this.databaseService.load_this_day(value, 'thoughts')
-        ))
-          obs.subscribe(thoughts => {this.thoughts = thoughts})
+        )))).subscribe(thoughts => {this.thoughts = thoughts})
 
-
-    this.databaseService.load_user_categories('thoughts')
+    this.databaseService.auth_Obs.pipe(take(1),switchMap(()=>
+      this.databaseService.load_user_categories('thoughts')))
     .subscribe(preferences => {
       this.user_preferences = preferences
       this.categories_all = [ ...this.categories_default, ...this.user_preferences]

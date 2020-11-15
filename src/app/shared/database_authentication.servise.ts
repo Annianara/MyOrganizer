@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {map} from "rxjs/operators";
 import * as moment from "moment";
 import {
@@ -22,10 +22,11 @@ interface CreateResponse {
 
 @Injectable({providedIn: 'root'})
 export class DatabaseService {
-  static url = 'https://myorganizer-e93d5.firebaseio.com/'
    userid
+  auth_Obs: Observable<any>
   constructor(private http: HttpClient, private auth: AuthService) {
-    this.auth.user.subscribe(us=> {
+    this.auth_Obs = this.auth.user
+    this.auth_Obs.subscribe(us=> {
       this.userid = us.id
     })
   }
@@ -69,7 +70,7 @@ export class DatabaseService {
   load_all_projects(): Observable<ProjectsAll[]> {
     let projects: ProjectsAll[] = []
     return this.http
-      .get<ProjectsAll[]>(`${DatabaseService.url}/projects/${this.userid}.json`)
+      .get<ProjectsAll[]>(`${environment.fbDbUrl}/projects/${this.userid}.json`)
       .pipe(map(all_projects => {
           if (!all_projects) {
             return []
@@ -86,7 +87,7 @@ export class DatabaseService {
   }
   load_this_day(date: moment.Moment, type: String): Observable<any[]> {
     return this.http
-      .get<Object[]>(`${DatabaseService.url}${type}/${this.userid}/${date.format('DD-MM-YYYY')}.json`)
+      .get<Object[]>(`${environment.fbDbUrl}${type}/${this.userid}/${date.format('DD-MM-YYYY')}.json`)
       .pipe(map(objects => {
         if (!objects) {
           return []
@@ -97,14 +98,15 @@ export class DatabaseService {
 
   load_user_categories(type: String):Observable<any[]>
   {
-    return this.http
-      .get<Object[]>(`${environment.fbDbUrl}user_preferences/${this.userid}/${type}.json`)
-      .pipe(map(objects => {
-        if (!objects) {
-          return []
-        }
-        return Object.keys(objects).map(key => ({...objects[key], id: key}))
-      }))
+      return this.http
+        .get<Object[]>(`${environment.fbDbUrl}user_preferences/${this.userid}/${type}.json`)
+        .pipe(map(objects => {
+          if (!objects) {
+            return []
+          }
+          return Object.keys(objects).map(key => ({...objects[key], id: key}))
+        }))
+
   }
   create_user_categories(type:string, user_preferences:{category:string}):Observable<Object>
   {
@@ -126,7 +128,7 @@ export class DatabaseService {
 
   remove(object: Thought|ProjectAction|Mood, type: String): Observable<void> {
     return this.http
-      .delete<void>(`${DatabaseService.url}${type}/${this.userid}/${object.date}/${object.id}.json`)
+      .delete<void>(`${environment.fbDbUrl}${type}/${this.userid}/${object.date}/${object.id}.json`)
   }
 
 }
